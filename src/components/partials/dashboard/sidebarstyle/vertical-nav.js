@@ -64,14 +64,12 @@ const VerticalNav = memo(() => {
           </Link>
         </li>
         <li
-          className={`${
-            location.pathname === "/womeyn/dashboard" ? "active" : ""
-          } nav-item`}
+          className={`${location.pathname === "/womeyn/dashboard" ? "active" : ""
+            } nav-item`}
         >
           <Link
-            className={`${
-              location.pathname === "/dashboard" ? "active" : ""
-            } nav-link `}
+            className={`${location.pathname === "/dashboard" ? "active" : ""
+              } nav-link `}
             aria-current="page"
             to="/womeyn/dashboard"
           >
@@ -104,13 +102,11 @@ const VerticalNav = memo(() => {
             <span className="item-name">Dashboard</span>
           </Link>
         </li>
-        <li   className={`${
-            location.pathname === "/womeyn/seller-approval" ? "active" : ""
+        <li className={`${location.pathname === "/womeyn/seller-approval" ? "active" : ""
           } nav-item`}>
           <Link
-            className={`${
-              location.pathname === "/womeyn/seller-approval" ? "active" : ""
-            } nav-link `}
+            className={`${location.pathname === "/womeyn/seller-approval" ? "active" : ""
+              } nav-link `}
             aria-current="page"
             to="/womeyn/seller-approval"
           >
@@ -143,15 +139,13 @@ const VerticalNav = memo(() => {
             <span className="item-name">Seller Approval</span>
           </Link>
         </li>
-        <li className={`${
-            location.pathname === "/womeyn/user-management" ? "active" : ""
-          } nav-item`}>  
+        <li className={`${location.pathname === "/womeyn/user-management" ? "active" : ""
+          } nav-item`}>
           <Link
-            className={`${
-              location.pathname === "/user-management" ? "active" : ""
-            } nav-link `}
+            className={`${location.pathname === "/womeyn/user-management" ? "active" : ""
+              } nav-link `}
             aria-current="page"
-            to="/dashboard"
+            to="/womeyn/user-management"
           >
             <OverlayTrigger
               placement="right"

@@ -6,7 +6,7 @@ export const initialState: SettingState = {
   "storeKey": "huisetting",
   "setting": {
     "app_name": {
-      "value": "Womeyn"
+      "value": ""
     },
     "theme_scheme_direction": {
       "value": "ltr"
