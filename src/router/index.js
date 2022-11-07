@@ -7,6 +7,7 @@ import Default from "../layout/default";
 //Pages
 import SignIn from "../pages/auth/sign-in";
 import Index from "../pages/views/dashboard";
+import EditUser from "../pages/views/seller-approval/edit-user/edit-user";
 import SellerApproval from "../pages/views/seller-approval/seller-approval";
 import UserManagement from "../pages/views/user-management/user-management";
 
@@ -18,9 +19,9 @@ const IndexRouters = memo(() => {
       <Route path="womeyn" element={<Default />}>
         <Route path='dashboard' element={<Index></Index>}></Route>
         <Route path='seller-approval' element={<SellerApproval></SellerApproval>}></Route>
+        <Route path='seller-approval/edit' element={<EditUser></EditUser>}></Route>
+
         <Route path='user-management' element={<UserManagement></UserManagement>}></Route>
-
-
       </Route>
     </Routes>
   );

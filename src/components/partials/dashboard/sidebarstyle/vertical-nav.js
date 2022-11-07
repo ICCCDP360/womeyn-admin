@@ -176,6 +176,14 @@ const VerticalNav = memo(() => {
             <span className="item-name">User Management</span>
           </Link>
         </li>
+        <li><hr className="hr-horizontal" /></li>
+
+        <li className="nav-item static-item">
+          <Link className="nav-link static-item disabled" to="#" tabIndex="-1">
+            <span className="default-icon">Others </span>
+            <span className="mini-icon">-</span>
+          </Link>
+        </li>
       </Accordion>
     </Fragment>
   );

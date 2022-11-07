@@ -1,24 +1,13 @@
-import { useState, useEffect, memo, Fragment } from "react";
-import { Table, Nav, Tab } from "react-bootstrap";
+import { memo, Fragment } from "react";
+import { Nav, Tab } from "react-bootstrap";
 import Card from "../../../components/bootstrap/card";
 import { useSelector } from "react-redux";
 import * as SettingSelector from "../../../store/setting/selectors";
-import { Link } from 'react-router-dom';
 import { Row, Col } from 'react-bootstrap'
-import Notificationcard from "../../components/notification"
+import UserCard from "../../components/user-card"
 
 
-//Images
-//img
-import img1 from '../../../assets/images/earth_souls.png'
-import img2 from '../../../assets/images/earth_souls.png'
-import img3 from '../../../assets/images/earth_souls.png'
-import img4 from '../../../assets/images/earth_souls.png'
-import img5 from '../../../assets/images/earth_souls.png'
-import img6 from '../../../assets/images/earth_souls.png'
-import img7 from '../../../assets/images/earth_souls.png'
-import img8 from '../../../assets/images/earth_souls.png'
-import img9 from '../../../assets/images/earth_souls.png'
+
 
 
 const UserManagement = memo((props) => {
@@ -98,11 +87,11 @@ const UserManagement = memo((props) => {
                         <Row>
 
                             <Col sm="12">
-                                <Notificationcard notificationimg={'img1'} notificationtitle="Narendra Kulkarni" notificationsvg="1" notificationcolor="primary" notificationdefault="Permissions:" />
-                                <Notificationcard notificationimg={'img2'} notificationtitle="Saksham Kapoor" notificationsvg="2" notificationcolor="danger" notificationdefault="Permissions:" />
-                                <Notificationcard notificationimg={'img3'} notificationtitle="Azhar Jamal" notificationsvg="1" notificationcolor="primary" notificationdefault="Permissions:" />
-                                <Notificationcard notificationimg={'img4'} notificationtitle="Ammar Naseem" notificationsvg="3" notificationcolor="success" notificationdefault="Permissions:" />
-                                <Notificationcard notificationimg={'img16'} notificationtitle="Utkarsh Shukla" notificationsvg="3" notificationcolor="success" notificationdefault="Permissions:" />
+                                <UserCard notificationimg={'img1'} notificationtitle="Narendra Kulkarni" notificationsvg="1" notificationcolor="primary" notificationdefault="Permissions:" />
+                                <UserCard notificationimg={'img2'} notificationtitle="Saksham Kapoor" notificationsvg="2" notificationcolor="danger" notificationdefault="Permissions:" />
+                                <UserCard notificationimg={'img3'} notificationtitle="Azhar Jamal" notificationsvg="1" notificationcolor="primary" notificationdefault="Permissions:" />
+                                <UserCard notificationimg={'img4'} notificationtitle="Ammar Naseem" notificationsvg="3" notificationcolor="success" notificationdefault="Permissions:" />
+                                <UserCard notificationimg={'img16'} notificationtitle="Utkarsh Shukla" notificationsvg="3" notificationcolor="success" notificationdefault="Permissions:" />
 
                             </Col>
                         </Row>

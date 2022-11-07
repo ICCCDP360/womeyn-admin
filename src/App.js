@@ -14,6 +14,7 @@ import "./assets/modules/chat/scss/chat.scss"
 import "./assets/custom/scss/custom.scss"
 import 'swiper/css';
 import 'swiper/css/navigation';
+import './assets/modules/e-commerce/scss/e-commerce.scss'
 
 
 function App() {
