@@ -19,7 +19,7 @@ import 'swiper/css/navigation';
 function App() {
   return (
     <div className="App">
-       <IndexRouters/>
+      <IndexRouters />
     </div>
   );
 }
