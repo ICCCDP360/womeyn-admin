@@ -20,7 +20,7 @@
     }
 
     .p-bold {
-        color: #232D42;
+        color: $form-label-color;
         font-weight: 500;
     }
 
@@ -35,7 +35,7 @@
 }
 
 .user-card-content {
-    color: #232D42;
+    color: $form-label-color;
 
     .flex-container {
         display: flex;
@@ -87,5 +87,29 @@
     svg,
     h3 {
         margin: auto
+    }
+}
+
+.card {
+    padding: 2rem;
+
+    .form-control {
+        background-color: #F9F9F9;
+    }
+
+    .form-label,
+    .list-group-item {
+        color: $form-label-color;
+    }
+
+    .field-container {
+        width: 50%;
+
+        margin-bottom: 2rem;
+
+    }
+
+    .margin-left-button {
+        margin-left: 2rem;
     }
 }
