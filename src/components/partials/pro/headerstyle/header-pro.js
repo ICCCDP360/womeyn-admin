@@ -4,7 +4,7 @@ import { useState, useEffect, memo } from 'react'
 import { Navbar, Container, Nav, Dropdown, Form, Image, Button, Collapse } from 'react-bootstrap'
 
 //router
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 //component
 import CustomToggle from "../../../dropdowns"
@@ -28,8 +28,11 @@ import { useSelector } from 'react-redux';
 import * as SettingSelector from '../../../../store/setting/selectors'
 
 import RadioBtn from '../../../setting/elements/radio-btn'
+import loginServices from '../../../../services/login_services/login-services'
 
 const Headerpro = memo((props) => {
+    let history = useNavigate()
+
     const themeFontSize = useSelector(SettingSelector.theme_font_size)
     const headerNavbar = useSelector(SettingSelector.header_navbar)
     useEffect(() => {
@@ -153,6 +156,13 @@ const Headerpro = memo((props) => {
     const handleClose1 = () => setShow4(false);
     const handleShow1 = () => setShow4(true);
 
+    const logOut = () => {
+        loginServices.logout(null).then(result => {
+            if (result) {
+                history('/')
+            }
+        })
+    }
     return (
         <Navbar expand="xl" className={`nav iq-navbar ${headerNavbar} `}>
             <Container fluid className="navbar-inner">
@@ -598,7 +608,9 @@ const Headerpro = memo((props) => {
                                 <Dropdown.Item href="/dashboard/app/user-profile">Profile</Dropdown.Item>
                                 <Dropdown.Item href="/dashboard/app/user-privacy-setting">Privacy Setting</Dropdown.Item>
                                 <hr className="dropdown-divider" />
-                                <Dropdown.Item href="/sign-in">Logout</Dropdown.Item>
+                                <Dropdown.Item onClick={
+                                    logOut
+                                }>Logout</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
                         {/* <Dropdown as="li" className="nav-item">

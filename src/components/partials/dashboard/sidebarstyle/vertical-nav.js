@@ -52,7 +52,6 @@ const VerticalNav = memo(() => {
 
   //location
   let location = useLocation();
-  console.log("local", location);
 
   return (
     <Fragment>
