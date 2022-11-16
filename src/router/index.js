@@ -12,21 +12,35 @@ import SellerApproval from "../pages/views/seller-approval/seller-approval";
 import UserManagement from "../pages/views/user-management/user-management";
 import ProtectedRoutes from "./protected-routes";
 
-const IndexRouters = memo(() => {
+//Users
+import UserProfile from "../pages/views/app/user-profile";
 
+const IndexRouters = memo(() => {
   return (
     <Routes>
       <Route path="/" element={<SignIn />}></Route>
       <Route element={<ProtectedRoutes></ProtectedRoutes>}>
         <Route path="womeyn" element={<Default />}>
-          <Route path='dashboard' element={<Index></Index>}></Route>
-          <Route path='seller-approval' element={<SellerApproval></SellerApproval>}></Route>
-          <Route path='seller-approval/edit' element={<EditUser></EditUser>}></Route>
+          <Route
+            path="user-profile"
+            element={<UserProfile></UserProfile>}
+          ></Route>
+          <Route path="dashboard" element={<Index></Index>}></Route>
+          <Route
+            path="seller-approval"
+            element={<SellerApproval></SellerApproval>}
+          ></Route>
+          <Route
+            path="seller-approval/edit"
+            element={<EditUser></EditUser>}
+          ></Route>
 
-          <Route path='user-management' element={<UserManagement></UserManagement>}></Route>
+          <Route
+            path="user-management"
+            element={<UserManagement></UserManagement>}
+          ></Route>
         </Route>
       </Route>
-
     </Routes>
   );
 });

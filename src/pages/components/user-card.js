@@ -1,43 +1,43 @@
-import React, { memo, Fragment } from 'react'
+import React, { memo, Fragment } from "react";
 
 //React-bootstrap
-import { Dropdown, Nav, Image } from 'react-bootstrap'
+import { Dropdown, Nav, Image } from "react-bootstrap";
 
 //Router-dom
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 //Componet
-import Card from '../../components/bootstrap/card'
+import Card from "../../components/bootstrap/card";
 
 const UserCard = memo((props) => {
-    return (
-        <Fragment>
-            <Card>
-                <Card.Body>
-                    <ul className="notification-list m-0 p-0">
-                        <li className="d-flex align-items-center justify-content-between gap-3">
-                            {/* <div className="user-img img-fluid">
+  console.log(props.contact);
+  return (
+    <Fragment>
+      <Card>
+        <Card.Body>
+          <ul className="notification-list m-0 p-0">
+            <li className="d-flex align-items-center justify-content-between gap-3">
+              {/* <div className="user-img img-fluid">
                                 <Image src={props.notificationimg} alt="story-img" className="rounded-circle avatar-40" loading="lazy" />
                             </div> */}
-                            <div className="w-100">
-                                <div className="d-flex justify-content-between">
-                                    <div className='user-card-content'>
-                                        <h6>{props.notificationtitle}</h6>
-                                        <div className='permission flex-container'>
-                                            <p>{props.notificationdefault}</p>
-                                            <span>Seller approval</span>
-                                            <span>Ticket management</span>
-                                            <span>Account Admin</span>
-                                        </div>
-                                        <div className='contact flex-container'>
-                                            <p>{'Contact:'}</p>
+              <div className="w-100">
+                <div className="d-flex justify-content-between">
+                  <div className="user-card-content">
+                    <h6>{props.notificationtitle}</h6>
+                    <div className="permission flex-container">
+                      <p>{props.notificationdefault}</p>
+                      <span>Seller approval</span>
+                      <span>Ticket management</span>
+                      <span>Account Admin</span>
+                    </div>
+                    <div className="contact flex-container">
+                      <p>{props.contact}</p>
 
-                                            <span>saksham@womeyn.com</span>
-                                        </div>
-
-                                    </div>
-                                    <div className="d-flex align-items-center gap-2">
-                                        {/* <Link to="/" onClick={(e) => e.preventDefault()} className={` iq-notify bg-soft-${props.notificationcolor} rounded d-flex justify-content-center align-items-center p-1`}>
+                      {/* <span>saksham@womeyn.com</span> */}
+                    </div>
+                  </div>
+                  <div className="d-flex align-items-center gap-2">
+                    {/* <Link to="/" onClick={(e) => e.preventDefault()} className={` iq-notify bg-soft-${props.notificationcolor} rounded d-flex justify-content-center align-items-center p-1`}>
                                             {props.notificationsvg === '1' &&
                                                 <svg width="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M12.2513 17C11.7129 17 11.1753 16.7956 10.7644 16.3875L10.2534 15.8764C10.0553 15.679 9.78997 15.5698 9.50856 15.5691H8.78964C7.62759 15.5691 6.68186 14.6233 6.68186 13.4613V12.7416C6.68116 12.4609 6.57196 12.1956 6.37385 11.9961L5.87123 11.4941C5.048 10.6758 5.0445 9.33798 5.86353 8.51402L6.37455 8.00229C6.57196 7.80417 6.68116 7.53885 6.68186 7.25744V6.53919C6.68186 5.37641 7.62759 4.43064 8.78964 4.43064H9.50926C9.78997 4.43064 10.0546 4.32144 10.2541 4.12192L10.7574 3.61999C11.5757 2.79673 12.9128 2.79253 13.7374 3.61229L14.2484 4.12332C14.4472 4.32144 14.7119 4.43064 14.9926 4.43064H15.7122C16.8742 4.43064 17.82 5.37641 17.82 6.53919V7.25814C17.8207 7.53885 17.9299 7.80417 18.128 8.00369L18.6306 8.50632C19.0289 8.90255 19.2494 9.43038 19.2515 9.99392C19.2529 10.554 19.0373 11.0811 18.6446 11.4794C18.6376 11.4864 18.6313 11.4941 18.6243 11.5004L18.1273 11.9975C17.9299 12.1956 17.8207 12.4609 17.82 12.7423V13.4613C17.82 14.6233 16.8742 15.5691 15.7122 15.5691H14.9926C14.7119 15.5698 14.4465 15.679 14.2477 15.8771L13.7444 16.3798C13.3342 16.7928 12.7924 17 12.2513 17" fill="currentColor" />
@@ -78,32 +78,38 @@ const UserCard = memo((props) => {
                                                 </svg>
                                             }
                                         </Link> */}
-                                        <Link
-                                            className='nav-link '
-                                            aria-current="page"
-                                            to="/womeyn/seller-approval/edit"
-                                        > <span className="item-name action-link" >Edit</span></Link>
-                                        <Link
-                                            className='nav-link'
-                                            aria-current="page"
-                                            to="/womeyn/user-management"
-                                        > <span className="item-name action-link">Delete</span></Link>
-                                        {/* <div className="card-header-toolbar d-flex align-items-center action-link">
+                    <Link
+                      className="nav-link "
+                      aria-current="page"
+                      to="/womeyn/seller-approval/edit"
+                    >
+                      {" "}
+                      <span className="item-name action-link">Edit</span>
+                    </Link>
+                    <Link
+                      className="nav-link"
+                      aria-current="page"
+                      to="/womeyn/user-management"
+                    >
+                      {" "}
+                      <span className="item-name action-link">Delete</span>
+                    </Link>
+                    {/* <div className="card-header-toolbar d-flex align-items-center action-link">
                                             Edit
                                         </div>
                                         <div className="card-header-toolbar d-flex align-items-center action-link">
                                             Delete
                                         </div> */}
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </Card.Body>
-            </Card>
-        </Fragment>
-    )
-})
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </Card.Body>
+      </Card>
+    </Fragment>
+  );
+});
 
-UserCard.displayName = "UserCard"
-export default UserCard
+UserCard.displayName = "UserCard";
+export default UserCard;

@@ -1,11 +1,14 @@
-import {memo,lazy,Suspense} from 'react'
-import {Routes,Route} from 'react-router-dom'
+import { memo, lazy, Suspense } from "react";
+import { Routes, Route } from "react-router-dom";
 
 //TransitionGroup
-import {TransitionGroup,CSSTransition} from "react-transition-group";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 // Dashboard
-const Index = lazy(() => import('../pages/views/dashboard/index'))
+const Index = lazy(() => import("../pages/views/dashboard/index"));
+
+// User
+const userProfile = lazy(() => import("../pages/views/app/user-profile"));
 
 // // User
 // const UserProfile = lazy(() => import('../views/dashboard/app/user-profile'))
@@ -42,7 +45,6 @@ const Index = lazy(() => import('../pages/views/dashboard/index'))
 // const PrivacyPolicy = lazy(() => import('../views/dashboard/extra/privacy-policy'))
 // const TermsofService = lazy(() => import('../views/dashboard/extra/terms-of-service'))
 
-
 // //Special Pages
 // const Billing = lazy(() => import('../views/dashboard/special-pages/billing'))
 // const Kanban = lazy(() => import('../views/dashboard/special-pages/kanban'))
@@ -53,29 +55,29 @@ const Index = lazy(() => import('../pages/views/dashboard/index'))
 // //admin
 // const Admin = lazy(() => import('../views/dashboard/admin/admin'))
 
-
 const DefaultRouter = memo(() => {
-    return (
-        <TransitionGroup>
-            <CSSTransition classNames="fadein" timeout={300}>
-                <Suspense fallback={<div className="react-load"></div>}>
-                    <Routes>
-                        <Route path="womeyn">
+  return (
+    <TransitionGroup>
+      <CSSTransition classNames="fadein" timeout={300}>
+        <Suspense fallback={<div className="react-load"></div>}>
+          <Routes>
+            <Route path="womeyn"></Route>
+            <Route index element={<Index />} />
 
-                        </Route>
-                        <Route index element={<Index/>} /> 
-                        
-                        <Route path="womeyn/dashboard"  element={<Index/>} /> 
- 
-                       
+            <Route path="womeyn/dashboard" element={<Index />} />
 
-                    </Routes>
-                </Suspense>
-            </CSSTransition>
-        </TransitionGroup>
-    )
-}
-)
+            {/* user */}
+            <Route
+              path="/dashboard/app/user-profile"
+              exact
+              component={userProfile}
+            />
+          </Routes>
+        </Suspense>
+      </CSSTransition>
+    </TransitionGroup>
+  );
+});
 
-DefaultRouter.displayName="DefaultRouter"
-export default DefaultRouter
+DefaultRouter.displayName = "DefaultRouter";
+export default DefaultRouter;
