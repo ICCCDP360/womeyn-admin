@@ -47,6 +47,7 @@
     "react-shepherd": "^4.0.0",
     "react-signature-pad-wrapper": "^3.1.1",
     "react-slider": "^2.0.1",
+    "react-toastify": "^9.1.1",
     "react-transition-group": "^4.4.2",
     "smooth-scrollbar": "^8.6.3",
     "styled-components": "^5.3.5",
@@ -57,6 +58,7 @@
     "uppy": "^2.9.3",
     "waypoints": "^4.0.1",
     "web-vitals": "^2.1.4",
+    "yup": "^0.32.11",
     "zuck.js": "^1.6.0"
   },
   "devDependencies": {
