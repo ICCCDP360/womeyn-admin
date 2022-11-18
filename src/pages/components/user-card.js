@@ -13,10 +13,10 @@ const UserCard = memo((props) => {
   console.log(props.contact);
   return (
     <Fragment>
-      <Card>
+      <Card style={{ padding: "0px" }}>
         <Card.Body>
           <ul className="notification-list m-0 p-0">
-            <li className="d-flex align-items-center justify-content-between gap-3">
+            <li className="d-flex align-items-center justify-content-between">
               {/* <div className="user-img img-fluid">
                                 <Image src={props.notificationimg} alt="story-img" className="rounded-circle avatar-40" loading="lazy" />
                             </div> */}
