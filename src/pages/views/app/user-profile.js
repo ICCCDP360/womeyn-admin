@@ -21,14 +21,14 @@ const userProfile = memo(() => {
   return (
     <Fragment>
       <Row>
-        <Col xl="3" lg="4" className="">
-          <Card>
+        <Col xl="4" lg="4" className="">
+          <Card style={{ padding: "0px" }}>
             <Card.Header className="d-flex justify-content-between">
               <div className="header-title">
                 <h4 className="card-title">User Profile</h4>
               </div>
             </Card.Header>
-            <Card.Body>
+            <Card.Body >
               <Form>
                 <Form.Group className="form-group">
                   <div className="profile-img-edit position-relative">
@@ -125,8 +125,8 @@ const userProfile = memo(() => {
             </Card.Body>
           </Card>
         </Col>
-        <Col xl="9" lg="8">
-          <Card>
+        <Col xl="8" lg="8">
+          <Card style={{ padding: "0px" }}>
             <Card.Header className="d-flex justify-content-between">
               <div className="header-title">
                 <h4 className="card-title">New User Information</h4>
@@ -226,9 +226,11 @@ const userProfile = memo(() => {
                       />
                     </Form.Group>
                   </div>
-                  <Button type="button" variant="btn btn-primary">
-                    Update
-                  </Button>
+                  <div className="d-flex justify-content-end">
+                    <Button type="button" variant="btn btn-primary">
+                      Update
+                    </Button>
+                  </div>
                   <hr />
                   <h5 className="mb-3">Change Password</h5>
                   <div className="row">
@@ -265,9 +267,11 @@ const userProfile = memo(() => {
                       />
                     </Form.Group>
                   </div>
-                  <Button type="button" variant="btn btn-primary">
-                    Update
-                  </Button>
+                  <div className="d-flex justify-content-end">
+                    <Button type="button" variant="btn btn-primary">
+                      Update
+                    </Button>
+                  </div>
                 </Form>
               </div>
             </Card.Body>

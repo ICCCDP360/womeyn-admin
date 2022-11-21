@@ -14,6 +14,7 @@ import ProtectedRoutes from "./protected-routes";
 
 //Users
 import UserProfile from "../pages/views/app/user-profile";
+import AddUser from "../pages/views/adduser/AddUser";
 
 const IndexRouters = memo(() => {
   return (
@@ -38,6 +39,10 @@ const IndexRouters = memo(() => {
           <Route
             path="user-management"
             element={<UserManagement></UserManagement>}
+          ></Route>
+          <Route
+            path="user-add"
+            element={<AddUser />}
           ></Route>
         </Route>
       </Route>

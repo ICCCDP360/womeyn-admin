@@ -8,11 +8,17 @@ import { Row, Col } from "react-bootstrap";
 import UserCard from "../../components/user-card";
 import SellerCard from "../../components/seller-card";
 import { userServices } from "../../../services/user-services/user-services";
+<<<<<<< HEAD
 import { sellerServices } from "../../../services/seller-services/seller-services";
 import Loader from "../../../components/Loader";
+=======
+import { useNavigate } from "react-router-dom";
+>>>>>>> c0ff1a6345ec3369b57cfff209ee83fcedbef18c
 
 const UserManagement = memo((props) => {
   useSelector(SettingSelector.theme_color);
+
+  const history = useNavigate();
   const add = (
     <svg
       width="32"
@@ -89,8 +95,13 @@ const UserManagement = memo((props) => {
   useEffect(() => {
     userServices()
       .then((res) => {
+<<<<<<< HEAD
         console.log("user", res.data.results);
         setUsers(res.data.results);
+=======
+        console.log(res?.data?.results);
+        setUsers(res?.data?.results);
+>>>>>>> c0ff1a6345ec3369b57cfff209ee83fcedbef18c
       })
       .catch((err) => console.log(err));
     sellerServices()
@@ -134,6 +145,7 @@ const UserManagement = memo((props) => {
       </div>
       <div>
         <Card>
+<<<<<<< HEAD
           <Card.Body>
             <div>
               <Tab.Container defaultActiveKey="1">
@@ -270,6 +282,58 @@ const UserManagement = memo((props) => {
                   </Tab.Pane>
                 </Tab.Content>
               </Tab.Container>
+=======
+          <Card.Body className="p-0">
+            <div className="mail-data tab-bottom-bordered d-flex justify-content-between align-items-center flex-wrap p-2">
+              <div>
+                <Tab.Container defaultActiveKey="1">
+                  <Nav as="ul" className="mb-0 pe-0 nav-tabs" role="tablist">
+                    <Nav.Item as="li">
+                      <Nav.Link
+                        eventKey="1"
+                        data-bs-target="#tab-admin"
+                        aria-controls="pills-admin"
+                        data-bs-toggle="tab"
+                        href="#"
+                        role="tab"
+                        aria-selected="true"
+                      >
+                        <span className="iq-mail-section">Admin Users</span>
+                      </Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item as="li">
+                      <Nav.Link
+                        eventKey="2"
+                        data-bs-target="#tab-sellers"
+                        aria-controls="pills-sellers"
+                        data-bs-toggle="tab"
+                        href="#"
+                        role="tab"
+                        aria-selected="false"
+                      >
+                        <span className="iq-mail-section">Sellers</span>
+                      </Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item as="li">
+                      <Nav.Link
+                        eventKey="3"
+                        data-bs-target="#tab-endc"
+                        aria-controls="pills-endc"
+                        data-bs-toggle="tab"
+                        href="#"
+                        role="tab"
+                        aria-selected="false"
+                      >
+                        <span className="iq-mail-section">End Customers</span>
+                      </Nav.Link>
+                    </Nav.Item>
+                  </Nav>
+                </Tab.Container>
+              </div>
+              <div>
+                <Button onClick={() => history("/womeyn/user-add")}>Add User</Button>
+              </div>
+>>>>>>> c0ff1a6345ec3369b57cfff209ee83fcedbef18c
             </div>
           </Card.Body>
           {/* <Card.Body className="p-0">
