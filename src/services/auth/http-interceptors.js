@@ -1,12 +1,21 @@
 import axios from "axios";
 
-let auth_routes = ["/users"];
+let auth_routes = ["/sellers", "/users"];
 // Add a request interceptor
 axios.interceptors.request.use(
   function (config) {
     // Do something before request is sent
     console.log(config.url, "first");
     if (auth_routes.indexOf(config.url) !== -1) {
+      const token = localStorage.getItem("access_token");
+      config.url = process.env.REACT_APP_APIURL2 + config.url;
+      console.log(config.url, "second");
+      config.headers = {
+        ...config.headers,
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      };
+    } else if (auth_routes.indexOf(config.url) === 0) {
       const token = localStorage.getItem("access_token");
       config.url = process.env.REACT_APP_APIURL2 + config.url;
       console.log(config.url, "second");

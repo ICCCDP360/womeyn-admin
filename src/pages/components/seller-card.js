@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 //Componet
 import Card from "../../components/bootstrap/card";
 
-const UserCard = memo((props) => {
+const SellerCard = memo((props) => {
   console.log(props.contact);
   return (
     <Fragment>
@@ -111,5 +111,5 @@ const UserCard = memo((props) => {
   );
 });
 
-UserCard.displayName = "UserCard";
-export default UserCard;
+SellerCard.displayName = "SellerCard";
+export default SellerCard;
