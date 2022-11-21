@@ -6,7 +6,10 @@ import { useSelector } from "react-redux";
 import * as SettingSelector from "../../../store/setting/selectors";
 import { Row, Col } from "react-bootstrap";
 import UserCard from "../../components/user-card";
+import SellerCard from "../../components/seller-card";
 import { userServices } from "../../../services/user-services/user-services";
+import { sellerServices } from "../../../services/seller-services/seller-services";
+import Loader from "../../../components/Loader";
 import { useNavigate } from "react-router-dom";
 
 const UserManagement = memo((props) => {
@@ -84,16 +87,24 @@ const UserManagement = memo((props) => {
 
   const [users, setUsers] = useState("");
 
+  const [sellers, setSellers] = useState("");
+
   useEffect(() => {
     userServices()
       .then((res) => {
+        console.log("user", res.data.results);
+        setUsers(res.data.results);
         console.log(res?.data?.results);
         setUsers(res?.data?.results);
       })
       .catch((err) => console.log(err));
-  }, []);
-
-  console.log("usersMap", users);
+    sellerServices()
+      .then((res) => {
+        console.log("sellers", res.data.results);
+        setSellers(res.data.results);
+      })
+      .catch((err) => console.log(err));
+  }, [users]);
 
   // const apiCall = () => {
   //   userServices()
@@ -117,8 +128,8 @@ const UserManagement = memo((props) => {
   //   //   });
   // };
 
-  if (!users) {
-    return null;
+  if (!users && !sellers) {
+    return <Loader />;
   }
 
   return (
@@ -126,61 +137,147 @@ const UserManagement = memo((props) => {
       <div className="d-flex flex-column">
         <h3>User Management</h3>
       </div>
-      <div className="overflow-hidden">
+      <div>
         <Card>
-          <Card.Body className="p-0">
-            <div className="mail-data tab-bottom-bordered d-flex justify-content-between align-items-center flex-wrap p-2">
-              <div>
-                <Tab.Container defaultActiveKey="1">
-                  <Nav as="ul" className="mb-0 pe-0 nav-tabs" role="tablist">
-                    <Nav.Item as="li">
-                      <Nav.Link
-                        eventKey="1"
-                        data-bs-target="#tab-admin"
-                        aria-controls="pills-admin"
-                        data-bs-toggle="tab"
-                        href="#"
-                        role="tab"
-                        aria-selected="true"
-                      >
-                        <span className="iq-mail-section">Admin Users</span>
-                      </Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item as="li">
-                      <Nav.Link
-                        eventKey="2"
-                        data-bs-target="#tab-sellers"
-                        aria-controls="pills-sellers"
-                        data-bs-toggle="tab"
-                        href="#"
-                        role="tab"
-                        aria-selected="false"
-                      >
-                        <span className="iq-mail-section">Sellers</span>
-                      </Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item as="li">
-                      <Nav.Link
-                        eventKey="3"
-                        data-bs-target="#tab-endc"
-                        aria-controls="pills-endc"
-                        data-bs-toggle="tab"
-                        href="#"
-                        role="tab"
-                        aria-selected="false"
-                      >
-                        <span className="iq-mail-section">End Customers</span>
-                      </Nav.Link>
-                    </Nav.Item>
-                  </Nav>
-                </Tab.Container>
-              </div>
-              <div>
-                <Button onClick={() => history("/womeyn/user-add")}>Add User</Button>
-              </div>
+          <Card.Body>
+            <div>
+              <Tab.Container defaultActiveKey="1">
+                <Nav className="tab-bottom-bordered">
+                  <div
+                    className="mb-0 nav nav-tabs"
+                    id="nav-tab1"
+                    role="tablist"
+                  >
+                    <Nav.Link
+                      eventKey="1"
+                      id="nav-admin"
+                      data-bs-target="#tab-admin"
+                      aria-controls="pills-admin"
+                      data-bs-toggle="tab"
+                      type="button"
+                      role="tab"
+                      aria-selected="true"
+                    >
+                      <span className="iq-mail-section">Admin Users</span>
+                    </Nav.Link>
+                    <Nav.Link
+                      eventKey="2"
+                      id="nav-sellers"
+                      data-bs-target="#tab-sellers"
+                      aria-controls="pills-sellers"
+                      data-bs-toggle="tab"
+                      type="button"
+                      role="tab"
+                      aria-selected="false"
+                    >
+                      <span className="iq-mail-section">Sellers</span>
+                    </Nav.Link>
+                    <Nav.Link
+                      eventKey="3"
+                      id="nav-endc"
+                      data-bs-target="#tab-endc"
+                      aria-controls="pills-endc"
+                      data-bs-toggle="tab"
+                      type="button"
+                      role="tab"
+                      aria-selected="false"
+                    >
+                      <span className="iq-mail-section">End Customers</span>
+                    </Nav.Link>
+                  </div>
+                </Nav>
+                <Tab.Content
+                  className="mt-4 iq-tab-fade-up"
+                  id="nav-tabContent"
+                >
+                  <Tab.Pane
+                    eventKey="1"
+                    id="nav-admin"
+                    role="tab"
+                    aria-labelledby="nav-admin-tab"
+                  >
+                    {/* <p>{users}</p> */}
+                    {/* <p>{sellers}</p> */}
+                    <div className="d-flex flex-column">
+                      <Row>
+                        <Col sm="12">
+                          {users.map((user) => {
+                            return (
+                              <UserCard
+                                notificationimg={"img1"}
+                                notificationtitle={user.firstName}
+                                notificationsvg="1"
+                                notificationcolor="primary"
+                                notificationdefault="Permissions:"
+                                contact={user.email}
+                              />
+                            );
+                          })}
+                        </Col>
+                      </Row>
+                    </div>
+                  </Tab.Pane>
+                  <Tab.Pane
+                    eventKey="2"
+                    id="nav-sellers"
+                    role="tab"
+                    aria-labelledby="nav-sellers-tab"
+                  >
+                    <div className="d-flex flex-column">
+                      <Row>
+                        <Col sm="12">
+                          {!sellers ? (
+                            <Loader />
+                          ) : (
+                            <div>
+                              {sellers.map((seller) => {
+                                return (
+                                  <SellerCard
+                                    notificationimg={"img1"}
+                                    notificationtitle={seller.firstName}
+                                    notificationsvg="1"
+                                    notificationcolor="primary"
+                                    notificationdefault="Permissions:"
+                                    contact={seller.email}
+                                  />
+                                );
+                              })}
+                            </div>
+                          )}
+                        </Col>
+                      </Row>
+                    </div>
+                  </Tab.Pane>
+                  <Tab.Pane
+                    eventKey="3"
+                    id="nav-endc"
+                    role="tab"
+                    aria-labelledby="nav-endc-tab"
+                  >
+                    <div className="d-flex flex-column">
+                      <Row>
+                        <Col sm="12">
+                          {users.map((user) => {
+                            return (
+                              <UserCard
+                                notificationimg={"img1"}
+                                notificationtitle={user.firstName}
+                                notificationsvg="1"
+                                notificationcolor="primary"
+                                notificationdefault="Permissions:"
+                                contact={user.email}
+                              />
+                            );
+                          })}
+                        </Col>
+                      </Row>
+                    </div>
+                  </Tab.Pane>
+                </Tab.Content>
+              </Tab.Container>
             </div>
           </Card.Body>
-          <Card.Body className="p-0">
+          {/* <Card.Body className="p-0">
             <Row>
               <Col sm="12">
                 {users.map((user) => {
@@ -194,8 +291,8 @@ const UserManagement = memo((props) => {
                       contact={user.email}
                     />
                   );
-                })}
-                {/* <UserCard
+                })} */}
+          {/* <UserCard
                   notificationimg={"img2"}
                   notificationtitle="Saksham Kapoor"
                   notificationsvg="2"
@@ -223,9 +320,9 @@ const UserManagement = memo((props) => {
                   notificationcolor="success"
                   notificationdefault="Permissions:"
                 /> */}
-              </Col>
+          {/* </Col>
             </Row>
-          </Card.Body>
+          </Card.Body> */}
         </Card>
       </div>
     </Fragment>
@@ -233,3 +330,140 @@ const UserManagement = memo((props) => {
 });
 
 export default UserManagement;
+
+// return (
+//   <Fragment>
+//     <div className="d-flex flex-column">
+//       <h3>User Management</h3>
+//     </div>
+//     <div className="overflow-hidden">
+//       <Card>
+//         <Card.Body className="p-0">
+//           <div className="mail-data tab-bottom-bordered d-flex justify-content-between align-items-center flex-wrap">
+//             <Tab.Container defaultActiveKey="1">
+//               <Nav as="ul" className="mb-0 pe-0 nav-tabs" role="tablist">
+//                 <Nav.Item as="li">
+//                   <Nav.Link
+//                     eventKey="1"
+//                     id="nav-description"
+//                     data-bs-target="#tab-admin"
+//                     aria-controls="pills-admin"
+//                     data-bs-toggle="tab"
+//                     href="#"
+//                     role="tab"
+//                     aria-selected="true"
+//                   >
+//                     <span className="iq-mail-section">Admin Users</span>
+//                   </Nav.Link>
+//                 </Nav.Item>
+//                 <Nav.Item as="li">
+//                   <Nav.Link
+//                     eventKey="2"
+//                     data-bs-target="#tab-sellers"
+//                     aria-controls="pills-sellers"
+//                     data-bs-toggle="tab"
+//                     href="#"
+//                     role="tab"
+//                     aria-selected="false"
+//                   >
+//                     <span className="iq-mail-section">Sellers</span>
+//                   </Nav.Link>
+//                 </Nav.Item>
+//                 <Nav.Item as="li">
+//                   <Nav.Link
+//                     eventKey="3"
+//                     data-bs-target="#tab-endc"
+//                     aria-controls="pills-endc"
+//                     data-bs-toggle="tab"
+//                     href="#"
+//                     role="tab"
+//                     aria-selected="false"
+//                   >
+//                     <span className="iq-mail-section">End Customers</span>
+//                   </Nav.Link>
+//                 </Nav.Item>
+//               </Nav>
+//               <Tab.Content
+//                 className="mt-4 iq-tab-fade-up"
+//                 id="nav-tabContent"
+//               >
+//                 <Tab.Pane
+//                   eventKey="1"
+//                   id="nav-description"
+//                   role="tab"
+//                   aria-labelledby="nav-description-tab"
+//                 >
+//                   <div>
+//                     <Row>
+//                       <Col sm="12">
+//                         {users.map((user) => {
+//                           return (
+//                             <UserCard
+//                               notificationimg={"img1"}
+//                               notificationtitle={user.firstName}
+//                               notificationsvg="1"
+//                               notificationcolor="primary"
+//                               notificationdefault="Permissions:"
+//                               contact={user.email}
+//                             />
+//                           );
+//                         })}
+//                       </Col>
+//                     </Row>
+//                   </div>
+//                 </Tab.Pane>
+//               </Tab.Content>
+//             </Tab.Container>
+//           </div>
+//         </Card.Body>
+//         {/* <Card.Body className="p-0">
+//           <Row>
+//             <Col sm="12">
+//               {users.map((user) => {
+//                 return (
+//                   <UserCard
+//                     notificationimg={"img1"}
+//                     notificationtitle={user.firstName}
+//                     notificationsvg="1"
+//                     notificationcolor="primary"
+//                     notificationdefault="Permissions:"
+//                     contact={user.email}
+//                   />
+//                 );
+//               })} */}
+//         {/* <UserCard
+//                 notificationimg={"img2"}
+//                 notificationtitle="Saksham Kapoor"
+//                 notificationsvg="2"
+//                 notificationcolor="danger"
+//                 notificationdefault="Permissions:"
+//               />
+//               <UserCard
+//                 notificationimg={"img3"}
+//                 notificationtitle="Azhar Jamal"
+//                 notificationsvg="1"
+//                 notificationcolor="primary"
+//                 notificationdefault="Permissions:"
+//               />
+//               <UserCard
+//                 notificationimg={"img4"}
+//                 notificationtitle="Ammar Naseem"
+//                 notificationsvg="3"
+//                 notificationcolor="success"
+//                 notificationdefault="Permissions:"
+//               />
+//               <UserCard
+//                 notificationimg={"img16"}
+//                 notificationtitle="Utkarsh Shukla"
+//                 notificationsvg="3"
+//                 notificationcolor="success"
+//                 notificationdefault="Permissions:"
+//               /> */}
+//         {/* </Col>
+//           </Row>
+//         </Card.Body> */}
+//       </Card>
+//     </div>
+//   </Fragment>
+// );
+// });
