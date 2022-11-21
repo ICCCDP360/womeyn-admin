@@ -12,6 +12,9 @@ import { sellerServices } from "../../../services/seller-services/seller-service
 import Loader from "../../../components/Loader";
 import { useNavigate } from "react-router-dom";
 
+//Router-dom
+import { Link } from "react-router-dom";
+
 const UserManagement = memo((props) => {
   useSelector(SettingSelector.theme_color);
 
@@ -85,17 +88,17 @@ const UserManagement = memo((props) => {
 
   console.log("token", localStorage.getItem("access_token"));
 
-  const [users, setUsers] = useState("");
+  const [users, setUsers] = useState([]);
 
-  const [sellers, setSellers] = useState("");
+  const [sellers, setSellers] = useState([]);
 
   useEffect(() => {
     userServices()
       .then((res) => {
         console.log("user", res.data.results);
-        setUsers(res.data.results);
+        // setUsers(res.data.results);
         console.log(res?.data?.results);
-        setUsers(res?.data?.results);
+        setUsers(res?.data?.results.reverse());
       })
       .catch((err) => console.log(err));
     sellerServices()
@@ -104,7 +107,22 @@ const UserManagement = memo((props) => {
         setSellers(res.data.results);
       })
       .catch((err) => console.log(err));
-  }, [users]);
+  }, []);
+
+  // userServices()
+  //   .then((res) => {
+  //     console.log("user", res.data.results);
+  //     setUsers(res.data.results);
+  //     console.log(res?.data?.results);
+  //     setUsers(res?.data?.results);
+  //   })
+  //   .catch((err) => console.log(err));
+  // sellerServices()
+  //   .then((res) => {
+  //     console.log("sellers", res.data.results);
+  //     setSellers(res.data.results);
+  //   })
+  //   .catch((err) => console.log(err));
 
   // const apiCall = () => {
   //   userServices()
@@ -134,8 +152,11 @@ const UserManagement = memo((props) => {
 
   return (
     <Fragment>
-      <div className="d-flex flex-column">
+      <div className="d-flex flex-row justify-content-between">
         <h3>User Management</h3>
+        <Link className="nav-link " aria-current="page" to="/womeyn/user-add">
+          <Button> Add User</Button>
+        </Link>
       </div>
       <div>
         <Card>
@@ -201,9 +222,10 @@ const UserManagement = memo((props) => {
                     <div className="d-flex flex-column">
                       <Row>
                         <Col sm="12">
-                          {users.map((user) => {
+                          {users.map((user, index) => {
                             return (
                               <UserCard
+                                key={index}
                                 notificationimg={"img1"}
                                 notificationtitle={user.firstName}
                                 notificationsvg="1"
@@ -230,9 +252,10 @@ const UserManagement = memo((props) => {
                             <Loader />
                           ) : (
                             <div>
-                              {sellers.map((seller) => {
+                              {sellers.map((seller, index) => {
                                 return (
                                   <SellerCard
+                                    key={index}
                                     notificationimg={"img1"}
                                     notificationtitle={seller.firstName}
                                     notificationsvg="1"

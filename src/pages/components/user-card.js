@@ -89,7 +89,7 @@ const UserCard = memo((props) => {
                     <Link
                       className="nav-link"
                       aria-current="page"
-                      to="/womeyn/user-management"
+                      // to="/womeyn/user-management"
                     >
                       {" "}
                       <span className="item-name action-link">Delete</span>

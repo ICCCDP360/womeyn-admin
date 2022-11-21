@@ -40,10 +40,7 @@ const IndexRouters = memo(() => {
             path="user-management"
             element={<UserManagement></UserManagement>}
           ></Route>
-          <Route
-            path="user-add"
-            element={<AddUser />}
-          ></Route>
+          <Route path="user-add" element={<AddUser></AddUser>}></Route>
         </Route>
       </Route>
     </Routes>
