@@ -20,8 +20,8 @@ const Footer = memo(() => {
                     </ul> */}
           <div className="right-panel">
             <script>document.write(new Date().getFullYear())</script>
-            Made with
-            <span className="text-gray">
+
+            {/* <span className="text-gray">
               <svg
                 width="15"
                 viewBox="0 0 24 24"
@@ -35,8 +35,8 @@ const Footer = memo(() => {
                   fill="currentColor"
                 ></path>
               </svg>
-            </span>{" "}
-            by <Link>Womeyn</Link>.
+            </span>{" "} */}
+            Powered by <Link>Womeyn</Link>.
           </div>
         </div>
       </footer>
