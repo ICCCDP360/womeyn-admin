@@ -20,16 +20,77 @@ import { createUsers } from "../../../services/create-user/create-user";
 
 const AddUser = memo((props) => {
   const navigate = useNavigate();
-  const [values, setValues] = useState({});
-  const permission = [];
 
-  const onFormChange = (e, updatedAt) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setValues({ ...values, [name]: value });
+  const [checked, setChecked] = useState([]);
+  const checkList = [
+    "Admin Dashboard",
+    "Seller Dashboard",
+    "End Customer Dashboard",
+    "Support and Query Dashboard",
+  ];
+
+  const handleCheck = (event) => {
+    var updatedList = [...checked];
+    if (event.target.checked) {
+      updatedList = [...checked, event.target.value];
+    } else {
+      updatedList.splice(checked.indexOf(event.target.value), 1);
+    }
+    setChecked(updatedList);
+  };
+
+  const [error, setError] = useState(false);
+
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    number: "",
+    one: null,
+    two: null,
+    three: null,
+    four: null,
+  });
+
+  const [isChecked, setIsChecked] = useState(false);
+
+  const { name, email, number, one, two, three, four } = form;
+
+  const handleChanges = (e) => {
+    setForm({ ...form, [e.target.name]: [e.target.value] });
+  };
+
+  const setDatas = (e) => {
+    const { value, checked, name } = e.target;
+    if (checked) {
+      setForm({ ...form, [name]: [value] });
+    } else {
+      setForm(
+        ...form,
+        form.filter((name) => name !== value)
+      );
+    }
+  };
+
+  const handleSubmit = () => {
+    if (name.length === 0 || email.length === 0 || number.length === 0) {
+      setError(true);
+    } else if (name && email && number) {
+      stmacess();
+    }
+  };
+
+  const handleContinue = () => {
+    if (!one && !two && !three && !four) {
+      setError(true);
+    } else if (one || two || three || four) {
+      confirm();
+    }
   };
 
   const stmacess = () => {
+    if (name.length === 0 || email.length === 0 || number.length === 0) {
+      setError(true);
+    }
     document.getElementById("basic").classList.remove("show");
     document.getElementById("stmacs").classList.add("show");
     document.getElementById("iq-tracker-position-1").classList.remove("active");
@@ -37,13 +98,16 @@ const AddUser = memo((props) => {
     document.getElementById("iq-tracker-position-2").classList.add("active");
   };
   const confirm = () => {
+    if (!one && !two && !three && !four) {
+      setError(true);
+    }
+
     document.getElementById("stmacs").classList.remove("show");
     document.getElementById("confirm").classList.add("show");
     document.getElementById("iq-tracker-position-2").classList.remove("active");
     document.getElementById("iq-tracker-position-2").classList.add("done");
     document.getElementById("iq-tracker-position-3").classList.add("active");
-    console.log("first", values);
-    console.log("permisson", permission);
+    console.log("first", form);
   };
 
   const goBack = () => {
@@ -65,45 +129,49 @@ const AddUser = memo((props) => {
   const createUser = () => {
     let permissionIds;
 
-    values.one && values.two && values.three && values.four
+    form.one && form.two && form.three && form.four
       ? (permissionIds = "1,2,3,4")
-      : values.two && values.three && values.four
+      : form.two && form.three && form.four
       ? (permissionIds = "2,3,4")
-      : values.one && values.two && values.four
+      : form.one && form.two && form.four
       ? (permissionIds = "1,2,4")
-      : values.one && values.two && values.three
+      : form.one && form.two && form.three
       ? (permissionIds = "1,2,3")
-      : values.three && values.four
+      : form.three && form.four
       ? (permissionIds = "3,4")
-      : values.two && values.four
+      : form.two && form.four
       ? (permissionIds = "2,4")
-      : values.two && values.three
+      : form.two && form.three
       ? (permissionIds = "2,3")
-      : values.one && values.four
+      : form.one && form.four
       ? (permissionIds = "1,4")
-      : values.one && values.three
+      : form.one && form.three
       ? (permissionIds = "1,3")
-      : values.one && values.two
+      : form.one && form.two
       ? (permissionIds = "1,2")
-      : values.four
+      : form.four
       ? (permissionIds = "4")
-      : values.three
+      : form.three
       ? (permissionIds = "3")
-      : values.two
+      : form.two
       ? (permissionIds = "2")
-      : values.one
+      : form.one
       ? (permissionIds = "1")
       : (permissionIds = "");
 
     const data = {
-      email: values.email,
+      email: form.email[0],
       gender: "male",
       password: "abc123=00",
-      firstName: values.name,
+      firstName: form.name[0],
       lastName: "admin",
-      contactNumber: values.number,
+      contactNumber: form.number[0],
       permissionIds: permissionIds,
     };
+
+    console.log("form", form.name[0]);
+
+    console.log("data", data);
 
     createUsers(data)
       .then(async (result) => {
@@ -146,9 +214,6 @@ const AddUser = memo((props) => {
       <Row>
         <Col>
           <Card>
-            {/* <div className="card-header">
-                            <h4>My Cart</h4>
-                        </div> */}
             <Card.Body className="p-0">
               <div id="basic" className="iq-product-tracker-card show b-0">
                 <Form>
@@ -159,11 +224,18 @@ const AddUser = memo((props) => {
                       type="text"
                       className={true ? "" : "is-valid"}
                       id="name"
+                      value={name}
                       //   defaultValue=""
-                      onChange={onFormChange}
+                      onChange={handleChanges}
                       required
                     />
-                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                    <div>
+                      {error && name.length === 0 ? (
+                        <div className="text-danger">Name is required</div>
+                      ) : (
+                        ""
+                      )}
+                    </div>
                   </div>
 
                   <div className="field-container">
@@ -175,11 +247,18 @@ const AddUser = memo((props) => {
                       type="email"
                       className={true ? "" : "is-valid"}
                       id="email"
+                      value={email}
                       //   defaultValue=""
-                      onChange={onFormChange}
+                      onChange={handleChanges}
                       required
                     />
-                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                    <div>
+                      {error && email.length === 0 ? (
+                        <div className="text-danger">Email is required</div>
+                      ) : (
+                        ""
+                      )}
+                    </div>
                   </div>
                   <div className="field-container">
                     <Form.Label htmlFor="validationServer01">
@@ -190,18 +269,25 @@ const AddUser = memo((props) => {
                       type="text"
                       className={true ? "" : "is-valid"}
                       id="number"
+                      value={number}
                       //   defaultValue=""
-                      onChange={onFormChange}
+                      onChange={handleChanges}
                       required
                     />
-                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                    <div>
+                      {error && number.length === 0 ? (
+                        <div className="text-danger">Number is required</div>
+                      ) : (
+                        ""
+                      )}
+                    </div>
                   </div>
                   <hr className="hr-horizontal" />
                   <div>
                     <Button variant="secondary">Cancel</Button>{" "}
                     <Button
                       variant="primary"
-                      onClick={stmacess}
+                      onClick={handleSubmit}
                       //   onClick={() => {
                       //     console.log(values);
                       //   }}
@@ -222,7 +308,9 @@ const AddUser = memo((props) => {
                       //   onChange={() => {
                       //     permission.push("Admin Dashboard");
                       //   }}
-                      onChange={onFormChange}
+                      value={one}
+                      //   defaultValue=""
+                      onChange={handleChanges}
                       name="one"
                     />
                     Admin Dashboard
@@ -238,7 +326,9 @@ const AddUser = memo((props) => {
                       //   onChange={() => {
                       //     permission.push("Seller Dashboard");
                       //   }}
-                      onChange={onFormChange}
+                      value={two}
+                      //   defaultValue=""
+                      onChange={handleChanges}
                       name="two"
                     />
                     Seller Dashboard
@@ -253,7 +343,9 @@ const AddUser = memo((props) => {
                       //   onChange={() => {
                       //     permission.push("End Customer Dashboard");
                       //   }}
-                      onChange={onFormChange}
+                      value={three}
+                      //   defaultValue=""
+                      onChange={handleChanges}
                       name="three"
                     />
                     End Customer Dashboard
@@ -268,13 +360,36 @@ const AddUser = memo((props) => {
                       //   onChange={() => {
                       //     permission.push("Support and Query Dashboard");
                       //   }}
-                      onChange={onFormChange}
+                      value={four}
+                      //   defaultValue=""
+                      onChange={handleChanges}
                       name="four"
                     />
                     Support and Query Dashboard
                   </ListGroupItem>
                 </div>
-
+                {/* {checkList.map((item, index) => (
+                  <div key={index} className="field-container">
+                    <ListGroupItem as="label">
+                      <input
+                        className="form-check-input me-5"
+                        value={item}
+                        type="checkbox"
+                        onChange={handleCheck}
+                      />
+                    </ListGroupItem>
+                    <span className={isChecked(item)}>{item}</span>
+                  </div>
+                ))} */}
+                <div>
+                  {error && !one && !two && !three && !four ? (
+                    <div className="text-danger">
+                      Please select at least one field
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
                 <hr className="hr-horizontal" />
                 <div>
                   <Button variant="secondary" onClick={goBack}>
@@ -282,7 +397,7 @@ const AddUser = memo((props) => {
                   </Button>{" "}
                   <Button
                     variant="primary"
-                    onClick={confirm}
+                    onClick={handleContinue}
                     // onClick={() => {
                     //   console.log(values);
                     // }}
@@ -302,7 +417,7 @@ const AddUser = memo((props) => {
                       type="text"
                       className={true ? "" : "is-valid"}
                       id="validationServer01"
-                      defaultValue={values.email}
+                      defaultValue={form.email}
                       required
                     />
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -312,74 +427,74 @@ const AddUser = memo((props) => {
                       Permissions Given
                     </Form.Label>
 
-                    {values.one && values.two && values.three && values.four ? (
+                    {form.one && form.two && form.three && form.four ? (
                       <div className="permission flex-container">
                         <span>Admin Dashboard</span>
                         <span>Seller Dashboard</span>
                         <span>End Customer Dashboard</span>
                         <span>Support and Query Dashboard</span>
                       </div>
-                    ) : values.two && values.three && values.four ? (
+                    ) : form.two && form.three && form.four ? (
                       <div className="permission flex-container">
                         <span>Seller Dashboard</span>
                         <span>End Customer Dashboard</span>
                         <span>Support and Query Dashboard</span>
                       </div>
-                    ) : values.one && values.two && values.four ? (
+                    ) : form.one && form.two && form.four ? (
                       <div className="permission flex-container">
                         <span>Admin Dashboard</span>
                         <span>Seller Dashboard</span>
                         <span>Support and Query Dashboard</span>
                       </div>
-                    ) : values.one && values.two && values.three ? (
+                    ) : form.one && form.two && form.three ? (
                       <div className="permission flex-container">
                         <span>Admin Dashboard</span>
                         <span>Seller Dashboard</span>
                         <span>End Customer Dashboard</span>
                       </div>
-                    ) : values.three && values.four ? (
+                    ) : form.three && form.four ? (
                       <div className="permission flex-container">
                         <span>End Customer Dashboard</span>
                         <span>Support and Query Dashboard</span>
                       </div>
-                    ) : values.two && values.four ? (
+                    ) : form.two && form.four ? (
                       <div className="permission flex-container">
                         <span>Seller Dashboard</span>
                         <span>Support and Query Dashboard</span>
                       </div>
-                    ) : values.two && values.three ? (
+                    ) : form.two && form.three ? (
                       <div className="permission flex-container">
                         <span>Seller Dashboard</span>
                         <span>End Customer Dashboard</span>
                       </div>
-                    ) : values.one && values.four ? (
+                    ) : form.one && form.four ? (
                       <div className="permission flex-container">
                         <span>Admin Dashboard</span>
                         <span>Support and Query Dashboard</span>
                       </div>
-                    ) : values.one && values.three ? (
+                    ) : form.one && form.three ? (
                       <div className="permission flex-container">
                         <span>Admin Dashboard</span>
                         <span>End Customer Dashboard</span>
                       </div>
-                    ) : values.one && values.two ? (
+                    ) : form.one && form.two ? (
                       <div className="permission flex-container">
                         <span>Admin Dashboard</span>
                         <span>Seller Dashboard</span>
                       </div>
-                    ) : values.four ? (
+                    ) : form.four ? (
                       <div className="permission flex-container">
                         <span>Support and Query Dashboard</span>
                       </div>
-                    ) : values.three ? (
+                    ) : form.three ? (
                       <div className="permission flex-container">
                         <span>End Customer Dashboard</span>
                       </div>
-                    ) : values.two ? (
+                    ) : form.two ? (
                       <div className="permission flex-container">
                         <span>Seller Dashboard</span>
                       </div>
-                    ) : values.one ? (
+                    ) : form.one ? (
                       <div className="permission flex-container">
                         <span>Admin Dashboard</span>
                       </div>
@@ -394,7 +509,7 @@ const AddUser = memo((props) => {
                     onClick={createUser}
                     className="margin-left-button "
                   >
-                    Save Updates
+                    Save
                   </Button>{" "}
                 </Form>
               </div>

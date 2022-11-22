@@ -4,13 +4,18 @@ import React, { memo, Fragment } from "react";
 import { Dropdown, Nav, Image } from "react-bootstrap";
 
 //Router-dom
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 //Componet
 import Card from "../../components/bootstrap/card";
 
 const UserCard = memo((props) => {
-  console.log(props.contact);
+  console.log("id", props.id);
+  const navigate = useNavigate();
+  const getIndex = () => {
+    console.log("first", props.data.id);
+    // navigate(`/womeyn/seller-approval/edit/${props.data.id}`);
+  };
   return (
     <Fragment>
       <Card style={{ padding: "0px" }}>
@@ -32,7 +37,6 @@ const UserCard = memo((props) => {
                     </div>
                     <div className="contact flex-container">
                       <p>Contact: </p>
-
                       <span>{props.contact}</span>
                     </div>
                   </div>
@@ -81,7 +85,8 @@ const UserCard = memo((props) => {
                     <Link
                       className="nav-link "
                       aria-current="page"
-                      to="/womeyn/seller-approval/edit"
+                      to={`/womeyn/seller-approval/edit/${props.id}`}
+                      // onClick={getIndex}
                     >
                       {" "}
                       <span className="item-name action-link">Edit</span>
@@ -89,7 +94,7 @@ const UserCard = memo((props) => {
                     <Link
                       className="nav-link"
                       aria-current="page"
-                      // to="/womeyn/user-management"
+                      to="/womeyn/user-management"
                     >
                       {" "}
                       <span className="item-name action-link">Delete</span>

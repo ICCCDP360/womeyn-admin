@@ -1,5 +1,6 @@
 import axios from "axios";
 
+let userids = "ac55e5ce-b87b-494f-a489-a4ae9e44dc56";
 let auth_routes = ["/sellers", "/users"];
 // Add a request interceptor
 axios.interceptors.request.use(

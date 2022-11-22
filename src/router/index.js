@@ -32,7 +32,7 @@ const IndexRouters = memo(() => {
             element={<SellerApproval></SellerApproval>}
           ></Route>
           <Route
-            path="seller-approval/edit"
+            path="seller-approval/edit/:id"
             element={<EditUser></EditUser>}
           ></Route>
 

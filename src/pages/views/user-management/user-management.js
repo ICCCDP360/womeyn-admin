@@ -97,7 +97,7 @@ const UserManagement = memo((props) => {
       .then((res) => {
         console.log("user", res.data.results);
         // setUsers(res.data.results);
-        console.log(res?.data?.results);
+        console.log("user", res?.data?.results);
         setUsers(res?.data?.results.reverse());
       })
       .catch((err) => console.log(err));
@@ -224,15 +224,18 @@ const UserManagement = memo((props) => {
                         <Col sm="12">
                           {users.map((user, index) => {
                             return (
-                              <UserCard
-                                key={index}
-                                notificationimg={"img1"}
-                                notificationtitle={user.firstName}
-                                notificationsvg="1"
-                                notificationcolor="primary"
-                                notificationdefault="Permissions:"
-                                contact={user.email}
-                              />
+                              <>
+                                <UserCard
+                                  key={index}
+                                  notificationimg={"img1"}
+                                  notificationtitle={user.firstName}
+                                  notificationsvg="1"
+                                  notificationcolor="primary"
+                                  notificationdefault="Permissions:"
+                                  contact={user.email}
+                                  id={user.id}
+                                />
+                              </>
                             );
                           })}
                         </Col>
