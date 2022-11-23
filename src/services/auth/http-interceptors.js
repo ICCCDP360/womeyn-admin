@@ -1,35 +1,59 @@
 import axios from "axios";
 
-let userids = "ac55e5ce-b87b-494f-a489-a4ae9e44dc56";
-let auth_routes = ["/sellers", "/users"];
+// let userids = "ac55e5ce-b87b-494f-a489-a4ae9e44dc56";
+// let auth_routes = ["/sellers", "/users", `/users/${userids}`];
 // Add a request interceptor
+// axios.interceptors.request.use(
+//   function (config) {
+//     // Do something before request is sent
+//     console.log(config.url, "requestURL");
+//     if (auth_routes.indexOf(config.url) !== -1) {
+//       const token = localStorage.getItem("access_token");
+//       config.url = process.env.REACT_APP_APIURL2 + config.url;
+//       // console.log(config.url, "second");
+//       config.headers = {
+//         ...config.headers,
+//         "Content-Type": "application/json",
+//         Authorization: `Bearer ${token}`,
+//       };
+//     } else if (auth_routes.indexOf(config.url) === 0) {
+//       const token = localStorage.getItem("access_token");
+//       config.url = process.env.REACT_APP_APIURL2 + config.url;
+//       // console.log(config.url, "second");
+//       config.headers = {
+//         ...config.headers,
+//         "Content-Type": "application/json",
+//         Authorization: `Bearer ${token}`,
+//       };
+//     } else {
+//       config.url = process.env.REACT_APP_APIURL + config.url;
+//       // console.log(config.url, "third");
+//     }
+//     // console.log(config.url, "fourth");
+//     return config;
+//   },
+//   function (error) {
+//     // Do something with request error
+//     return Promise.reject(error);
+//   }
+// );
 axios.interceptors.request.use(
   function (config) {
-    // Do something before request is sent
-    console.log(config.url, "first");
-    if (auth_routes.indexOf(config.url) !== -1) {
-      const token = localStorage.getItem("access_token");
-      config.url = process.env.REACT_APP_APIURL2 + config.url;
-      console.log(config.url, "second");
-      config.headers = {
-        ...config.headers,
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      };
-    } else if (auth_routes.indexOf(config.url) === 0) {
-      const token = localStorage.getItem("access_token");
-      config.url = process.env.REACT_APP_APIURL2 + config.url;
-      console.log(config.url, "second");
-      config.headers = {
-        ...config.headers,
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      };
-    } else {
+    console.log("request", config.url);
+    if (config.url === "/auth/admin/login") {
       config.url = process.env.REACT_APP_APIURL + config.url;
-      console.log(config.url, "third");
+      console.log("configUrl", config.url);
+    } else {
+      const token = localStorage.getItem("access_token");
+      config.url = process.env.REACT_APP_APIURL + config.url;
+      console.log(config.url, "configUrl");
+      config.headers = {
+        ...config.headers,
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      };
     }
-    console.log(config.url, "fourth");
+    // Do something before request is sent
     return config;
   },
   function (error) {

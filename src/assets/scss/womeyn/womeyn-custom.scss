@@ -22,15 +22,27 @@
     font-weight: 500;
   }
 
-  .pending {
-    color: #ffc416;
+  .yellow-text {
+    color: #ffc107;
+  }
+
+  .green-text {
+    color: #198754;
+  }
+
+  .blue-text {
+    color: #0dcaf0;
+  }
+
+  .red-text {
+    color: #dc3545;
   }
 
   .status-box {
     width: 24px;
     height: 24px;
     margin-left: 0.5rem;
-    background: #ffc416;
+    background: #ffc107;
     border-radius: 8px;
   }
 }

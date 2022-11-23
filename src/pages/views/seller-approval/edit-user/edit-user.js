@@ -16,21 +16,22 @@ import { getUserServices } from "../../../../services/getUser-services/getUser-s
 
 //Components
 import Card from "../../../../components/bootstrap/card";
+import Loader from "../../../../components/Loader";
 
 const EditUser = memo((props) => {
   const params = useParams();
   //   console.log("id", params.id);
   const history = useNavigate();
 
-  const [user, setUser] = "";
+  const [user, setUser] = useState("");
 
   useEffect(() => {
     getUserServices(params.id)
       .then((res) => {
-        console.log("user", res.data.results);
+        console.log("user", res?.data);
         // setUsers(res.data.results);
-        console.log(res?.data?.results);
-        setUser(res?.data?.results);
+        // console.log(res?.data?.results);
+        setUser(res?.data);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -69,6 +70,10 @@ const EditUser = memo((props) => {
   // const [users,setUsers]=useState({
 
   // })
+
+  if (!user) {
+    return <Loader />;
+  }
 
   return (
     <Fragment>
@@ -126,7 +131,7 @@ const EditUser = memo((props) => {
                       type="text"
                       className={true ? "" : "is-valid"}
                       id="validationServer01"
-                      defaultValue=""
+                      defaultValue={user.firstName}
                       required
                     />
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -140,7 +145,7 @@ const EditUser = memo((props) => {
                       type="text"
                       className={true ? "" : "is-valid"}
                       id="validationServer01"
-                      defaultValue=""
+                      defaultValue={user.email}
                       required
                     />
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -153,7 +158,7 @@ const EditUser = memo((props) => {
                       type="text"
                       className={true ? "" : "is-valid"}
                       id="validationServer01"
-                      defaultValue=""
+                      defaultValue={user.contactNumber}
                       required
                     />
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -178,6 +183,7 @@ const EditUser = memo((props) => {
                       className="form-check-input me-5"
                       type="checkbox"
                       defaultValue=""
+                      checked={user.permissionIds.includes("1") ? true : false}
                     />
                     Admin Dashboard
                   </ListGroupItem>
@@ -189,6 +195,7 @@ const EditUser = memo((props) => {
                       className="form-check-input me-5"
                       type="checkbox"
                       defaultValue=""
+                      checked={user.permissionIds.includes("2") ? true : false}
                     />
                     Seller Dashboard
                   </ListGroupItem>
@@ -199,6 +206,7 @@ const EditUser = memo((props) => {
                       className="form-check-input me-5"
                       type="checkbox"
                       defaultValue=""
+                      checked={user.permissionIds.includes("3") ? true : false}
                     />
                     End Customer Dashboard
                   </ListGroupItem>
@@ -209,6 +217,7 @@ const EditUser = memo((props) => {
                       className="form-check-input me-5"
                       type="checkbox"
                       defaultValue=""
+                      checked={user.permissionIds.includes("4") ? true : false}
                     />
                     Support and Query Dashboard
                   </ListGroupItem>
@@ -238,7 +247,7 @@ const EditUser = memo((props) => {
                       type="text"
                       className={true ? "" : "is-valid"}
                       id="validationServer01"
-                      defaultValue=""
+                      defaultValue={user.email}
                       required
                     />
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -247,11 +256,78 @@ const EditUser = memo((props) => {
                     <Form.Label htmlFor="validationServer01">
                       Permissions Given
                     </Form.Label>
-                    <div className="permission flex-container">
-                      <span>Seller approval</span>
-                      <span>Ticket management</span>
-                      <span>Account Admin</span>
-                    </div>
+                    {user.permissionIds.includes("1,2,3,4") ? (
+                      <div className="permission flex-container">
+                        <span>Admin Dashboard</span>
+                        <span>Seller Dashboard</span>
+                        <span>End Customer Dashboard</span>
+                        <span>Support and Query Dashboard</span>
+                      </div>
+                    ) : user.permissionIds.includes("2,3,4") ? (
+                      <div className="permission flex-container">
+                        <span>Seller Dashboard</span>
+                        <span>End Customer Dashboard</span>
+                        <span>Support and Query Dashboard</span>
+                      </div>
+                    ) : user.permissionIds.includes("1,2,4") ? (
+                      <div className="permission flex-container">
+                        <span>Admin Dashboard</span>
+                        <span>Seller Dashboard</span>
+                        <span>Support and Query Dashboard</span>
+                      </div>
+                    ) : user.permissionIds.includes("1,2,3") ? (
+                      <div className="permission flex-container">
+                        <span>Admin Dashboard</span>
+                        <span>Seller Dashboard</span>
+                        <span>End Customer Dashboard</span>
+                      </div>
+                    ) : user.permissionIds.includes("3,4") ? (
+                      <div className="permission flex-container">
+                        <span>End Customer Dashboard</span>
+                        <span>Support and Query Dashboard</span>
+                      </div>
+                    ) : user.permissionIds.includes("2,4") ? (
+                      <div className="permission flex-container">
+                        <span>Seller Dashboard</span>
+                        <span>Support and Query Dashboard</span>
+                      </div>
+                    ) : user.permissionIds.includes("2,3") ? (
+                      <div className="permission flex-container">
+                        <span>Seller Dashboard</span>
+                        <span>End Customer Dashboard</span>
+                      </div>
+                    ) : user.permissionIds.includes("1,4") ? (
+                      <div className="permission flex-container">
+                        <span>Admin Dashboard</span>
+                        <span>Support and Query Dashboard</span>
+                      </div>
+                    ) : user.permissionIds.includes("1,3") ? (
+                      <div className="permission flex-container">
+                        <span>Admin Dashboard</span>
+                        <span>End Customer Dashboard</span>
+                      </div>
+                    ) : user.permissionIds.includes("1,2") ? (
+                      <div className="permission flex-container">
+                        <span>Admin Dashboard</span>
+                        <span>Seller Dashboard</span>
+                      </div>
+                    ) : user.permissionIds.includes("4") ? (
+                      <div className="permission flex-container">
+                        <span>Support and Query Dashboard</span>
+                      </div>
+                    ) : user.permissionIds.includes("3") ? (
+                      <div className="permission flex-container">
+                        <span>End Customer Dashboard</span>
+                      </div>
+                    ) : user.permissionIds.includes("2") ? (
+                      <div className="permission flex-container">
+                        <span>Seller Dashboard</span>
+                      </div>
+                    ) : user.permissionIds.includes("1") ? (
+                      <div className="permission flex-container">
+                        <span>Admin Dashboard</span>
+                      </div>
+                    ) : null}
                   </div>
                   <hr className="hr-horizontal" />
                   <Button variant="secondary" onClick={goBack2}>
