@@ -16,6 +16,7 @@ class LoginServices {
     return new Promise((resolve, reject) => {
       localStorage.removeItem("auth");
       localStorage.removeItem("access_token");
+      localStorage.removeItem("user_id");
       resolve(true);
     });
   };
@@ -26,6 +27,7 @@ class LoginServices {
       }
       localStorage.setItem("auth", true);
       localStorage.setItem("access_token", data.tokens.access.token);
+      localStorage.setItem("user_id", data.user.id);
       resolve(true);
     });
   };

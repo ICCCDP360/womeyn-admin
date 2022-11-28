@@ -20,22 +20,67 @@ import auth1 from "../../assets/images/auth/01.png";
 import * as SettingSelector from "../../store/setting/selectors";
 
 // Redux Selector / Action
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Logo from "../../components/partials/components/logo";
 import loginServices from "../../services/login_services/login-services";
+import { toast } from "react-toastify";
 
-//yup
-import * as yup from "yup";
-
-//toast
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { useFormik, Field } from "formik";
+import * as Yup from "yup";
+import login from "../../assets/loginLogos/login.png";
+import logowomenyn from "../../assets/loginLogos/women_white_log.svg";
+import circlethree from "../../assets/loginLogos/circle.svg";
+import "./Signin.scss";
 
 const SignIn = memo(() => {
+  const [formState, setFormState] = useState(true);
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+      // confirmPassword: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .email("Invalid email address")
+        .required("Email Required"),
+      password: Yup.string()
+        .min(5, "Atleast 6 characters long")
+        .max(50, "Too Long")
+        .required("Password Required"),
+    }),
+    onSubmit: (values) => {
+      var email = values.email;
+      var password = values.password;
+      const datas = {
+        email: email,
+        password: password,
+      };
+      loginServices
+        .login(datas)
+        .then(async (result) => {
+          if (result.tokens) {
+            let auth_set = await loginServices.asyncAuthStorage(result);
+            if (auth_set) {
+              toast.success("User Login Successfully 😃");
+              setTimeout(() => {
+                history("/womeyn/dashboard");
+              }, 1500);
+            }
+          }
+        })
+        .catch((err) => {
+          if (err) {
+            console.log(err?.response?.data?.message);
+            toast.error(`${err?.response?.data?.message} 😬`);
+          }
+        });
+    },
+  });
+
   const [values, setValues] = useState({});
   const [auth, setAuth] = useState(false);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     loginServices.useAuth().then((result) => {
       if (result) {
@@ -46,106 +91,119 @@ const SignIn = memo(() => {
       }
     });
   }, [auth]);
-
-  let schema = yup.object().shape({
-    email: yup.string().email("invalid email").required("email is required"),
-    password: yup.string().required("password is required"),
-  });
-
-  //   schema
-  //     .isValid({
-  //       email: "nav@gmail",
-  //       password: "123456",
-  //     })
-  //     .then(function (valid) {
-  //       console.log(valid);
-  //     });
-  const onFormChange = (e, updatedAt) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setValues({ ...values, [name]: value });
-  };
   const appName = useSelector(SettingSelector.app_name);
   let history = useNavigate();
   const authUser = (e) => {
     e.preventDefault();
     e.persist();
-    // console.log(values);
-    schema.isValid(values).then(function (valid) {
-      console.log(valid);
-    });
-    loginServices
-      .login(values)
-      .then(async (result) => {
-        if (result.tokens) {
-          let auth_set = await loginServices.asyncAuthStorage(result);
-          if (auth_set) {
-            history("/womeyn/dashboard");
-          }
-        }
-      })
-      .catch((err) => {
-        if (err) {
-          console.log(err);
-          toast.error("Invalid Credentials");
-        }
-      });
   };
   if (!auth && !loading) {
     return (
       <Fragment>
-        <section className="login-content">
-          <ToastContainer position="top-right" />
-          {/* <ToastContainer position="top-right" /> */}
-          <Row className="m-0 align-items-center bg-white vh-100">
-            <Col md="6">
-              <Row className="justify-content-center">
+        <div className="signin">
+          <Row>
+            <Col
+              lg="6"
+              md="6"
+              className="d-md-block d-none bg-primarys p-0 vh-100 overflow-hidden left"
+            >
+              <div className="logo">
+                <img src={logowomenyn} alt="no image" />
+              </div>
+              <div className="circle">
+                <img src={circlethree} alt="no image" className="circles" />
+              </div>
+              <div className="sellers">
+                <h5 className="we">We are trusted by </h5>
+                <div>
+                  <h6 className="seller">Sellers</h6>
+                </div>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  height: "94%",
+                  paddingTop: "7%",
+                }}
+              >
+                <img src={login} className="Image-fluid" alt="images" />
+              </div>
+            </Col>
+            <Col lg="6" md="6" className="singup-right-section">
+              <Row className="justify-content-center align-items-center d-flex">
                 <Col md="10">
-                  <Card className="card-transparent shadow-none d-flex justify-content-center mb-0 auth-card">
-                    <Card.Body>
+                  <div className=" justify-content-center mb-0 auth-card">
+                    <div>
                       <Link
                         to="/womeyn"
                         className="navbar-brand d-flex align-items-center mb-3"
                       >
-                        <Logo></Logo>
+                        {/* <Logo></Logo> */}
                         <h4 className="logo-title ms-3">{appName}</h4>
                       </Link>
-                      <h2 className="mb-2 text-center">Sign In</h2>
-                      <p className="text-center">Login to stay connected.</p>
-                      <Form onSubmit={authUser}>
+                      <h2 className="mb-2 text-center mb-5">Sign In</h2>
+                      {/* <p className="text-center">Login to stay connected.</p> */}
+                      <Form onSubmit={formik.handleSubmit}>
                         <Row>
-                          <Col lg="12">
-                            <Form.Group className="form-group">
-                              <Form.Label htmlFor="email" className="">
-                                Email
-                              </Form.Label>
+                          <Col sm="12" md="12" lg="12" className="form-group">
+                            <Form.Group controlId="firstName">
+                              <Form.Label>Email</Form.Label>
                               <Form.Control
                                 name="email"
                                 type="email"
-                                onChange={onFormChange}
-                                className=""
-                                id="email"
-                                aria-describedby="email"
-                                placeholder=""
-                                required
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.email}
+                                isValid={
+                                  formik.touched.email && !formik.errors.email
+                                }
+                                isInvalid={
+                                  formik.touched.email && !!formik.errors.email
+                                }
                               />
+                              <Form.Text className="text-danger">
+                                {formik.touched.email && formik.errors.email ? (
+                                  <div className="text-danger">
+                                    {formik.errors.email}
+                                  </div>
+                                ) : null}
+                              </Form.Text>
+                              <Form.Control.Feedback type="valid">
+                                Looks Good! 😎
+                              </Form.Control.Feedback>
                             </Form.Group>
                           </Col>
-                          <Col lg="12" className="">
-                            <Form.Group className="form-group">
-                              <Form.Label htmlFor="password" className="">
-                                Password
-                              </Form.Label>
+                          <br />
+                          <Col sm="12" md="12" lg="12" className="form-group">
+                            <Form.Group controlId="password">
+                              <Form.Label>Password</Form.Label>
                               <Form.Control
                                 name="password"
                                 type="password"
-                                onChange={onFormChange}
-                                className=""
-                                id="password"
-                                aria-describedby="password"
-                                placeholder=""
-                                required
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.password}
+                                isValid={
+                                  formik.touched.password &&
+                                  !formik.errors.password
+                                }
+                                isInvalid={
+                                  formik.touched.password &&
+                                  !!formik.errors.password
+                                }
                               />
+                              <Form.Text className="text-danger">
+                                {formik.touched.password &&
+                                formik.errors.password ? (
+                                  <div className="text-danger">
+                                    {formik.errors.password}
+                                  </div>
+                                ) : null}
+                              </Form.Text>
+                              <Form.Control.Feedback type="valid">
+                                Looks Good! 😎
+                              </Form.Control.Feedback>
                             </Form.Group>
                           </Col>
                           <Col
@@ -156,16 +214,13 @@ const SignIn = memo(() => {
                               <Form.Check.Input
                                 type="checkbox"
                                 id="customCheck1"
-                                onChange={onFormChange}
                                 name="remember"
                               />
                               <Form.Check.Label htmlFor="customCheck1">
                                 Remember Me
                               </Form.Check.Label>
                             </Form.Check>
-                            <Link to="/default/auth/recoverpw">
-                              Forgot Password?
-                            </Link>
+                            <Link to="/forgot-password">Forgot Password?</Link>
                           </Col>
                         </Row>
                         <div className="d-flex justify-content-center">
@@ -197,11 +252,9 @@ const SignIn = memo(() => {
                               <Image src={instagram} alt="im" />
                             </Link>
                           </ListGroup.Item>
-                          <ListGroup.Item as="li" className="border-0 pb-0">
-                            <Link to="#">
-                              <Image src={linkedin} alt="li" />
-                            </Link>
-                          </ListGroup.Item>
+                          {/* <ListGroup.Item as="li" className="border-0 pb-0">
+                                         <Link to="#"><Image src={linkedin} alt="li" /></Link>
+                                      </ListGroup.Item> */}
                         </ListGroup>
                       </div>
                       <p className="mt-3 text-center">
@@ -210,71 +263,13 @@ const SignIn = memo(() => {
                           Click here to sign up.
                         </Link>
                       </p>
-                    </Card.Body>
-                  </Card>
+                    </div>
+                  </div>
                 </Col>
               </Row>
-              <div className="sign-bg">
-                <svg
-                  width="280"
-                  height="230"
-                  viewBox="0 0 431 398"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g opacity="0.05">
-                    <rect
-                      x="-157.085"
-                      y="193.773"
-                      width="543"
-                      height="77.5714"
-                      rx="38.7857"
-                      transform="rotate(-45 -157.085 193.773)"
-                      fill="#3B8AFF"
-                    />
-                    <rect
-                      x="7.46875"
-                      y="358.327"
-                      width="543"
-                      height="77.5714"
-                      rx="38.7857"
-                      transform="rotate(-45 7.46875 358.327)"
-                      fill="#3B8AFF"
-                    />
-                    <rect
-                      x="61.9355"
-                      y="138.545"
-                      width="310.286"
-                      height="77.5714"
-                      rx="38.7857"
-                      transform="rotate(45 61.9355 138.545)"
-                      fill="#3B8AFF"
-                    />
-                    <rect
-                      x="62.3154"
-                      y="-190.173"
-                      width="543"
-                      height="77.5714"
-                      rx="38.7857"
-                      transform="rotate(45 62.3154 -190.173)"
-                      fill="#3B8AFF"
-                    />
-                  </g>
-                </svg>
-              </div>
-            </Col>
-            <Col
-              md="6"
-              className="d-md-block d-none bg-primary p-0 mt-n1 vh-100 overflow-hidden"
-            >
-              <Image
-                src={auth1}
-                className="Image-fluid gradient-main animated-scaleX"
-                alt="images"
-              />
             </Col>
           </Row>
-        </section>
+        </div>
       </Fragment>
     );
   } else if (!loading && auth) {

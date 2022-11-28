@@ -134,6 +134,8 @@ const AddUser = memo((props) => {
       ? (permissionIds = "2,3,4")
       : first && second && fourth
       ? (permissionIds = "1,2,4")
+      : first && third && fourth
+      ? (permissionIds = "1,3,4")
       : first && second && third
       ? (permissionIds = "1,2,3")
       : third && fourth
@@ -283,7 +285,7 @@ const AddUser = memo((props) => {
                   </div>
                   <hr className="hr-horizontal" />
                   <div>
-                    <Button variant="secondary">Cancel</Button>{" "}
+                    <Button variant="secondary">Back</Button>{" "}
                     <Button
                       variant="primary"
                       onClick={handleSubmit}
@@ -409,7 +411,7 @@ const AddUser = memo((props) => {
                 <hr className="hr-horizontal" />
                 <div>
                   <Button variant="secondary" onClick={goBack}>
-                    Cancel
+                    Back
                   </Button>{" "}
                   <Button
                     variant="primary"
@@ -461,6 +463,12 @@ const AddUser = memo((props) => {
                       <div className="permission flex-container">
                         <span>Admin Dashboard</span>
                         <span>Seller Dashboard</span>
+                        <span>Support and Query Dashboard</span>
+                      </div>
+                    ) : first && third && fourth ? (
+                      <div className="permission flex-container">
+                        <span>Admin Dashboard</span>
+                        <span>End Customer Dashboard</span>
                         <span>Support and Query Dashboard</span>
                       </div>
                     ) : first && second && third ? (
@@ -519,7 +527,7 @@ const AddUser = memo((props) => {
                   </div>
                   <hr className="hr-horizontal" />
                   <Button variant="secondary" onClick={goBack2}>
-                    Cancel
+                    Back
                   </Button>{" "}
                   <Button
                     variant="primary"

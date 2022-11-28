@@ -1,4 +1,4 @@
-import { memo, Fragment } from "react";
+import { memo, Fragment, useEffect, useState } from "react";
 
 //react-bootstrap
 import { Row, Col, Image, Form, Button } from "react-bootstrap";
@@ -7,7 +7,7 @@ import { Row, Col, Image, Form, Button } from "react-bootstrap";
 import Card from "../../../components/bootstrap/card";
 
 //router
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // img
 import avatars1 from "../../../assets/images/avatars/01.png";
@@ -16,8 +16,223 @@ import avatars3 from "../../../assets/images/avatars/avtar_2.png";
 import avatars4 from "../../../assets/images/avatars/avtar_3.png";
 import avatars5 from "../../../assets/images/avatars/avtar_4.png";
 import avatars6 from "../../../assets/images/avatars/avtar_5.png";
+// import { GetUserData } from "./api/Get";
+// import { SocialUpdateUser, UserConfirmPasswordChange, UserProfileUpdateData } from "./api/Post";
+import { getBasicInfoServices } from "../../../services/basicInfo-services/basicInfo-services";
+import { updateUserServices } from "../../../services/update-user/updateUser-services";
+import { updateSocialProfileServices } from "../../../services/update-socialProfile/updateSocialProfile-services";
+import { changePasswordServices } from "../../../services/change-password/changePassword-services";
+import { toast } from "react-toastify";
+import { imageUploadServices } from "../../../services/upload-image/imageUpload-services";
 
-const userProfile = memo(() => {
+const Profileuser = memo(() => {
+  const userid = localStorage.getItem("user_id");
+  console.log("userid: " + userid);
+  const [users, setUsers] = useState([]);
+
+  const navigate = useNavigate();
+
+  // social datas
+  const [socialerror, setSocialError] = useState(false);
+  const [sociallinks, setSocialLinks] = useState({
+    facebookUrl: "",
+    instagramUrl: "",
+    linkedinUrl: "",
+    twitterUrl: "",
+    youtubeUrl: "",
+  });
+  const { facebookUrl, instagramUrl, linkedinUrl, twitterUrl, youtubeUrl } =
+    sociallinks;
+  const handleSocialChanges = (e) => {
+    setSocialLinks({ ...sociallinks, [e.target.name]: e.target.value });
+  };
+
+  const handleSocialSubmit = (e) => {
+    e.preventDefault();
+
+    if (
+      facebookUrl.length === 0 ||
+      instagramUrl.length === 0 ||
+      linkedinUrl.length === 0 ||
+      twitterUrl.length === 0 ||
+      youtubeUrl.length === 0
+    ) {
+      setSocialError(true);
+    }
+
+    if (
+      facebookUrl &&
+      instagramUrl &&
+      linkedinUrl &&
+      twitterUrl &&
+      youtubeUrl
+    ) {
+      // const userid = localStorage.getItem("userid");
+      console.log(sociallinks, "sociallinks");
+
+      const data = {
+        facebookUrl: facebookUrl,
+        instagramUrl: instagramUrl,
+        linkedinUrl: linkedinUrl,
+        twitterUrl: twitterUrl,
+        youtubeUrl: youtubeUrl,
+      };
+
+      updateSocialProfileServices(userid, data)
+        .then((res) => {
+          toast.success("successfully Socials updated");
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error("error");
+        });
+    }
+  };
+
+  // social end datas
+
+  // user profile details
+
+  const [profileerror, setProfileError] = useState(false);
+  const [Userdetails, setUsersdetails] = useState({
+    firstName: "",
+    lastName: "",
+    contactNumber: "",
+    alternateContactNumber: "",
+    gender: "",
+  });
+  const { firstName, lastName, contactNumber, alternateContactNumber, gender } =
+    Userdetails;
+  const handleUserDetailsChanges = (e) => {
+    setUsersdetails({ ...Userdetails, [e.target.name]: e.target.value });
+  };
+
+  const handleUserProfileSubmit = (e) => {
+    e.preventDefault();
+    if (
+      firstName.length === 0 ||
+      lastName.length === 0 ||
+      contactNumber.length === 0 ||
+      alternateContactNumber.length === 0 ||
+      gender.length === 0
+    ) {
+      setProfileError(true);
+    }
+
+    if (
+      firstName &&
+      lastName &&
+      contactNumber &&
+      alternateContactNumber &&
+      gender
+    ) {
+      // const userid = localStorage.getItem("userid");
+
+      const data = {
+        firstName: firstName,
+        lastName: lastName,
+        contactNumber: contactNumber,
+        alternateContactNumber: alternateContactNumber,
+        gender: gender,
+      };
+      console.log(data, "sociallinks");
+      updateUserServices(userid, data)
+        .then((res) => {
+          toast.success("successfully User Profile updated");
+          console.log("res", res);
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error("error");
+        });
+    }
+  };
+
+  // user profile end
+
+  // change Password start
+
+  const [changepassword, setChangepassword] = useState({
+    oldPassword: "",
+    newPassword: "",
+    confirmNewPassword: "",
+  });
+
+  const [passworderror, setPassworderror] = useState(false);
+
+  const { oldPassword, newPassword, confirmNewPassword } = changepassword;
+
+  const handleChangePassword = (e) => {
+    setChangepassword({ ...changepassword, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmitChangePassword = (e) => {
+    e.preventDefault();
+    if (
+      oldPassword.length === 0 ||
+      newPassword.length === 0 ||
+      confirmNewPassword.length === 0
+    ) {
+      setPassworderror(true);
+    }
+
+    if (oldPassword && newPassword && confirmNewPassword) {
+      console.log("changepassword", changepassword);
+      changePasswordServices(changepassword)
+        .then((res) => {
+          console.log(res);
+          toast.success(`${res?.data?.message} 😀`);
+          localStorage.removeItem("auth");
+          localStorage.removeItem("access_token");
+          localStorage.removeItem("user_id");
+          setTimeout(() => {
+            navigate("/");
+          }, 1500);
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error(`${err?.response?.data?.message} 😬`);
+        });
+    }
+  };
+
+  const [image, setImage] = useState("");
+
+  const uploadImages = (e) => {
+    e.preventDefault();
+    console.log("image", e.target.files[0].name);
+    setImage([...e.target.files]);
+
+    const formData = new FormData();
+
+    formData.append("upl", e.target.files[0].name);
+
+    console.log("formData", formData);
+
+    imageUploadServices(userid, formData)
+      .then((res) => {
+        console.log("response", res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  // change Password end
+
+  useEffect(() => {
+    getBasicInfoServices(userid)
+      .then((res) => {
+        console.log("adminData", res?.data);
+        setUsers(res?.data);
+        setUsersdetails(res?.data);
+        setSocialLinks(res?.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <Fragment>
       <Row>
@@ -25,111 +240,220 @@ const userProfile = memo(() => {
           <Card style={{ padding: "0px" }}>
             <Card.Header className="d-flex justify-content-between">
               <div className="header-title">
-                <h4 className="card-title">User Profile</h4>
+                <h4 className="card-title">
+                  {users?.firstName} {users?.lastName}
+                </h4>
               </div>
             </Card.Header>
-            <Card.Body >
-              <Form>
-                <Form.Group className="form-group">
-                  <div className="profile-img-edit position-relative">
-                    <Image
-                      className="theme-color-default-img  profile-pic rounded avatar-100"
-                      src={avatars1}
-                      alt="profile-pic"
+            <Card.Body>
+              <Form.Group className="form-group">
+                <div className="profile-img-edit position-relative">
+                  <Image
+                    className="theme-color-default-img  profile-pic rounded avatar-100"
+                    src={avatars1}
+                    alt="profile-pic"
+                  />
+                  <Image
+                    className="theme-color-purple-img profile-pic rounded avatar-100"
+                    src={avatars2}
+                    alt="profile-pic"
+                  />
+                  <Image
+                    className="theme-color-blue-img profile-pic rounded avatar-100"
+                    src={avatars3}
+                    alt="profile-pic"
+                  />
+                  <Image
+                    className="theme-color-green-img profile-pic rounded avatar-100"
+                    src={avatars5}
+                    alt="profile-pic"
+                  />
+                  <Image
+                    className="theme-color-yellow-img profile-pic rounded avatar-100"
+                    src={avatars6}
+                    alt="profile-pic"
+                  />
+                  <Image
+                    className="theme-color-pink-img profile-pic rounded avatar-100"
+                    src={avatars4}
+                    alt="profile-pic"
+                  />
+                  <div className="upload-icone bg-primary">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={uploadImages}
                     />
-                    <Image
-                      className="theme-color-purple-img profile-pic rounded avatar-100"
-                      src={avatars2}
-                      alt="profile-pic"
-                    />
-                    <Image
-                      className="theme-color-blue-img profile-pic rounded avatar-100"
-                      src={avatars3}
-                      alt="profile-pic"
-                    />
-                    <Image
-                      className="theme-color-green-img profile-pic rounded avatar-100"
-                      src={avatars5}
-                      alt="profile-pic"
-                    />
-                    <Image
-                      className="theme-color-yellow-img profile-pic rounded avatar-100"
-                      src={avatars6}
-                      alt="profile-pic"
-                    />
-                    <Image
-                      className="theme-color-pink-img profile-pic rounded avatar-100"
-                      src={avatars4}
-                      alt="profile-pic"
-                    />
-                    <div className="upload-icone bg-primary">
-                      <svg
-                        className="upload-button"
-                        width="14"
-                        height="14"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          fill="#ffffff"
-                          d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z"
-                        />
-                      </svg>
-                      <Form.Control
-                        className="file-upload"
-                        type="file"
-                        accept="image/*"
+                    <svg
+                      className="upload-button"
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="#ffffff"
+                        d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z"
                       />
-                    </div>
+                    </svg>
+                    <Form.Control
+                      className="file-upload"
+                      type="file"
+                      accept="image/*"
+                    />
                   </div>
-                  <div className="img-extension mt-3">
-                    <div className="d-inline-block align-items-center">
-                      <span>Only</span> <Link to="#">.jpg</Link>{" "}
-                      <Link to="#">.png</Link> <Link to="#">.jpeg</Link>{" "}
-                      <span>allowed</span>
-                    </div>
+                </div>
+                <div className="img-extension mt-3">
+                  <div className="d-inline-block align-items-center">
+                    <span>Only</span> <Link to="#">.jpg</Link>{" "}
+                    <Link to="#">.png</Link> <Link to="#">.jpeg</Link>{" "}
+                    <span>allowed</span>
                   </div>
-                </Form.Group>
-                <Form.Group className="form-group">
-                  <Form.Label htmlFor="furl">Facebook Url:</Form.Label>
-                  <Form.Control
-                    type="text"
-                    id="furl"
-                    placeholder="Facebook Url"
-                  />
-                </Form.Group>
-                <Form.Group className="form-group">
-                  <Form.Label htmlFor="turl">Twitter Url:</Form.Label>
-                  <Form.Control
-                    type="text"
-                    id="turl"
-                    placeholder="Twitter Url"
-                  />
-                </Form.Group>
-                <Form.Group className="form-group">
-                  <Form.Label htmlFor="instaurl">Instagram Url:</Form.Label>
-                  <Form.Control
-                    type="text"
-                    id="instaurl"
-                    placeholder="Instagram Url"
-                  />
-                </Form.Group>
-                <Form.Group className="mb-0 form-group">
-                  <Form.Label htmlFor="lurl">Linkedin Url:</Form.Label>
-                  <Form.Control
-                    type="text"
-                    id="lurl"
-                    placeholder="Linkedin Url"
-                  />
-                </Form.Group>
-              </Form>
+                </div>
+              </Form.Group>
+              <Form.Group className="form-group">
+                <Form.Label>Facebook Url:</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Facebook Url"
+                  name="facebookUrl"
+                  value={facebookUrl}
+                  onChange={handleSocialChanges}
+                />
+                <div>
+                  {socialerror && facebookUrl.length <= 0 ? (
+                    <div className="text-danger">
+                      Please provide a facebookurl{" "}
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <div>
+                  {socialerror && facebookUrl.length > 1 ? (
+                    <div className="text-success"> Looks Good! 😎</div>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </Form.Group>
+              <Form.Group className="form-group">
+                <Form.Label>Twitter Url:</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Twitter Url"
+                  name="twitterUrl"
+                  value={twitterUrl}
+                  onChange={handleSocialChanges}
+                />
+                <div>
+                  {socialerror && twitterUrl.length <= 0 ? (
+                    <div className="text-danger">
+                      Please provide a twitterUrl{" "}
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <div>
+                  {socialerror && twitterUrl.length > 1 ? (
+                    <div className="text-success"> Looks Good! 😎</div>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </Form.Group>
+              <Form.Group className="form-group">
+                <Form.Label>Instagram Url:</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Instagram Url"
+                  name="instagramUrl"
+                  value={instagramUrl}
+                  onChange={handleSocialChanges}
+                />
+                <div>
+                  {socialerror && instagramUrl.length <= 0 ? (
+                    <div className="text-danger">
+                      Please provide a instagramUrl{" "}
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <div>
+                  {socialerror && instagramUrl.length > 1 ? (
+                    <div className="text-success"> Looks Good! 😎</div>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </Form.Group>
+              <Form.Group className="mb-0 form-group">
+                <Form.Label>Linkedin Url:</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Linkedin Url"
+                  name="linkedinUrl"
+                  value={linkedinUrl}
+                  onChange={handleSocialChanges}
+                />
+                <div>
+                  {socialerror && linkedinUrl.length <= 0 ? (
+                    <div className="text-danger">
+                      Please provide a linkedinUrl{" "}
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <div>
+                  {socialerror && linkedinUrl.length > 1 ? (
+                    <div className="text-success"> Looks Good! 😎</div>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </Form.Group>
+              <Form.Group className="mb-0 form-group">
+                <Form.Label>Youtube Url:</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Youtube Url"
+                  name="youtubeUrl"
+                  value={youtubeUrl}
+                  onChange={handleSocialChanges}
+                />
+                <div>
+                  {socialerror && youtubeUrl.length <= 0 ? (
+                    <div className="text-danger">
+                      Please provide a youtubeUrl{" "}
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <div>
+                  {socialerror && youtubeUrl.length > 1 ? (
+                    <div className="text-success"> Looks Good! 😎</div>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </Form.Group>
             </Card.Body>
+            <div
+              className="d-flex justify-content-end mb-3"
+              style={{ paddingRight: "2%" }}
+            >
+              <Button onClick={handleSocialSubmit}>Update</Button>
+            </div>
           </Card>
         </Col>
         <Col xl="8" lg="8">
           <Card style={{ padding: "0px" }}>
             <Card.Header className="d-flex justify-content-between">
               <div className="header-title">
-                <h4 className="card-title">New User Information</h4>
+                <h4 className="card-title">Profile Information</h4>
               </div>
             </Card.Header>
             <Card.Body>
@@ -140,9 +464,27 @@ const userProfile = memo(() => {
                       <Form.Label htmlFor="fname">First Name:</Form.Label>
                       <Form.Control
                         type="text"
-                        id="fname"
+                        name="firstName"
+                        value={firstName}
                         placeholder="First Name"
+                        onChange={handleUserDetailsChanges}
                       />
+                      <div>
+                        {profileerror && firstName.length <= 0 ? (
+                          <div className="text-danger">
+                            Please provide a firstName{" "}
+                          </div>
+                        ) : (
+                          ""
+                        )}
+                      </div>
+                      <div>
+                        {profileerror && firstName.length > 1 ? (
+                          <div className="text-success"> Looks Good! 😎</div>
+                        ) : (
+                          ""
+                        )}
+                      </div>
                     </Form.Group>
                     <Form.Group className="col-md-6 form-group">
                       <Form.Label htmlFor="lname">Last Name:</Form.Label>
@@ -150,46 +492,88 @@ const userProfile = memo(() => {
                         type="text"
                         id="lname"
                         placeholder="Last Name"
+                        name="lastName"
+                        value={lastName}
+                        onChange={handleUserDetailsChanges}
                       />
+                      <div>
+                        {profileerror && lastName.length <= 0 ? (
+                          <div className="text-danger">
+                            Please provide a lastName{" "}
+                          </div>
+                        ) : (
+                          ""
+                        )}
+                      </div>
+                      <div>
+                        {profileerror && lastName.length > 1 ? (
+                          <div className="text-success"> Looks Good! 😎</div>
+                        ) : (
+                          ""
+                        )}
+                      </div>
                     </Form.Group>
-                    <Form.Group className="col-md-6 form-group">
-                      <Form.Label htmlFor="add1">Street Address 1:</Form.Label>
-                      <Form.Control
-                        type="text"
-                        id="add1"
-                        placeholder="Street Address 1"
-                      />
-                    </Form.Group>
-                    <Form.Group className="col-md-6 form-group">
-                      <Form.Label htmlFor="add2">Street Address 2:</Form.Label>
-                      <Form.Control
-                        type="text"
-                        id="add2"
-                        placeholder="Street Address 2"
-                      />
-                    </Form.Group>
+
                     <Form.Group className="col-sm-12 form-group">
-                      <Form.Label>Country:</Form.Label>
-                      <select
-                        name="type"
-                        className="selectpicker form-control"
-                        data-style="py-0"
+                      <Form.Label>Gender:</Form.Label>
+                      <Form.Select
+                        id="validationDefault04"
+                        name="gender"
+                        value={gender}
+                        onChange={handleUserDetailsChanges}
+                        required
                       >
-                        <option>Select Country</option>
-                        <option>Caneda</option>
-                        <option>Noida</option>
-                        <option>USA</option>
-                        <option>India</option>
-                        <option>Africa</option>
-                      </select>
+                        <option value="">--Select Gender--</option>
+                        <option label="Male" value="Male">
+                          Male
+                        </option>
+                        <option label="Female" value="Female">
+                          Female
+                        </option>
+                      </Form.Select>
+                      <div>
+                        {profileerror && gender.length <= 0 ? (
+                          <div className="text-danger">
+                            Please provide a gender{" "}
+                          </div>
+                        ) : (
+                          ""
+                        )}
+                      </div>
+                      <div>
+                        {profileerror && gender.length > 1 ? (
+                          <div className="text-success"> Looks Good! 😎</div>
+                        ) : (
+                          ""
+                        )}
+                      </div>
                     </Form.Group>
                     <Form.Group className="col-md-6  form-group">
                       <Form.Label htmlFor="mobno">Mobile Number:</Form.Label>
                       <Form.Control
                         type="text"
                         id="mobno"
+                        name="contactNumber"
+                        value={contactNumber}
                         placeholder="Mobile Number"
+                        onChange={handleUserDetailsChanges}
                       />
+                      <div>
+                        {profileerror && contactNumber.length <= 0 ? (
+                          <div className="text-danger">
+                            Please provide a contactNumber{" "}
+                          </div>
+                        ) : (
+                          ""
+                        )}
+                      </div>
+                      <div>
+                        {profileerror && contactNumber.length > 1 ? (
+                          <div className="text-success"> Looks Good! 😎</div>
+                        ) : (
+                          ""
+                        )}
+                      </div>
                     </Form.Group>
                     <Form.Group className="col-md-6  form-group">
                       <Form.Label htmlFor="altconno">
@@ -199,35 +583,47 @@ const userProfile = memo(() => {
                         type="text"
                         id="altconno"
                         placeholder="Alternate Contact"
+                        name="alternateContactNumber"
+                        value={
+                          alternateContactNumber ? alternateContactNumber : ""
+                        }
+                        onChange={handleUserDetailsChanges}
                       />
+                      <div>
+                        {profileerror && alternateContactNumber.length <= 0 ? (
+                          <div className="text-danger">
+                            Please provide a alternateContactNumber{" "}
+                          </div>
+                        ) : (
+                          ""
+                        )}
+                      </div>
+                      <div>
+                        {profileerror && alternateContactNumber.length > 1 ? (
+                          <div className="text-success"> Looks Good! 😎</div>
+                        ) : (
+                          ""
+                        )}
+                      </div>
                     </Form.Group>
                     <Form.Group className="col-md-6  form-group">
                       <Form.Label htmlFor="email">Email:</Form.Label>
                       <Form.Control
                         type="email"
                         id="email"
+                        name="emailid"
+                        value={users?.email}
                         placeholder="Email"
-                      />
-                    </Form.Group>
-                    <Form.Group className="col-md-6 form-group">
-                      <Form.Label htmlFor="pno">Pin Code:</Form.Label>
-                      <Form.Control
-                        type="text"
-                        id="pno"
-                        placeholder="Pin Code"
-                      />
-                    </Form.Group>
-                    <Form.Group className="col-md-12 form-group">
-                      <Form.Label htmlFor="city">Town/City:</Form.Label>
-                      <Form.Control
-                        type="text"
-                        id="city"
-                        placeholder="Town/City"
+                        disabled
                       />
                     </Form.Group>
                   </div>
                   <div className="d-flex justify-content-end">
-                    <Button type="button" variant="btn btn-primary">
+                    <Button
+                      type="button"
+                      variant="btn btn-primary"
+                      onClick={handleUserProfileSubmit}
+                    >
                       Update
                     </Button>
                   </div>
@@ -235,40 +631,101 @@ const userProfile = memo(() => {
                   <h5 className="mb-3">Change Password</h5>
                   <div className="row">
                     <Form.Group className="col-md-6 form-group">
-                      <Form.Label htmlFor="uname">User Name:</Form.Label>
+                      <Form.Label htmlFor="uname">Email</Form.Label>
                       <Form.Control
-                        type="text"
+                        type="email"
                         id="uname"
+                        value={users?.email}
                         placeholder="User Name"
+                        disabled
                       />
                     </Form.Group>
                     <Form.Group className="col-md-6 form-group">
-                      <Form.Label htmlFor="opass">Old Password:</Form.Label>
+                      <Form.Label htmlFor="opass">Old Password</Form.Label>
                       <Form.Control
                         type="password"
-                        id="opass"
+                        name="oldPassword"
+                        value={oldPassword}
+                        onChange={handleChangePassword}
                         placeholder="Old Password"
                       />
+                      <div>
+                        {passworderror && oldPassword.length <= 0 ? (
+                          <div className="text-danger">
+                            Please provide a oldPassword{" "}
+                          </div>
+                        ) : (
+                          ""
+                        )}
+                      </div>
+                      <div>
+                        {passworderror && oldPassword.length > 1 ? (
+                          <div className="text-success"> Looks Good! 😎</div>
+                        ) : (
+                          ""
+                        )}
+                      </div>
                     </Form.Group>
                     <Form.Group className="col-md-6 form-group">
-                      <Form.Label htmlFor="pass">Password:</Form.Label>
+                      <Form.Label htmlFor="pass">New Password</Form.Label>
                       <Form.Control
                         type="password"
-                        id="pass"
-                        placeholder="Password"
+                        placeholder="New Password"
+                        name="newPassword"
+                        value={newPassword}
+                        onChange={handleChangePassword}
                       />
+                      <div>
+                        {passworderror && newPassword.length <= 0 ? (
+                          <div className="text-danger">
+                            Please provide a newPassword{" "}
+                          </div>
+                        ) : (
+                          ""
+                        )}
+                      </div>
+                      <div>
+                        {passworderror && newPassword.length > 1 ? (
+                          <div className="text-success"> Looks Good! 😎</div>
+                        ) : (
+                          ""
+                        )}
+                      </div>
                     </Form.Group>
                     <Form.Group className="col-md-6 form-group">
-                      <Form.Label htmlFor="rpass">Repeat Password:</Form.Label>
+                      <Form.Label htmlFor="rpass">Confirm Password</Form.Label>
                       <Form.Control
                         type="password"
                         id="rpass"
-                        placeholder="Repeat Password "
+                        placeholder="Confirm Password"
+                        name="confirmNewPassword"
+                        value={confirmNewPassword}
+                        onChange={handleChangePassword}
                       />
+                      <div>
+                        {passworderror && confirmNewPassword.length <= 0 ? (
+                          <div className="text-danger">
+                            Please provide a confirmNewPassword{" "}
+                          </div>
+                        ) : (
+                          ""
+                        )}
+                      </div>
+                      <div>
+                        {passworderror && confirmNewPassword.length > 1 ? (
+                          <div className="text-success"> Looks Good! 😎</div>
+                        ) : (
+                          ""
+                        )}
+                      </div>
                     </Form.Group>
                   </div>
                   <div className="d-flex justify-content-end">
-                    <Button type="button" variant="btn btn-primary">
+                    <Button
+                      type="button"
+                      variant="btn btn-primary"
+                      onClick={handleSubmitChangePassword}
+                    >
                       Update
                     </Button>
                   </div>
@@ -282,5 +739,5 @@ const userProfile = memo(() => {
   );
 });
 
-userProfile.displayName = "userProfile";
-export default userProfile;
+Profileuser.displayName = "Profileuser";
+export default Profileuser;

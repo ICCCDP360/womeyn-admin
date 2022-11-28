@@ -18,6 +18,7 @@ import img7 from "../../../assets/images/earth_souls.png";
 import img8 from "../../../assets/images/earth_souls.png";
 import img9 from "../../../assets/images/earth_souls.png";
 import Loader from "../../../components/Loader";
+import { sellerApprovalServices } from "../../../services/sellerApproval-services/sellerApproval-services";
 
 let description =
   "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.";
@@ -90,7 +91,18 @@ const SellerApproval = memo((props) => {
       ></path>
     </svg>
   );
-  const [sellers, setSellers] = useState("");
+  const [sellers, setSellers] = useState([]);
+  const [stateId, setStateId] = useState();
+  const actionChange = (item) => {
+    console.log("id", item?.id);
+    setStateId(4);
+    console.log("stateId", 4);
+    sellerApprovalServices(item?.id, stateId)
+      .then((res) => {
+        console.log("res", res);
+      })
+      .catch((err) => console.log(err));
+  };
   useEffect(() => {
     sellerServices()
       .then((res) => {
@@ -98,7 +110,7 @@ const SellerApproval = memo((props) => {
         setSellers(res.data.results);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [stateId]);
 
   const table = [
     {
@@ -389,6 +401,7 @@ const SellerApproval = memo((props) => {
                               viewBox="0 0 32 32"
                               fill="none"
                               xmlns="http://www.w3.org/2000/svg"
+                              onClick={() => actionChange(item)}
                             >
                               <rect
                                 width="32"
