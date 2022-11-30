@@ -27,6 +27,7 @@ import { imageUploadServices } from "../../../services/upload-image/imageUpload-
 
 const Profileuser = memo(() => {
   const userid = localStorage.getItem("user_id");
+  const token = localStorage.getItem("access_token");
   console.log("userid: " + userid);
   const [users, setUsers] = useState([]);
 
@@ -201,18 +202,20 @@ const Profileuser = memo(() => {
 
   const uploadImages = (e) => {
     e.preventDefault();
-    console.log("image", e.target.files[0].name);
-    setImage([...e.target.files]);
+    console.log("image", e.target.files[0]);
+    // setImage([...e.target.files]);
 
     const formData = new FormData();
 
-    formData.append("upl", e.target.files[0].name);
+    formData.append("upl", e.target.files[0]);
 
-    console.log("formData", formData);
+    console.log("formData", formData.get("upl"));
 
     imageUploadServices(userid, formData)
       .then((res) => {
         console.log("response", res);
+        toast.success(`${res.message} 😀`);
+        window.location.reload(false);
       })
       .catch((err) => {
         console.log(err);
@@ -233,6 +236,7 @@ const Profileuser = memo(() => {
         console.log(err);
       });
   }, []);
+  console.log("users", users);
   return (
     <Fragment>
       <Row>
@@ -248,36 +252,19 @@ const Profileuser = memo(() => {
             <Card.Body>
               <Form.Group className="form-group">
                 <div className="profile-img-edit position-relative">
-                  <Image
-                    className="theme-color-default-img  profile-pic rounded avatar-100"
-                    src={avatars1}
-                    alt="profile-pic"
-                  />
-                  <Image
-                    className="theme-color-purple-img profile-pic rounded avatar-100"
-                    src={avatars2}
-                    alt="profile-pic"
-                  />
-                  <Image
-                    className="theme-color-blue-img profile-pic rounded avatar-100"
-                    src={avatars3}
-                    alt="profile-pic"
-                  />
-                  <Image
-                    className="theme-color-green-img profile-pic rounded avatar-100"
-                    src={avatars5}
-                    alt="profile-pic"
-                  />
-                  <Image
-                    className="theme-color-yellow-img profile-pic rounded avatar-100"
-                    src={avatars6}
-                    alt="profile-pic"
-                  />
-                  <Image
-                    className="theme-color-pink-img profile-pic rounded avatar-100"
-                    src={avatars4}
-                    alt="profile-pic"
-                  />
+                  {users?.profileImageName ? (
+                    <Image
+                      className="theme-color-default-img  profile-pic rounded avatar-100"
+                      src={`https://my-demo-11-bucket.s3.ap-south-1.amazonaws.com/${users.profileImageName}`}
+                      alt="profile-pic"
+                    />
+                  ) : (
+                    <Image
+                      className="theme-color-default-img  profile-pic rounded avatar-100"
+                      src="https://sialifehospital.com/wp-content/uploads/2021/04/testimonial-1.png"
+                      alt="profile-pic"
+                    />
+                  )}
                   <div className="upload-icone bg-primary">
                     <input
                       type="file"

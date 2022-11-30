@@ -1,9 +1,8 @@
 import { HttpInterceptor } from "../auth/http-interceptors";
 
-export function imageUploadServices(id, data) {
-  console.log("data", data);
+export function updateForgotPasswordServices(value, data) {
   return new Promise((resolve, reject) => {
-    HttpInterceptor.post(`/admin/update-photo/${id}`, data)
+    HttpInterceptor.post(`/auth/admin/reset-password?token=${value}`, data)
       .then((response) => {
         resolve(response.data);
       })

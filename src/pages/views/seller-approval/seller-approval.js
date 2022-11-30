@@ -276,12 +276,23 @@ const SellerApproval = memo((props) => {
                     <tr key={index}>
                       <td>
                         <div className="d-flex align-items-center">
-                          <img
-                            className="rounded img-fluid avatar-65 me-3"
-                            src={img1}
-                            alt=""
-                            loading="lazy"
-                          />
+                          {item?.profileImageName ? (
+                            <img
+                              className="rounded me-3"
+                              style={{ width: 64, height: 64 }}
+                              src={`https://my-demo-11-bucket.s3.ap-south-1.amazonaws.com/${item.profileImageName}`}
+                              alt=""
+                              loading="lazy"
+                            />
+                          ) : (
+                            <img
+                              className="rounded me-3"
+                              style={{ width: 64, height: 64 }}
+                              src="https://sialifehospital.com/wp-content/uploads/2021/04/testimonial-1.png"
+                              alt=""
+                              loading="lazy"
+                            />
+                          )}
                           <div className="media-support-info">
                             <h5 className="iq-sub-label text-uppercase">
                               {item.firstName}

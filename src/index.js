@@ -18,13 +18,12 @@ import "react-toastify/dist/ReactToastify.css";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    {/* <ToastContainer> */}
+    <ToastContainer></ToastContainer>
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Provider store={store}>
         <App />
       </Provider>
     </BrowserRouter>
-    {/* </ToastContainer> */}
   </React.StrictMode>
 );
 

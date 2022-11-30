@@ -257,12 +257,6 @@ const SignIn = memo(() => {
                                       </ListGroup.Item> */}
                         </ListGroup>
                       </div>
-                      <p className="mt-3 text-center">
-                        Don’t have an account?{" "}
-                        <Link to="/sign-up" className="text-underline">
-                          Click here to sign up.
-                        </Link>
-                      </p>
                     </div>
                   </div>
                 </Col>

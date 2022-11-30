@@ -5,6 +5,19 @@ axios.interceptors.request.use(
     if (config.url === "/auth/admin/login") {
       config.url = process.env.REACT_APP_APIURL + config.url;
       console.log("configUrl", config.url);
+    } else if (config.url.search("/admin/update-photo") !== -1) {
+      const token = localStorage.getItem("access_token");
+      config.url = process.env.REACT_APP_APIURL + config.url;
+      console.log("token", token);
+      console.log(config.url, "image-url");
+      config.headers = {
+        ...config.headers,
+        "Content-Type": false,
+        "process-data": false,
+        cache: false,
+        "data-type": "Text",
+        Authorization: `Bearer ${token}`,
+      };
     } else {
       const token = localStorage.getItem("access_token");
       config.url = process.env.REACT_APP_APIURL + config.url;
