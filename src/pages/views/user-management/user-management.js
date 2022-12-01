@@ -155,7 +155,7 @@ const UserManagement = memo((props) => {
       <div className="d-flex flex-row justify-content-between">
         <h3>User Management</h3>
         <Link className="nav-link " aria-current="page" to="/womeyn/user-add">
-          <Button> Add User</Button>
+          <Button style={{ marginBottom: 10 }}> Add User</Button>
         </Link>
       </div>
       <div>
