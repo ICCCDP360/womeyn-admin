@@ -25,6 +25,10 @@ import { toast } from "react-toastify";
 import { Modal } from "bootstrap";
 import "./styles.scss";
 import { forgotPasswordServices } from "../../../services/forgotPassword-services/forgotPassword-services";
+import logowomenyn from "../../../assets/loginLogos/women_white_log.svg";
+import circlethree from "../../../assets/loginLogos/circle.svg";
+import login from "../../../assets/loginLogos/login.png";
+import "../../auth/Signin.scss";
 
 const ForgetPassword = memo(() => {
   const userefs = useRef(null);
@@ -81,109 +85,98 @@ const ForgetPassword = memo(() => {
 
   return (
     <Fragment>
-      <section className="login-content">
-        <Row className="m-0 align-items-center bg-white vh-100">
+      <div className="signin">
+        <Row>
           <Col
+            lg="6"
             md="6"
-            className="d-md-block d-none bg-primary p-0 mt-n1 vh-100 overflow-hidden"
+            className="d-md-block d-none bg-primarys p-0 vh-100 overflow-hidden left"
           >
-            <Image
-              src={auth2}
-              className="img-fluid gradient-main animated-scaleX"
-              alt="images"
-            />
-          </Col>
-          <Col md="6" className="p-0">
-            <Card className="card-transparent auth-card shadow-none d-flex justify-content-center mb-0">
-              <Card.Body>
-                <h2 className="mb-2 mb-3">Reset Password</h2>
-                <p className="mb-4 mt-3">
-                  Enter your email address and we'll send you an email with
-                  instructions to reset your password.
-                </p>
-                <Form onSubmit={formik.handleSubmit}>
-                  <Row>
-                    <Col lg="12" className="col-lg-12">
-                      <Form.Group controlId="firstName">
-                        <Form.Label>Email Id</Form.Label>
-                        <Form.Control
-                          name="email"
-                          type="email"
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.values.email}
-                          isValid={formik.touched.email && !formik.errors.email}
-                          isInvalid={
-                            formik.touched.email && !!formik.errors.email
-                          }
-                        />
-                        <Form.Text className="text-danger">
-                          {formik.touched.email && formik.errors.email ? (
-                            <div className="text-danger">
-                              {formik.errors.email}
-                            </div>
-                          ) : null}
-                        </Form.Text>
-                        <Form.Control.Feedback type="valid">
-                          Looks Good! 😎
-                        </Form.Control.Feedback>
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Button className="mt-5 reset-button" type="submit">
-                    Reset Password
-                  </Button>
-                </Form>
-              </Card.Body>
-            </Card>
-            <div className="sign-bg sign-bg-right">
-              <svg
-                width="280"
-                height="230"
-                viewBox="0 0 431 398"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g opacity="0.05">
-                  <rect
-                    x="-157.085"
-                    y="193.773"
-                    width="543"
-                    height="77.5714"
-                    rx="38.7857"
-                    transform="rotate(-45 -157.085 193.773)"
-                    fill="#3B8AFF"
-                  />
-                  <rect
-                    x="7.46875"
-                    y="358.327"
-                    width="543"
-                    height="77.5714"
-                    rx="38.7857"
-                    transform="rotate(-45 7.46875 358.327)"
-                    fill="#3B8AFF"
-                  />
-                  <rect
-                    x="61.9355"
-                    y="138.545"
-                    width="310.286"
-                    height="77.5714"
-                    rx="38.7857"
-                    transform="rotate(45 61.9355 138.545)"
-                    fill="#3B8AFF"
-                  />
-                  <rect
-                    x="62.3154"
-                    y="-190.173"
-                    width="543"
-                    height="77.5714"
-                    rx="38.7857"
-                    transform="rotate(45 62.3154 -190.173)"
-                    fill="#3B8AFF"
-                  />
-                </g>
-              </svg>
+            <div className="logo">
+              <img src={logowomenyn} alt="no image" />
             </div>
+            <div className="circle">
+              <img src={circlethree} alt="no image" className="circles" />
+            </div>
+            <div className="sellers">
+              <h5 className="we">We are trusted by </h5>
+              <div>
+                <h6 className="seller">Sellers</h6>
+              </div>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                height: "94%",
+                paddingTop: "7%",
+              }}
+            >
+              <img src={login} className="Image-fluid" alt="images" />
+            </div>
+          </Col>
+          <Col lg="6" md="6" className="singup-right-section">
+            <Row className="justify-content-center align-items-center d-flex">
+              <Col md="10">
+                <div className=" justify-content-center mb-0 auth-card">
+                  <div>
+                    <Link
+                      to="/womeyn"
+                      className="navbar-brand d-flex align-items-center mb-3"
+                    >
+                      {/* <Logo></Logo> */}
+                      <h4 className="logo-title ms-3">{appName}</h4>
+                    </Link>
+                    <h2 className="mb-2 mb-3">Reset Password</h2>
+                    <p className="mb-4 mt-3">
+                      Enter your email address and we'll send you an email with
+                      instructions to reset your password.
+                    </p>
+                    <Form onSubmit={formik.handleSubmit}>
+                      <Row>
+                        <Col lg="12" className="col-lg-12">
+                          <Form.Group controlId="firstName">
+                            <Form.Label>Email Id</Form.Label>
+                            <Form.Control
+                              name="email"
+                              type="email"
+                              onChange={formik.handleChange}
+                              onBlur={formik.handleBlur}
+                              value={formik.values.email}
+                              isValid={
+                                formik.touched.email && !formik.errors.email
+                              }
+                              isInvalid={
+                                formik.touched.email && !!formik.errors.email
+                              }
+                            />
+                            <Form.Text className="text-danger">
+                              {formik.touched.email && formik.errors.email ? (
+                                <div className="text-danger">
+                                  {formik.errors.email}
+                                </div>
+                              ) : null}
+                            </Form.Text>
+                            <Form.Control.Feedback type="valid">
+                              Looks Good! 😎
+                            </Form.Control.Feedback>
+                          </Form.Group>
+                        </Col>
+                      </Row>
+                      <Button
+                        className="mt-5 reset-button"
+                        onClick={() => history(`/`)}
+                      >
+                        Back
+                      </Button>
+                      <Button className="mt-5 ms-5 reset-button" type="submit">
+                        Reset Password
+                      </Button>
+                    </Form>
+                  </div>
+                </div>
+              </Col>
+            </Row>
           </Col>
         </Row>
 
@@ -222,7 +215,7 @@ const ForgetPassword = memo(() => {
             </div>
           </div>
         </>
-      </section>
+      </div>
     </Fragment>
   );
 });

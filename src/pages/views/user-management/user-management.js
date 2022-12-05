@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 
 //Router-dom
 import { Link } from "react-router-dom";
+import UserList from "../user-list/user-list";
 
 const UserManagement = memo((props) => {
   useSelector(SettingSelector.theme_color);
@@ -155,7 +156,7 @@ const UserManagement = memo((props) => {
       <div className="d-flex flex-row justify-content-between">
         <h3>User Management</h3>
         <Link className="nav-link " aria-current="page" to="/womeyn/user-add">
-          <Button style={{ marginBottom: 10 }}> Add User</Button>
+          <Button style={{ marginBottom: 10 }}>+ Add User</Button>
         </Link>
       </div>
       <div>
@@ -283,18 +284,7 @@ const UserManagement = memo((props) => {
                     <div className="d-flex flex-column">
                       <Row>
                         <Col sm="12">
-                          {users.map((user) => {
-                            return (
-                              <UserCard
-                                notificationimg={"img1"}
-                                notificationtitle={user.firstName}
-                                notificationsvg="1"
-                                notificationcolor="primary"
-                                notificationdefault="Permissions:"
-                                contact={user.email}
-                              />
-                            );
-                          })}
+                          <UserList />
                         </Col>
                       </Row>
                     </div>

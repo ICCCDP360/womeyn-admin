@@ -6,22 +6,11 @@ import { Row, Col, Image, Form, Button, ListGroup } from "react-bootstrap";
 //router
 import { Link, Navigate, useNavigate } from "react-router-dom";
 
-//components
-import Card from "../../components/bootstrap/card";
-
-// img
-import facebook from "../../assets/images/brands/fb.svg";
-import google from "../../assets/images/brands/gm.svg";
-import instagram from "../../assets/images/brands/im.svg";
-import linkedin from "../../assets/images/brands/li.svg";
-import auth1 from "../../assets/images/auth/01.png";
-
 // Import selectors & action from setting store
 import * as SettingSelector from "../../store/setting/selectors";
 
 // Redux Selector / Action
 import { useDispatch, useSelector } from "react-redux";
-import Logo from "../../components/partials/components/logo";
 import loginServices from "../../services/login_services/login-services";
 import { toast } from "react-toastify";
 
@@ -33,7 +22,6 @@ import circlethree from "../../assets/loginLogos/circle.svg";
 import "./Signin.scss";
 
 const SignIn = memo(() => {
-  const [formState, setFormState] = useState(true);
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -78,7 +66,6 @@ const SignIn = memo(() => {
     },
   });
 
-  const [values, setValues] = useState({});
   const [auth, setAuth] = useState(false);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -229,34 +216,6 @@ const SignIn = memo(() => {
                           </Button>
                         </div>
                       </Form>
-                      <p className="text-center my-3">
-                        or sign in with other accounts?
-                      </p>
-                      <div className="d-flex justify-content-center">
-                        <ListGroup
-                          as="ul"
-                          className="list-group-horizontal list-group-flush"
-                        >
-                          <ListGroup.Item as="li" className="border-0 pb-0">
-                            <Link to="#">
-                              <Image src={facebook} alt="fb" />
-                            </Link>
-                          </ListGroup.Item>
-                          <ListGroup.Item as="li" className="border-0 pb-0">
-                            <Link to="#">
-                              <Image src={google} alt="gm" />
-                            </Link>
-                          </ListGroup.Item>
-                          <ListGroup.Item as="li" className="border-0 pb-0">
-                            <Link to="#">
-                              <Image src={instagram} alt="im" />
-                            </Link>
-                          </ListGroup.Item>
-                          {/* <ListGroup.Item as="li" className="border-0 pb-0">
-                                         <Link to="#"><Image src={linkedin} alt="li" /></Link>
-                                      </ListGroup.Item> */}
-                        </ListGroup>
-                      </div>
                     </div>
                   </div>
                 </Col>

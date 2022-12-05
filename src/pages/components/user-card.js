@@ -10,7 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Card from "../../components/bootstrap/card";
 
 const UserCard = memo((props) => {
-  console.log("id", props.id);
+  console.log("permissions", props.id);
   const navigate = useNavigate();
   const getIndex = () => {
     console.log("first", props.data.id);

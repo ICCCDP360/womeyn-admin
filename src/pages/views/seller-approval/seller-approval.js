@@ -92,14 +92,27 @@ const SellerApproval = memo((props) => {
     </svg>
   );
   const [sellers, setSellers] = useState([]);
-  const [stateId, setStateId] = useState();
-  const actionChange = (item) => {
+  // const [stateId, setStateId] = useState();
+  const actionReject = (item) => {
     console.log("id", item?.id);
-    setStateId(4);
-    console.log("stateId", 4);
-    sellerApprovalServices(item?.id, stateId)
+    const data = {
+      stateId: "4",
+    };
+    sellerApprovalServices(item?.id, data)
       .then((res) => {
         console.log("res", res);
+        window.location.reload(false);
+      })
+      .catch((err) => console.log(err));
+  };
+  const actionApprove = (item) => {
+    const data = {
+      stateId: "1",
+    };
+    sellerApprovalServices(item?.id, data)
+      .then((res) => {
+        console.log("res", res);
+        window.location.reload(false);
       })
       .catch((err) => console.log(err));
   };
@@ -110,7 +123,7 @@ const SellerApproval = memo((props) => {
         setSellers(res.data.results);
       })
       .catch((err) => console.log(err));
-  }, [stateId]);
+  }, []);
 
   const table = [
     {
@@ -301,7 +314,10 @@ const SellerApproval = memo((props) => {
                           </div>
                         </div>
                       </td>
-                      <td className="text-dark no-wrap">{description}</td>
+                      <td className="text-dark no-wrap">{`${description.slice(
+                        0,
+                        100
+                      )}...`}</td>
                       <td className="text-dark no-wrap flex-container">
                         <div>
                           <Button type="button" variant="soft-secondary">
@@ -391,7 +407,7 @@ const SellerApproval = memo((props) => {
                           </div>
                         ) : item.stateId === 4 ? (
                           <div className="d-flex gap-2 justify-content-start">
-                            <div className="status-box danger"></div>
+                            <div className="status-box bg-danger"></div>
                             <p className="p-bold red-text">Rejected</p>
                           </div>
                         ) : null}
@@ -412,7 +428,7 @@ const SellerApproval = memo((props) => {
                               viewBox="0 0 32 32"
                               fill="none"
                               xmlns="http://www.w3.org/2000/svg"
-                              onClick={() => actionChange(item)}
+                              onClick={() => actionReject(item)}
                             >
                               <rect
                                 width="32"
@@ -437,6 +453,7 @@ const SellerApproval = memo((props) => {
                               viewBox="0 0 32 32"
                               fill="none"
                               xmlns="http://www.w3.org/2000/svg"
+                              onClick={() => actionApprove(item)}
                             >
                               <rect
                                 width="32"
@@ -455,6 +472,7 @@ const SellerApproval = memo((props) => {
                               viewBox="0 0 32 32"
                               fill="none"
                               xmlns="http://www.w3.org/2000/svg"
+                              onClick={() => actionReject(item)}
                             >
                               <rect
                                 width="32"
@@ -479,6 +497,7 @@ const SellerApproval = memo((props) => {
                               viewBox="0 0 32 32"
                               fill="none"
                               xmlns="http://www.w3.org/2000/svg"
+                              onClick={() => actionApprove(item)}
                             >
                               <rect
                                 width="32"

@@ -229,6 +229,7 @@ const AddUser = memo((props) => {
                       //   defaultValue=""
                       onChange={handleChanges}
                       required
+                      style={{ color: "black" }}
                     />
                     <div>
                       {error && name.length === 0 ? (
@@ -252,6 +253,7 @@ const AddUser = memo((props) => {
                       //   defaultValue=""
                       onChange={handleChanges}
                       required
+                      style={{ color: "black" }}
                     />
                     <div>
                       {error && email.length === 0 ? (
@@ -274,6 +276,7 @@ const AddUser = memo((props) => {
                       //   defaultValue=""
                       onChange={handleChanges}
                       required
+                      style={{ color: "black" }}
                     />
                     <div>
                       {error && number.length === 0 ? (
@@ -305,13 +308,7 @@ const AddUser = memo((props) => {
                     <input
                       className="form-check-input me-5"
                       type="checkbox"
-                      //   defaultValue=""
-                      //   onChange={() => {
-                      //     permission.push("Admin Dashboard");
-                      //   }}
                       value={one}
-                      //   defaultValue=""
-                      // onChange={handleChanges}
                       onChange={checkedOne}
                       name="one"
                       checked={first}
@@ -325,13 +322,7 @@ const AddUser = memo((props) => {
                     <input
                       className="form-check-input me-5"
                       type="checkbox"
-                      //   defaultValue=""
-                      //   onChange={() => {
-                      //     permission.push("Seller Dashboard");
-                      //   }}
                       value={two}
-                      //   defaultValue=""
-                      // onChange={handleChanges}
                       onChange={checkedTwo}
                       name="two"
                       checked={second}
@@ -344,13 +335,7 @@ const AddUser = memo((props) => {
                     <input
                       className="form-check-input me-5"
                       type="checkbox"
-                      //   defaultValue=""
-                      //   onChange={() => {
-                      //     permission.push("End Customer Dashboard");
-                      //   }}
                       value={three}
-                      //   defaultValue=""
-                      // onChange={handleChanges}
                       onChange={checkedThree}
                       name="three"
                       checked={third}
@@ -363,13 +348,7 @@ const AddUser = memo((props) => {
                     <input
                       className="form-check-input me-5"
                       type="checkbox"
-                      //   defaultValue=""
-                      //   onChange={() => {
-                      //     permission.push("Support and Query Dashboard");
-                      //   }}
                       value={four}
-                      //   defaultValue=""
-                      // onChange={handleChanges}
                       onChange={checkedFour}
                       name="four"
                       checked={fourth}
@@ -377,28 +356,6 @@ const AddUser = memo((props) => {
                     Support and Query Dashboard
                   </ListGroupItem>
                 </div>
-                {/* {checkList.map((item, index) => (
-                  <div key={index} className="field-container">
-                    <ListGroupItem as="label">
-                      <input
-                        className="form-check-input me-5"
-                        value={item}
-                        type="checkbox"
-                        onChange={handleCheck}
-                      />
-                    </ListGroupItem>
-                    <span className={isChecked(item)}>{item}</span>
-                  </div>
-                ))} */}
-                {/* <div>
-                  {error && !one && !two && !three && !four ? (
-                    <div className="text-danger">
-                      Please select at least one field
-                    </div>
-                  ) : (
-                    ""
-                  )}
-                </div> */}
                 <div>
                   {error && !first && !second && !third && !fourth ? (
                     <div className="text-danger">
@@ -435,8 +392,9 @@ const AddUser = memo((props) => {
                       type="text"
                       className={true ? "" : "is-valid"}
                       id="validationServer01"
-                      defaultValue={form.email}
+                      value={form.email}
                       required
+                      style={{ color: "black" }}
                     />
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                   </div>
@@ -451,7 +409,11 @@ const AddUser = memo((props) => {
                         <span>Admin Dashboard</span>
                         <span>Seller Dashboard</span>
                         <span>End Customer Dashboard</span>
-                        <span>Support and Query Dashboard</span>
+                        <div className="mt-2">
+                          <span className="p-1">
+                            Support and Query Dashboard
+                          </span>
+                        </div>
                       </div>
                     ) : second && third && fourth ? (
                       <div className="permission flex-container">

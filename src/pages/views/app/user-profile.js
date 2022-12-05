@@ -305,6 +305,7 @@ const Profileuser = memo(() => {
                   name="facebookUrl"
                   value={facebookUrl}
                   onChange={handleSocialChanges}
+                  style={{ color: "black" }}
                 />
                 <div>
                   {socialerror && facebookUrl.length <= 0 ? (
@@ -331,6 +332,7 @@ const Profileuser = memo(() => {
                   name="twitterUrl"
                   value={twitterUrl}
                   onChange={handleSocialChanges}
+                  style={{ color: "black" }}
                 />
                 <div>
                   {socialerror && twitterUrl.length <= 0 ? (
@@ -357,6 +359,7 @@ const Profileuser = memo(() => {
                   name="instagramUrl"
                   value={instagramUrl}
                   onChange={handleSocialChanges}
+                  style={{ color: "black" }}
                 />
                 <div>
                   {socialerror && instagramUrl.length <= 0 ? (
@@ -383,6 +386,7 @@ const Profileuser = memo(() => {
                   name="linkedinUrl"
                   value={linkedinUrl}
                   onChange={handleSocialChanges}
+                  style={{ color: "black" }}
                 />
                 <div>
                   {socialerror && linkedinUrl.length <= 0 ? (
@@ -409,6 +413,7 @@ const Profileuser = memo(() => {
                   name="youtubeUrl"
                   value={youtubeUrl}
                   onChange={handleSocialChanges}
+                  style={{ color: "black" }}
                 />
                 <div>
                   {socialerror && youtubeUrl.length <= 0 ? (
@@ -455,6 +460,7 @@ const Profileuser = memo(() => {
                         value={firstName}
                         placeholder="First Name"
                         onChange={handleUserDetailsChanges}
+                        style={{ color: "black" }}
                       />
                       <div>
                         {profileerror && firstName.length <= 0 ? (
@@ -482,6 +488,7 @@ const Profileuser = memo(() => {
                         name="lastName"
                         value={lastName}
                         onChange={handleUserDetailsChanges}
+                        style={{ color: "black" }}
                       />
                       <div>
                         {profileerror && lastName.length <= 0 ? (
@@ -509,6 +516,7 @@ const Profileuser = memo(() => {
                         value={gender}
                         onChange={handleUserDetailsChanges}
                         required
+                        style={{ color: "black" }}
                       >
                         <option value="">--Select Gender--</option>
                         <option label="Male" value="Male">
@@ -544,6 +552,7 @@ const Profileuser = memo(() => {
                         value={contactNumber}
                         placeholder="Mobile Number"
                         onChange={handleUserDetailsChanges}
+                        style={{ color: "black" }}
                       />
                       <div>
                         {profileerror && contactNumber.length <= 0 ? (
@@ -575,6 +584,7 @@ const Profileuser = memo(() => {
                           alternateContactNumber ? alternateContactNumber : ""
                         }
                         onChange={handleUserDetailsChanges}
+                        style={{ color: "black" }}
                       />
                       <div>
                         {profileerror && alternateContactNumber.length <= 0 ? (
@@ -602,6 +612,7 @@ const Profileuser = memo(() => {
                         value={users?.email}
                         placeholder="Email"
                         disabled
+                        style={{ color: "black" }}
                       />
                     </Form.Group>
                   </div>
@@ -625,6 +636,7 @@ const Profileuser = memo(() => {
                         value={users?.email}
                         placeholder="User Name"
                         disabled
+                        style={{ color: "black" }}
                       />
                     </Form.Group>
                     <Form.Group className="col-md-6 form-group">
@@ -635,6 +647,7 @@ const Profileuser = memo(() => {
                         value={oldPassword}
                         onChange={handleChangePassword}
                         placeholder="Old Password"
+                        style={{ color: "black" }}
                       />
                       <div>
                         {passworderror && oldPassword.length <= 0 ? (
@@ -661,6 +674,7 @@ const Profileuser = memo(() => {
                         name="newPassword"
                         value={newPassword}
                         onChange={handleChangePassword}
+                        style={{ color: "black" }}
                       />
                       <div>
                         {passworderror && newPassword.length <= 0 ? (
@@ -688,6 +702,7 @@ const Profileuser = memo(() => {
                         name="confirmNewPassword"
                         value={confirmNewPassword}
                         onChange={handleChangePassword}
+                        style={{ color: "black" }}
                       />
                       <div>
                         {passworderror && confirmNewPassword.length <= 0 ? (

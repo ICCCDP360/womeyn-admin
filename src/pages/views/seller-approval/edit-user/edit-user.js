@@ -20,7 +20,7 @@ import Loader from "../../../../components/Loader";
 
 const EditUser = memo((props) => {
   const params = useParams();
-  //   console.log("id", params.id);
+  console.log("object", params);
   const history = useNavigate();
 
   const [user, setUser] = useState("");
@@ -36,7 +36,73 @@ const EditUser = memo((props) => {
       .catch((err) => console.log(err));
   }, []);
 
+  // const checkFirst = user?.permissionIds.includes("1") ? true : false;
+  // const checkSecond = user.permissionIds.includes("2") ? true : false;
+  // const checkThird = user.permissionIds.includes("3") ? true : false;
+  // const checkFourth = user.permissionIds.includes("4") ? true : false;
+
+  console.log("first", user);
+
+  const [first, setFirst] = useState();
+  const [second, setSecond] = useState();
+  const [third, setThird] = useState();
+  const [fourth, setFourth] = useState();
+  const checkedOne = () => {
+    setFirst(!first);
+  };
+  const checkedTwo = () => {
+    setSecond(!second);
+  };
+  const checkedThree = () => {
+    setThird(!third);
+  };
+  const checkedFour = () => {
+    setFourth(!fourth);
+  };
+
+  const [error, setError] = useState(false);
+
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    number: "",
+    one: null,
+    two: null,
+    three: null,
+    four: null,
+  });
+
+  const { name, email, number, one, two, three, four } = form;
+
+  const handleChanges = (e) => {
+    setForm({ ...form, [e.target.name]: [e.target.value] });
+  };
+
+  const handleSubmit = () => {
+    if (name.length === 0 || email.length === 0 || number.length === 0) {
+      setError(true);
+    } else if (name && email && number) {
+      stmacess();
+    }
+  };
+
+  const handleContinue = () => {
+    if (!one && !two && !three && !four) {
+      setError(true);
+    } else if (one || two || three || four) {
+      confirm();
+    }
+    if (!first && !second && !third && !fourth) {
+      setError(true);
+    } else if (first || second || third || fourth) {
+      confirm();
+    }
+  };
+
   const stmacess = () => {
+    if (name.length === 0 || email.length === 0 || number.length === 0) {
+      setError(true);
+    }
     document.getElementById("basic").classList.remove("show");
     document.getElementById("stmacs").classList.add("show");
     document.getElementById("iq-tracker-position-1").classList.remove("active");
@@ -44,6 +110,9 @@ const EditUser = memo((props) => {
     document.getElementById("iq-tracker-position-2").classList.add("active");
   };
   const confirm = () => {
+    if (!first && !second && !third && !fourth) {
+      setError(true);
+    }
     document.getElementById("stmacs").classList.remove("show");
     document.getElementById("confirm").classList.add("show");
     document.getElementById("iq-tracker-position-2").classList.remove("active");
@@ -128,13 +197,23 @@ const EditUser = memo((props) => {
                   <div className="field-container">
                     <Form.Label htmlFor="validationServer01">Name</Form.Label>
                     <Form.Control
+                      name="name"
                       type="text"
                       className={true ? "" : "is-valid"}
-                      id="validationServer01"
-                      defaultValue={user.firstName}
+                      id="name"
+                      value={user.firstName}
+                      onChange={handleChanges}
                       required
+                      style={{ color: "black" }}
                     />
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                    <div>
+                      {error && name.length === 0 ? (
+                        <div className="text-danger">Name is required</div>
+                      ) : (
+                        ""
+                      )}
+                    </div>
                   </div>
 
                   <div className="field-container">
@@ -142,11 +221,14 @@ const EditUser = memo((props) => {
                       Email Address
                     </Form.Label>
                     <Form.Control
-                      type="text"
+                      name="email"
+                      type="email"
                       className={true ? "" : "is-valid"}
-                      id="validationServer01"
-                      defaultValue={user.email}
+                      id="email"
+                      value={user.email}
+                      onChange={handleChanges}
                       required
+                      style={{ color: "black" }}
                     />
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                   </div>
@@ -155,17 +237,27 @@ const EditUser = memo((props) => {
                       Contact Details
                     </Form.Label>
                     <Form.Control
+                      name="number"
                       type="text"
                       className={true ? "" : "is-valid"}
-                      id="validationServer01"
-                      defaultValue={user.contactNumber}
+                      id="number"
+                      value={user.contactNumber}
+                      onChange={handleChanges}
                       required
+                      style={{ color: "black" }}
                     />
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                    <div>
+                      {error && number.length === 0 ? (
+                        <div className="text-danger">Number is required</div>
+                      ) : (
+                        ""
+                      )}
+                    </div>
                   </div>
                   <hr className="hr-horizontal" />
                   <div>
-                    <Button variant="secondary">Cancel</Button>{" "}
+                    <Button variant="secondary">Back</Button>{" "}
                     <Button
                       variant="primary"
                       onClick={stmacess}
@@ -182,19 +274,24 @@ const EditUser = memo((props) => {
                     <input
                       className="form-check-input me-5"
                       type="checkbox"
-                      defaultValue=""
+                      value={one}
+                      onChange={checkedOne}
+                      name="one"
+                      // checked={first}
                       checked={user.permissionIds.includes("1") ? true : false}
                     />
                     Admin Dashboard
                   </ListGroupItem>
                 </div>
-
                 <div className="field-container">
                   <ListGroupItem as="label">
                     <input
                       className="form-check-input me-5"
                       type="checkbox"
-                      defaultValue=""
+                      value={two}
+                      onChange={checkedTwo}
+                      name="two"
+                      // checked={second}
                       checked={user.permissionIds.includes("2") ? true : false}
                     />
                     Seller Dashboard
@@ -205,7 +302,10 @@ const EditUser = memo((props) => {
                     <input
                       className="form-check-input me-5"
                       type="checkbox"
-                      defaultValue=""
+                      value={three}
+                      onChange={checkedThree}
+                      name="three"
+                      // checked={third}
                       checked={user.permissionIds.includes("3") ? true : false}
                     />
                     End Customer Dashboard
@@ -216,21 +316,35 @@ const EditUser = memo((props) => {
                     <input
                       className="form-check-input me-5"
                       type="checkbox"
-                      defaultValue=""
+                      value={four}
+                      onChange={checkedFour}
+                      name="four"
+                      // checked={fourth}
                       checked={user.permissionIds.includes("4") ? true : false}
                     />
                     Support and Query Dashboard
                   </ListGroupItem>
                 </div>
-
+                <div>
+                  {error && !first && !second && !third && !fourth ? (
+                    <div className="text-danger">
+                      Please select at least one field
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
                 <hr className="hr-horizontal" />
                 <div>
                   <Button variant="secondary" onClick={goBack}>
-                    Cancel
+                    Back
                   </Button>{" "}
                   <Button
                     variant="primary"
-                    onClick={confirm}
+                    onClick={handleContinue}
+                    // onClick={() => {
+                    //   console.log(values);
+                    // }}
                     className="margin-left-button "
                   >
                     Continue
@@ -249,6 +363,7 @@ const EditUser = memo((props) => {
                       id="validationServer01"
                       defaultValue={user.email}
                       required
+                      style={{ color: "black" }}
                     />
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                   </div>
@@ -261,7 +376,11 @@ const EditUser = memo((props) => {
                         <span>Admin Dashboard</span>
                         <span>Seller Dashboard</span>
                         <span>End Customer Dashboard</span>
-                        <span>Support and Query Dashboard</span>
+                        <div className="mt-2">
+                          <span className="p-1">
+                            Support and Query Dashboard
+                          </span>
+                        </div>
                       </div>
                     ) : user.permissionIds.includes("2,3,4") ? (
                       <div className="permission flex-container">
@@ -331,7 +450,7 @@ const EditUser = memo((props) => {
                   </div>
                   <hr className="hr-horizontal" />
                   <Button variant="secondary" onClick={goBack2}>
-                    Cancel
+                    Back
                   </Button>{" "}
                   <Button
                     variant="primary"
