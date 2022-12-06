@@ -1,5 +1,54 @@
 @use "../../../sass/abstract/" as *;
 
+// .main-choose-image-section {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   padding: 10px;
+//   position: relative;
+//   .files {
+//     display: none !important;
+//   }
+//   .choose-files {
+//     background-color: #e95a5a;
+//     width: 30px;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     height: 30px;
+//     border-radius: 50%;
+//     position: absolute;
+//     bottom: 0;
+//     right: 0;
+//   }
+//   .edit-image {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     text-align: center;
+//     border: 0px solid red;
+//     border-radius: 50%;
+//     width: 30px;
+//     height: 30px;
+//   }
+// }
+// .img-extension {
+//   padding-left: 5%;
+// }
+// .main-image-upload-section {
+//   position: relative;
+//   width: 100%;
+// }
+// .upload-image-icons {
+//   position: absolute;
+//   background-color: #e95a5a;
+//   top: 55%;
+//   right: 5%;
+//   bottom: 0 !important;
+//   border-radius: 50%;
+//   cursor: pointer;
+// }
+
 .main-choose-image-section {
   display: flex;
   align-items: center;
@@ -42,9 +91,38 @@
 .upload-image-icons {
   position: absolute;
   background-color: #e95a5a;
-  top: 55%;
-  right: 5%;
+  top: 0%;
+  right: 2%;
   bottom: 0 !important;
   border-radius: 50%;
   cursor: pointer;
+}
+
+.box-image-upload {
+  width: 100%;
+  height: 100%;
+  // border: 6px solid blue;
+  border-radius: 50%;
+}
+.upload-images {
+  background-color: #e95a5a !important;
+}
+
+.password-section-icons {
+  // border: 2px solid red;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+
+  .passsword-svg {
+    position: absolute;
+    right: 2%;
+    top: 7%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
 }

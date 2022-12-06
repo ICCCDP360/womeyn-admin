@@ -518,9 +518,8 @@ const Userlist = memo(() => {
       <Row>
         <Col lg="12">
           <Card>
-            <Card.Body>
-              <h5 className="mb-0">User List</h5>
-              <div className="simple-table table-responsive mt-4">
+            <Card.Body className="card-body-one">
+              <div className="simple-table table-responsive">
                 <Table className="mb-0" id="datatable" data-toggle="data-table">
                   <thead>
                     <tr className="bg-white">

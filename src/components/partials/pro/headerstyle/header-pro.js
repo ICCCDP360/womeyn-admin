@@ -252,7 +252,7 @@ const Headerpro = memo((props) => {
                         fill="currentColor"
                       />
                     </svg>
-                    <span className="nav-text ms-2">User Profile</span>
+                    <span className="nav-text ms-2">Your Profile</span>
                   </Nav.Link>
                 </Nav.Item>
 
