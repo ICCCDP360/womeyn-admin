@@ -12,10 +12,22 @@
 }
 
 .reset-button {
-  // width: ;
   width: 30% !important;
   background-color: #e95a5a !important;
 }
+
+.loadMore-div {
+  width: 100% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loadMore-button {
+  width: 25% !important;
+  background-color: #e95a5a !important;
+}
+
 .modal-bodys {
   padding-top: 10% !important;
 }

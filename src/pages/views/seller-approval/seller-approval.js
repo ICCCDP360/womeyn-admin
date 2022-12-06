@@ -92,6 +92,7 @@ const SellerApproval = memo((props) => {
     </svg>
   );
   const [sellers, setSellers] = useState([]);
+  const [sellerLimit, setSellerLimit] = useState(10);
   // const [stateId, setStateId] = useState();
   const actionReject = (item) => {
     console.log("id", item?.id);
@@ -124,6 +125,10 @@ const SellerApproval = memo((props) => {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  const loadMoreSellers = () => {
+    setSellerLimit(sellerLimit + 10);
+  };
 
   const table = [
     {
@@ -284,7 +289,7 @@ const SellerApproval = memo((props) => {
                 </tr>
               </thead>
               <tbody>
-                {sellers.map((item, index) => {
+                {sellers.slice(0, sellerLimit).map((item, index) => {
                   return (
                     <tr key={index}>
                       <td>
@@ -555,7 +560,23 @@ const SellerApproval = memo((props) => {
                   );
                 })}
               </tbody>
+              {/* <div className="loadMore-div">
+                <Button
+                  className="mt-5 loadMore-button"
+                  onClick={loadMoreSellers}
+                >
+                  Load More
+                </Button>
+              </div> */}
             </Table>
+            <div className="loadMore-div">
+              <Button
+                className="mt-5 loadMore-button"
+                onClick={loadMoreSellers}
+              >
+                Load More
+              </Button>
+            </div>
           </Card.Body>
         </Card>
       </div>

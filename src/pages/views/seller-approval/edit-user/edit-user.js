@@ -43,10 +43,10 @@ const EditUser = memo((props) => {
 
   console.log("first", user);
 
-  const [first, setFirst] = useState();
-  const [second, setSecond] = useState();
-  const [third, setThird] = useState();
-  const [fourth, setFourth] = useState();
+  const [first, setFirst] = useState(false);
+  const [second, setSecond] = useState(false);
+  const [third, setThird] = useState(false);
+  const [fourth, setFourth] = useState(false);
   const checkedOne = () => {
     setFirst(!first);
   };
@@ -87,16 +87,17 @@ const EditUser = memo((props) => {
   };
 
   const handleContinue = () => {
-    if (!one && !two && !three && !four) {
-      setError(true);
-    } else if (one || two || three || four) {
-      confirm();
-    }
-    if (!first && !second && !third && !fourth) {
-      setError(true);
-    } else if (first || second || third || fourth) {
-      confirm();
-    }
+    // if (!one && !two && !three && !four) {
+    //   setError(true);
+    // } else if (one || two || three || four) {
+    //   confirm();
+    // }
+    // if (!first && !second && !third && !fourth) {
+    //   setError(true);
+    // } else if (first || second || third || fourth) {
+    //   confirm();
+    // }
+    confirm();
   };
 
   const stmacess = () => {
@@ -278,7 +279,7 @@ const EditUser = memo((props) => {
                       onChange={checkedOne}
                       name="one"
                       // checked={first}
-                      checked={user.permissionIds.includes("1") ? true : false}
+                      checked={user.permissionIds.includes("1") ? true : first}
                     />
                     Admin Dashboard
                   </ListGroupItem>
@@ -292,7 +293,7 @@ const EditUser = memo((props) => {
                       onChange={checkedTwo}
                       name="two"
                       // checked={second}
-                      checked={user.permissionIds.includes("2") ? true : false}
+                      checked={user.permissionIds.includes("2") ? true : second}
                     />
                     Seller Dashboard
                   </ListGroupItem>
@@ -306,7 +307,7 @@ const EditUser = memo((props) => {
                       onChange={checkedThree}
                       name="three"
                       // checked={third}
-                      checked={user.permissionIds.includes("3") ? true : false}
+                      checked={user.permissionIds.includes("3") ? true : third}
                     />
                     End Customer Dashboard
                   </ListGroupItem>
@@ -320,12 +321,12 @@ const EditUser = memo((props) => {
                       onChange={checkedFour}
                       name="four"
                       // checked={fourth}
-                      checked={user.permissionIds.includes("4") ? true : false}
+                      checked={user.permissionIds.includes("4") ? true : fourth}
                     />
                     Support and Query Dashboard
                   </ListGroupItem>
                 </div>
-                <div>
+                {/* <div>
                   {error && !first && !second && !third && !fourth ? (
                     <div className="text-danger">
                       Please select at least one field
@@ -333,7 +334,7 @@ const EditUser = memo((props) => {
                   ) : (
                     ""
                   )}
-                </div>
+                </div> */}
                 <hr className="hr-horizontal" />
                 <div>
                   <Button variant="secondary" onClick={goBack}>

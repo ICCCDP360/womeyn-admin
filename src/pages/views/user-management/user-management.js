@@ -93,13 +93,16 @@ const UserManagement = memo((props) => {
 
   const [sellers, setSellers] = useState([]);
 
+  const [userLimit, setUserLimit] = useState(10);
+  const [sellerLimit, setSellerLimit] = useState(10);
+
   useEffect(() => {
     userServices()
       .then((res) => {
         console.log("user", res.data.results);
         // setUsers(res.data.results);
         console.log("user", res?.data?.results);
-        setUsers(res?.data?.results.reverse());
+        setUsers(res?.data?.results);
       })
       .catch((err) => console.log(err));
     sellerServices()
@@ -110,42 +113,13 @@ const UserManagement = memo((props) => {
       .catch((err) => console.log(err));
   }, []);
 
-  // userServices()
-  //   .then((res) => {
-  //     console.log("user", res.data.results);
-  //     setUsers(res.data.results);
-  //     console.log(res?.data?.results);
-  //     setUsers(res?.data?.results);
-  //   })
-  //   .catch((err) => console.log(err));
-  // sellerServices()
-  //   .then((res) => {
-  //     console.log("sellers", res.data.results);
-  //     setSellers(res.data.results);
-  //   })
-  //   .catch((err) => console.log(err));
+  const loadMoreUsers = () => {
+    setUserLimit(userLimit + 10);
+  };
 
-  // const apiCall = () => {
-  //   userServices()
-  //     .then((res) => console.log(res))
-  //     .catch((err) => console.log(err));
-  //   // var config = {
-  //   //   headers: {
-  //   //     "Content-Type": "application/json",
-  //   //     "Accept": "application/json",
-  //   //     "Authorization": `Bearer ${token}`,
-  //   //   },
-  //   // };
-  //   // console.log(config)
-  //   // axios
-  //   //   .get("https://eapi.tamilspark.com/v1/admin/users", config)
-  //   //   .then(function (response) {
-  //   //     console.log(JSON.stringify(response.data));
-  //   //   })
-  //   //   .catch(function (error) {
-  //   //     console.log(error);
-  //   //   });
-  // };
+  const loadMoreSellers = () => {
+    setSellerLimit(sellerLimit + 10);
+  };
 
   if (!users && !sellers) {
     return <Loader />;
@@ -223,7 +197,7 @@ const UserManagement = memo((props) => {
                     <div className="d-flex flex-column">
                       <Row>
                         <Col sm="12">
-                          {users.map((user, index) => {
+                          {users.slice(0, userLimit).map((user, index) => {
                             return (
                               <>
                                 <UserCard
@@ -242,6 +216,14 @@ const UserManagement = memo((props) => {
                         </Col>
                       </Row>
                     </div>
+                    <div className="loadMore-div">
+                      <Button
+                        className="mt-5 loadMore-button"
+                        onClick={loadMoreUsers}
+                      >
+                        Load More
+                      </Button>
+                    </div>
                   </Tab.Pane>
                   <Tab.Pane
                     eventKey="2"
@@ -256,23 +238,33 @@ const UserManagement = memo((props) => {
                             <Loader />
                           ) : (
                             <div>
-                              {sellers.map((seller, index) => {
-                                return (
-                                  <SellerCard
-                                    key={index}
-                                    notificationimg={"img1"}
-                                    notificationtitle={seller.firstName}
-                                    notificationsvg="1"
-                                    notificationcolor="primary"
-                                    notificationdefault="Permissions:"
-                                    contact={seller.email}
-                                  />
-                                );
-                              })}
+                              {sellers
+                                .slice(0, sellerLimit)
+                                .map((seller, index) => {
+                                  return (
+                                    <SellerCard
+                                      key={index}
+                                      notificationimg={"img1"}
+                                      notificationtitle={seller.firstName}
+                                      notificationsvg="1"
+                                      notificationcolor="primary"
+                                      notificationdefault="Permissions:"
+                                      contact={seller.email}
+                                    />
+                                  );
+                                })}
                             </div>
                           )}
                         </Col>
                       </Row>
+                    </div>
+                    <div className="loadMore-div">
+                      <Button
+                        className="mt-5 loadMore-button"
+                        onClick={loadMoreSellers}
+                      >
+                        Load More
+                      </Button>
                     </div>
                   </Tab.Pane>
                   <Tab.Pane
