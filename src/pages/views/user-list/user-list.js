@@ -517,7 +517,7 @@ const Userlist = memo(() => {
     <Fragment>
       <Row>
         <Col lg="12">
-          <Card>
+          <Card style={{ padding: 0 }}>
             <Card.Body className="card-body-one">
               <div className="simple-table table-responsive">
                 <Table className="mb-0" id="datatable" data-toggle="data-table">
@@ -535,7 +535,7 @@ const Userlist = memo(() => {
                   <tbody>
                     {table1.map((item, index) => {
                       return (
-                        <tr key={index}>
+                        <tr key={index} style={{ paddingLeft: 0 }}>
                           <td>
                             <div className="d-flex align-items-center">
                               <Image
