@@ -567,14 +567,6 @@ const UserManagement = memo((props) => {
                         </Col>
                       </Row>
                     </div>
-                    <div className="loadMore-div">
-                      <Button
-                        className="mt-5 loadMore-button"
-                        onClick={loadMoreSellers}
-                      >
-                        Load More
-                      </Button>
-                    </div>
                   </Tab.Pane>
                   <Tab.Pane
                     eventKey="3"
