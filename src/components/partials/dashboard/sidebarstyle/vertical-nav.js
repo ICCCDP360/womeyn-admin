@@ -136,7 +136,7 @@ const VerticalNav = memo(() => {
                 </svg>
               </i>
             </OverlayTrigger>
-            <span className="item-name">Seller Approval</span>
+            <span className="item-name">Seller Approval (10)</span>
           </Link>
         </li>
         <li

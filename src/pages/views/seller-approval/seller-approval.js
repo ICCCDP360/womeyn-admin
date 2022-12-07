@@ -309,7 +309,7 @@ const SellerApproval = memo((props) => {
                     <div className="d-flex flex-column">
                       <Row>
                         <Col sm="12">
-                          <Table responsive>
+                          <Table responsive striped>
                             <thead>
                               <tr>
                                 <th>Seller</th>
@@ -501,9 +501,7 @@ const SellerApproval = memo((props) => {
                                                 viewBox="0 0 32 32"
                                                 fill="none"
                                                 xmlns="http://www.w3.org/2000/svg"
-                                                onClick={() =>
-                                                  actionReject(item)
-                                                }
+                                                onClick={() => handleShow(item)}
                                                 // onClick={handleShow}
                                               >
                                                 <rect

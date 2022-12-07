@@ -277,7 +277,7 @@ const UserManagement = memo((props) => {
                     <div className="d-flex flex-column">
                       <Row>
                         <Col sm="12">
-                          <Table responsive>
+                          <Table responsive striped>
                             <thead>
                               <tr>
                                 <th>Seller</th>

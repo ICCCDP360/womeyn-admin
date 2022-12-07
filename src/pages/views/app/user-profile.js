@@ -338,7 +338,7 @@ const Profileuser = memo(() => {
                       <div className="main-image-upload-section">
                         <label htmlFor="upload-button">
                           <div className="box-image-upload">
-                            {imageuploads === "null" && (
+                            {imageuploads == "" && (
                               <div>
                                 <img
                                   src="https://sialifehospital.com/wp-content/uploads/2021/04/testimonial-1.png"
