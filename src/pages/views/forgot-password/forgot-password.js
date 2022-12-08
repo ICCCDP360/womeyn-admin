@@ -127,7 +127,7 @@ const ForgetPassword = memo(() => {
                       {/* <Logo></Logo> */}
                       <h4 className="logo-title ms-3">{appName}</h4>
                     </Link>
-                    <h2 className="mb-2 mb-3">Reset Password</h2>
+                    <h2 className="mb-2 mb-3">Forgot Password</h2>
                     <p className="mb-4 mt-3">
                       Enter your email address and we'll send you an email with
                       instructions to reset your password.
@@ -170,7 +170,7 @@ const ForgetPassword = memo(() => {
                         Back
                       </Button>
                       <Button className="mt-5 ms-5 reset-button" type="submit">
-                        Reset Password
+                        Send Email
                       </Button>
                     </Form>
                   </div>
@@ -200,9 +200,8 @@ const ForgetPassword = memo(() => {
               <div class="modal-content">
                 <div class="modal-body">
                   <div className="mt-5 mb-5">
-                    If you are a registered customer, you will receive a
-                    password reset link in your email. Please follow the
-                    instruction and Reset your password.
+                    We have sent you a password reset link in your email. Please
+                    follow the instruction and Reset your password.
                   </div>
 
                   <div className="mt-4 mb-5 button-forgetpassword">

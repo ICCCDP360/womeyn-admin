@@ -23,7 +23,7 @@ const IndexRouters = memo(() => {
     <Routes>
       <Route path="/" element={<SignIn />}></Route>
       <Route path="/forgot-password" element={<ForgetPassword />}></Route>
-      <Route path="/change-password" element={<UpdateForgotPassword />}></Route>
+      <Route path="/reset-password" element={<UpdateForgotPassword />}></Route>
       <Route element={<ProtectedRoutes></ProtectedRoutes>}>
         <Route path="womeyn" element={<Default />}>
           <Route

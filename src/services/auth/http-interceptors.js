@@ -4,12 +4,14 @@ axios.interceptors.request.use(
     console.log("request", config.url);
     if (config.url === "/auth/admin/login") {
       config.url = process.env.REACT_APP_APIURL + config.url;
-      console.log("configUrl", config.url);
+      console.log("requestUrl", config.url);
+    } else if (config.url === "/auth/admin/forgot-password") {
+      config.url = process.env.REACT_APP_APIURL + config.url;
+      console.log("requestUrlAuth", config.url);
     } else if (config.url.search("/admin/update-photo") !== -1) {
       const token = localStorage.getItem("access_token");
       config.url = process.env.REACT_APP_APIURL + config.url;
-      console.log("token", token);
-      console.log(config.url, "image-url");
+      console.log("image-url", config.url);
       config.headers = {
         ...config.headers,
         "Content-Type": false,

@@ -20,8 +20,9 @@ import { useSelector } from "react-redux";
 import { useFormik, Field } from "formik";
 import * as Yup from "yup";
 // import { UpdateForgetPassword } from "./api/Post";
-import { updateForgotPasswordServices } from "../../../services/UpdateForgotPassword/updateForgotPassword-services";
+// import { changePasswordServices } from "../../../services/change-password/changePassword-services";
 import { toast } from "react-toastify";
+import { changePasswordServices } from "../../../services/change-password/changePassword-services";
 const UpdateForgotPassword = memo(() => {
   const queryParameters = new URLSearchParams(window.location.search);
   const nameToken = queryParameters.get("token");
@@ -50,30 +51,8 @@ const UpdateForgotPassword = memo(() => {
       const datas = {
         password: password,
       };
-
       console.log(datas, "kalai forgetpassword repeat password!!");
-      // console.log(datas, "kalai formik");
-      // loginServices.login(datas).then(async (result) => {
-      //     localStorage.setItem("userdetails", JSON.stringify(result));
-      //     localStorage.setItem('userid', JSON.stringify(result.user.id));
-      //     if (result.tokens) {
-      //         let auth_set = await loginServices.asyncAuthStorage(result);
-      //         if (auth_set) {
-      //             toast.success("User Login Successfully 😃")
-      //             setTimeout(() => {
-      //                 history('/womeyn/dashboard')
-      //             }, 1500);
-      //         }
-
-      //     }
-      // }).catch(err => {
-      //     if (err) {
-      //         console.log(err?.response?.data?.message)
-      //         toast.error(`${err?.response?.data?.message} 😬`);
-      //     }
-      // })
-
-      updateForgotPasswordServices(nameToken, datas)
+      changePasswordServices(nameToken, datas)
         .then((res) => {
           console.log("====================================");
           console.log(res?.data);

@@ -200,7 +200,8 @@ const Profileuser = memo(() => {
   };
 
   const [image, setImage] = useState("");
-  const [imageuploads, setImageUpload] = useState("");
+  const [imageuploads, setImageUpload] = useState(null);
+  const [showUpdateButton, setShowUpdateButton] = useState(true);
 
   const handleSubmitImgaes = (e) => {
     if (e.target.files[0]) {
@@ -221,6 +222,7 @@ const Profileuser = memo(() => {
 
     imageUploadServices(userid, formData)
       .then((res) => {
+        setShowUpdateButton(false);
         console.log("response", res);
         toast.success(`${res.message} 😀`);
         // window.location.reload(false);
@@ -338,7 +340,7 @@ const Profileuser = memo(() => {
                       <div className="main-image-upload-section">
                         <label htmlFor="upload-button">
                           <div className="box-image-upload">
-                            {!imageuploads === null && (
+                            {/* {imageuploads === null ? (
                               <div>
                                 <img
                                   src="https://sialifehospital.com/wp-content/uploads/2021/04/testimonial-1.png"
@@ -351,9 +353,50 @@ const Profileuser = memo(() => {
                                   }}
                                 />
                               </div>
-                            )}
+                            ) : (
+                              <>
+                                {imageuploads ? (
+                                  <div>
+                                    <>
+                                      <img
+                                        alt="profile-pic"
+                                        width={"110px"}
+                                        height={"110px"}
+                                        style={{
+                                          borderRadius: "50%",
+                                          cursor: "pointer",
+                                        }}
+                                        src={URL.createObjectURL(imageuploads)}
+                                      />
+                                      <div className="mt-2">
+                                        <Button onClick={uploadImages}>
+                                          Upload
+                                        </Button>
+                                      </div>
+                                    </>
+                                  </div>
+                                ) : (
+                                  <>
+                                    {users.profileImageName && (
+                                      <>
+                                        <img
+                                          width={"110px"}
+                                          height={"110px"}
+                                          style={{
+                                            borderRadius: "50%",
+                                            cursor: "pointer",
+                                          }}
+                                          src={`https://my-demo-11-bucket.s3.ap-south-1.amazonaws.com/${users.profileImageName}`}
+                                          alt="profile-pic"
+                                        />
+                                      </>
+                                    )}
+                                  </>
+                                )}
+                              </>
+                            )} */}
                             {imageuploads ? (
-                              <div>
+                              <>
                                 <>
                                   <img
                                     alt="profile-pic"
@@ -365,17 +408,19 @@ const Profileuser = memo(() => {
                                     }}
                                     src={URL.createObjectURL(imageuploads)}
                                   />
-                                  <div className="mt-2">
-                                    <Button onClick={uploadImages}>
-                                      Upload
-                                    </Button>
-                                  </div>
+                                  {showUpdateButton ? (
+                                    <div className="mt-2">
+                                      <Button onClick={uploadImages}>
+                                        Upload
+                                      </Button>
+                                    </div>
+                                  ) : null}
                                 </>
-                              </div>
+                              </>
                             ) : (
                               <>
-                                {users.profileImageName && (
-                                  <>
+                                {users.profileImageName ? (
+                                  <div>
                                     <img
                                       width={"110px"}
                                       height={"110px"}
@@ -386,7 +431,20 @@ const Profileuser = memo(() => {
                                       src={`https://my-demo-11-bucket.s3.ap-south-1.amazonaws.com/${users.profileImageName}`}
                                       alt="profile-pic"
                                     />
-                                  </>
+                                  </div>
+                                ) : (
+                                  <div>
+                                    <img
+                                      src="https://sialifehospital.com/wp-content/uploads/2021/04/testimonial-1.png"
+                                      alt="profile-pic"
+                                      width={"110px"}
+                                      height={"110px"}
+                                      style={{
+                                        borderRadius: "50%",
+                                        cursor: "pointer",
+                                      }}
+                                    />
+                                  </div>
                                 )}
                               </>
                             )}
