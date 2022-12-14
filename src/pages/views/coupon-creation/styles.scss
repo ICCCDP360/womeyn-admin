@@ -1,0 +1,10 @@
+@use "../../../sass/abstract/" as *;
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ml-1 {
+  margin-left: 1rem;
+}

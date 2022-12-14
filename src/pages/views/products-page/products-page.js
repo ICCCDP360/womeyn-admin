@@ -116,13 +116,13 @@ const ProductPage = memo(() => {
   return (
     <Fragment>
       <div className="d-flex flex-row justify-content-between">
-        <h4 className="mb-0">Products</h4>
+        <h4 className="mb-0">Category</h4>
         <Link
           className="nav-link "
           aria-current="page"
           to="/womeyn/product-add"
         >
-          <Button style={{ marginBottom: 10 }}>+ Add Product</Button>
+          <Button style={{ marginBottom: 10 }}>+ Add a New Category</Button>
         </Link>
       </div>
       <Row className="row-cols-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-3 mt-4 ">

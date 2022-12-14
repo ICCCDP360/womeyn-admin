@@ -1,0 +1,15 @@
+@use "../../../sass/abstract/" as *;
+
+.main-camera-section {
+  width: 100% !important;
+  height: 100% !important;
+  border: 2px dashed #e95a5a;
+  border-radius: 5px;
+  padding: 20px 20px;
+
+  .inside-camera-section-upload {
+    background-color: rgba(233, 90, 90, 0.2);
+    padding: 20px 30px;
+    border-radius: 10px;
+  }
+}

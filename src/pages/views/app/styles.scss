@@ -1,54 +1,5 @@
 @use "../../../sass/abstract/" as *;
 
-// .main-choose-image-section {
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   padding: 10px;
-//   position: relative;
-//   .files {
-//     display: none !important;
-//   }
-//   .choose-files {
-//     background-color: #e95a5a;
-//     width: 30px;
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     height: 30px;
-//     border-radius: 50%;
-//     position: absolute;
-//     bottom: 0;
-//     right: 0;
-//   }
-//   .edit-image {
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     text-align: center;
-//     border: 0px solid red;
-//     border-radius: 50%;
-//     width: 30px;
-//     height: 30px;
-//   }
-// }
-// .img-extension {
-//   padding-left: 5%;
-// }
-// .main-image-upload-section {
-//   position: relative;
-//   width: 100%;
-// }
-// .upload-image-icons {
-//   position: absolute;
-//   background-color: #e95a5a;
-//   top: 55%;
-//   right: 5%;
-//   bottom: 0 !important;
-//   border-radius: 50%;
-//   cursor: pointer;
-// }
-
 .main-choose-image-section {
   display: flex;
   align-items: center;

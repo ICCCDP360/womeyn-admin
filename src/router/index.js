@@ -20,6 +20,7 @@ import SellerProfile from "../pages/views/seller-profile/seller-profile";
 import UserProfile from "../pages/views/app/user-profile";
 import AddUser from "../pages/views/adduser/AddUser";
 import AddProduct from "../pages/views/add-product/add-product";
+import CouponCreation from "../pages/views/coupon-creation/coupon-creation";
 
 const IndexRouters = memo(() => {
   return (
@@ -56,6 +57,10 @@ const IndexRouters = memo(() => {
             element={<ProductPage></ProductPage>}
           ></Route>
           <Route path="product-add" element={<AddProduct></AddProduct>}></Route>
+          <Route
+            path="create-coupon"
+            element={<CouponCreation></CouponCreation>}
+          ></Route>
         </Route>
       </Route>
     </Routes>
