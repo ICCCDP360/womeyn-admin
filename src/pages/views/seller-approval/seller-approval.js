@@ -3,7 +3,7 @@ import { Table, Nav, Tab, Button } from "react-bootstrap";
 import Card from "../../../components/bootstrap/card";
 import { useSelector } from "react-redux";
 import * as SettingSelector from "../../../store/setting/selectors";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { sellerServices } from "../../../services/seller-services/seller-services";
 import { Row, Col } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
@@ -27,6 +27,7 @@ let description =
 
 const SellerApproval = memo((props) => {
   useSelector(SettingSelector.theme_color);
+  const navigate = useNavigate();
   const add = (
     <svg
       width="32"
@@ -144,6 +145,10 @@ const SellerApproval = memo((props) => {
 
   const loadMoreSellers = () => {
     setSellerLimit(sellerLimit + 10);
+  };
+
+  const handleSelect = () => {
+    navigate(`/womeyn/seller-profile`);
   };
 
   const table = [
@@ -328,30 +333,39 @@ const SellerApproval = memo((props) => {
                                       <tr key={index}>
                                         <td>
                                           <div className="d-flex align-items-center">
-                                            {item?.profileImageName ? (
-                                              <img
-                                                className="rounded me-3"
-                                                style={{
-                                                  width: 64,
-                                                  height: 64,
-                                                }}
-                                                src={`https://my-demo-11-bucket.s3.ap-south-1.amazonaws.com/${item.profileImageName}`}
-                                                alt=""
-                                                loading="lazy"
-                                              />
-                                            ) : (
-                                              <img
-                                                className="rounded me-3"
-                                                style={{
-                                                  width: 64,
-                                                  height: 64,
-                                                }}
-                                                src="https://sialifehospital.com/wp-content/uploads/2021/04/testimonial-1.png"
-                                                alt=""
-                                                loading="lazy"
-                                              />
-                                            )}
-                                            <div className="media-support-info">
+                                            <Link
+                                              to={`/womeyn/seller-profile/${item.id}`}
+                                            >
+                                              {item?.profileImageName ? (
+                                                <img
+                                                  className="rounded me-3"
+                                                  style={{
+                                                    width: 64,
+                                                    height: 64,
+                                                  }}
+                                                  src={`https://my-demo-11-bucket.s3.ap-south-1.amazonaws.com/${item.profileImageName}`}
+                                                  alt=""
+                                                  loading="lazy"
+                                                />
+                                              ) : (
+                                                <img
+                                                  className="rounded me-3"
+                                                  style={{
+                                                    width: 64,
+                                                    height: 64,
+                                                  }}
+                                                  src="https://sialifehospital.com/wp-content/uploads/2021/04/testimonial-1.png"
+                                                  alt=""
+                                                  loading="lazy"
+                                                />
+                                              )}
+                                            </Link>
+                                            <div
+                                              className="media-support-info"
+                                              onClick={() =>
+                                                handleSelect(item?.id)
+                                              }
+                                            >
                                               <h5 className="iq-sub-label text-uppercase">
                                                 {item.firstName}
                                               </h5>

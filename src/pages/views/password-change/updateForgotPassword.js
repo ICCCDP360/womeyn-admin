@@ -1,7 +1,7 @@
 import { memo, Fragment, useState } from "react";
 
 //react-bootstrap
-import { Row, Col, Image, Form, Button } from "react-bootstrap";
+import { Row, Col, Image, Form, Button, Spinner } from "react-bootstrap";
 
 //router
 import { Link, useNavigate } from "react-router-dom";
@@ -15,12 +15,20 @@ import auth2 from "../../../assets/images/auth/02.png";
 // Import selectors & action from setting store
 import * as SettingSelector from "../../../store/setting/selectors";
 
+//images
+import logowomenyn from "../../../assets/loginLogos/women_white_log.svg";
+import circlethree from "../../../assets/loginLogos/circle.svg";
+import login from "../../../assets/loginLogos/login.png";
+import circleone from "../../../assets/loginLogos/circle2.svg";
+import circletwo from "../../../assets/loginLogos/circle1.svg";
+import qutations from "../../../assets/loginLogos/quatation.svg";
+
+import "../../auth/Signin.scss";
+
 // Redux Selector / Action
 import { useSelector } from "react-redux";
 import { useFormik, Field } from "formik";
 import * as Yup from "yup";
-// import { UpdateForgetPassword } from "./api/Post";
-// import { changePasswordServices } from "../../../services/change-password/changePassword-services";
 import { toast } from "react-toastify";
 import { changePasswordServices } from "../../../services/change-password/changePassword-services";
 const UpdateForgotPassword = memo(() => {
@@ -74,16 +82,34 @@ const UpdateForgotPassword = memo(() => {
   return (
     <Fragment>
       <section className="login-content">
-        <Row className="m-0 align-items-center bg-white vh-100">
+        <Row>
           <Col
+            lg="6"
             md="6"
-            className="d-md-block d-none bg-primary p-0 mt-n1 vh-100 overflow-hidden"
+            className="d-md-block d-none bg-primarys p-0 vh-100 overflow-hidden left"
           >
-            <Image
-              src={auth2}
-              className="img-fluid gradient-main animated-scaleX"
-              alt="images"
-            />
+            <div className="logo">
+              <img src={logowomenyn} alt="no image" />
+            </div>
+            <div className="circle">
+              <img src={circlethree} alt="no image" className="circles" />
+            </div>
+            <div className="sellers">
+              <h5 className="we">We are trusted by </h5>
+              <div>
+                <h6 className="seller">Sellers</h6>
+              </div>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                height: "94%",
+                paddingTop: "7%",
+              }}
+            >
+              <img src={login} className="Image-fluid" alt="images" />
+            </div>
           </Col>
           <Col md="6" className="p-0">
             <Card className="card-transparent auth-card shadow-none d-flex justify-content-center mb-0">

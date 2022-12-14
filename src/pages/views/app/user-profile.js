@@ -262,139 +262,11 @@ const Profileuser = memo(() => {
             <Card.Body>
               <Form.Group className="form-group">
                 <div className="profile-img-edit position-relative">
-                  {/* {users?.profileImageName ? (
-                    <Image
-                      className="theme-color-default-img  profile-pic rounded avatar-100"
-                      src={`https://my-demo-11-bucket.s3.ap-south-1.amazonaws.com/${users.profileImageName}`}
-                      alt="profile-pic"
-                    />
-                  ) : (
-                    <Image
-                      className="theme-color-default-img  profile-pic rounded avatar-100"
-                      src="https://sialifehospital.com/wp-content/uploads/2021/04/testimonial-1.png"
-                      alt="profile-pic"
-                    />
-                  )} */}
-                  {/* <div className="upload-icone bg-primary">
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={uploadImages}
-                    />
-                    <svg
-                      className="upload-button"
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffffff"
-                        d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z"
-                      />
-                    </svg>
-                    <Form.Control
-                      className="file-upload"
-                      type="file"
-                      accept="image/*"
-                    />
-                  </div> */}
-                  {/* <div className="profile-img-edit position-relative">
-                    {imageuploads ? (
-                      <div>
-                        <img
-                          alt="profile-pic"
-                          width={"100px"}
-                          height={"100px"}
-                          style={{ borderRadius: "50%" }}
-                          src={URL.createObjectURL(imageuploads)}
-                        />
-                      </div>
-                    ) : (
-                      <div>
-                        <img
-                          width={"100px"}
-                          height={"100px"}
-                          style={{ borderRadius: "50%" }}
-                          // className="theme-color-default-img  profile-pic rounded avatar-100"
-                          src={`https://my-demo-11-bucket.s3.ap-south-1.amazonaws.com/${users.profileImageName}`}
-                          alt="profile-pic"
-                        />
-                      </div>
-                    )}
-
-                    <div className="inputWrapper">
-                      <input
-                        type="file"
-                        // onChange={handleSubmitImgaes}
-                        accept="image/*"
-                        className="fileInput"
-                      />
-                      <Button onClick={handleSubmitImgaes}>Select Image</Button>
-                      <Button className="color-one" onClick={uploadImages}>
-                        Upload
-                      </Button>
-                    </div>
-                  </div> */}
                   <div className="main-choose-image-section">
                     <div>
                       <div className="main-image-upload-section">
                         <label htmlFor="upload-button">
                           <div className="box-image-upload">
-                            {/* {imageuploads === null ? (
-                              <div>
-                                <img
-                                  src="https://sialifehospital.com/wp-content/uploads/2021/04/testimonial-1.png"
-                                  alt="profile-pic"
-                                  width={"110px"}
-                                  height={"110px"}
-                                  style={{
-                                    borderRadius: "50%",
-                                    cursor: "pointer",
-                                  }}
-                                />
-                              </div>
-                            ) : (
-                              <>
-                                {imageuploads ? (
-                                  <div>
-                                    <>
-                                      <img
-                                        alt="profile-pic"
-                                        width={"110px"}
-                                        height={"110px"}
-                                        style={{
-                                          borderRadius: "50%",
-                                          cursor: "pointer",
-                                        }}
-                                        src={URL.createObjectURL(imageuploads)}
-                                      />
-                                      <div className="mt-2">
-                                        <Button onClick={uploadImages}>
-                                          Upload
-                                        </Button>
-                                      </div>
-                                    </>
-                                  </div>
-                                ) : (
-                                  <>
-                                    {users.profileImageName && (
-                                      <>
-                                        <img
-                                          width={"110px"}
-                                          height={"110px"}
-                                          style={{
-                                            borderRadius: "50%",
-                                            cursor: "pointer",
-                                          }}
-                                          src={`https://my-demo-11-bucket.s3.ap-south-1.amazonaws.com/${users.profileImageName}`}
-                                          alt="profile-pic"
-                                        />
-                                      </>
-                                    )}
-                                  </>
-                                )}
-                              </>
-                            )} */}
                             {imageuploads ? (
                               <>
                                 <>
@@ -474,13 +346,6 @@ const Profileuser = memo(() => {
                     </div>
                   </div>
                 </div>
-                {/* <div className="img-extension mt-3">
-                  <div className="d-inline-block align-items-center">
-                    <span>Only</span> <Link to="#">.jpg</Link>{" "}
-                    <Link to="#">.png</Link> <Link to="#">.jpeg</Link>{" "}
-                    <span>allowed</span>
-                  </div>
-                </div> */}
               </Form.Group>
               <Form.Group className="form-group">
                 <Form.Label>Facebook Url:</Form.Label>
