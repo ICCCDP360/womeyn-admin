@@ -34,7 +34,7 @@ const CouponCreation = memo((props) => {
           <p className="text-dark">coupons</p>
           <p className="text-dark ml-1">Create a new coupon</p>
         </div>
-        <Row>
+        {/* <Row>
           <Col sm="12">
             <ul
               className="text-center iq-product-tracker mb-0 py-4"
@@ -54,7 +54,7 @@ const CouponCreation = memo((props) => {
               </li>
             </ul>
           </Col>
-        </Row>
+        </Row> */}
         <div>
           <Button variant="secondary">Cancel</Button>{" "}
           <Button
@@ -69,7 +69,7 @@ const CouponCreation = memo((props) => {
           </Button>{" "}
         </div>
       </div>
-      <div class=" mt-0 p-1 bg-secondary w-100"></div>
+      {/* <div class=" mt-0 p-1 bg-secondary w-100"></div> */}
     </Fragment>
   );
 });

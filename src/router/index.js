@@ -21,6 +21,8 @@ import UserProfile from "../pages/views/app/user-profile";
 import AddUser from "../pages/views/adduser/AddUser";
 import AddProduct from "../pages/views/add-product/add-product";
 import CouponCreation from "../pages/views/coupon-creation/coupon-creation";
+import ServicePage from "../pages/views/service-page/service-page";
+import AddService from "../pages/views/add-service/add-service";
 
 const IndexRouters = memo(() => {
   return (
@@ -57,6 +59,11 @@ const IndexRouters = memo(() => {
             element={<ProductPage></ProductPage>}
           ></Route>
           <Route path="product-add" element={<AddProduct></AddProduct>}></Route>
+          <Route
+            path="service-page"
+            element={<ServicePage></ServicePage>}
+          ></Route>
+          <Route path="service-add" element={<AddService></AddService>}></Route>
           <Route
             path="create-coupon"
             element={<CouponCreation></CouponCreation>}
