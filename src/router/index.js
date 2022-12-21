@@ -15,6 +15,8 @@ import ProtectedRoutes from "./protected-routes";
 import ForgetPassword from "../pages/views/forgot-password/forgot-password";
 import UpdateForgotPassword from "../pages/views/password-change/updateForgotPassword";
 import SellerProfile from "../pages/views/seller-profile/seller-profile";
+import ProductList from "../pages/views/product-list/product-list";
+import ServiceList from "../pages/views/service-list/service-list";
 
 //Users
 import UserProfile from "../pages/views/app/user-profile";
@@ -55,15 +57,23 @@ const IndexRouters = memo(() => {
           ></Route>
           <Route path="user-add" element={<AddUser></AddUser>}></Route>
           <Route
-            path="product-page"
+            path="product-category"
             element={<ProductPage></ProductPage>}
           ></Route>
           <Route path="product-add" element={<AddProduct></AddProduct>}></Route>
           <Route
-            path="service-page"
+            path="service-category"
             element={<ServicePage></ServicePage>}
           ></Route>
           <Route path="service-add" element={<AddService></AddService>}></Route>
+          <Route
+            path="product-list"
+            element={<ProductList></ProductList>}
+          ></Route>
+          <Route
+            path="service-list"
+            element={<ServiceList></ServiceList>}
+          ></Route>
           <Route
             path="create-coupon"
             element={<CouponCreation></CouponCreation>}

@@ -14,21 +14,23 @@ const CategoryCard = memo((props) => {
     <Fragment>
       <Card className="1 iq-product-custom-card">
         <div className="iq-product-hover-img position-relative">
-          <Image
-            src={props.productImage}
-            alt="product-details"
-            className="img-fluid iq-product-img"
-          />
+          <Link to="/e-commerce/product-details">
+            <Image
+              src={props.productImage}
+              alt="product-details"
+              className="img-fluid iq-product-img"
+            />
+          </Link>
         </div>
         <Card.Body>
           <div className="d-flex flex-column">
             <Link
               to="/e-commerce/product-details"
-              className="h5 mb-0 iq-product-detail"
+              className="h5 mb-0 iq-product-detail text-center"
             >
               {props.productName}
             </Link>
-            <span className="text-muted">{props.productPrice}</span>
+            {/* <span className="text-muted">{props.productPrice}</span> */}
           </div>
         </Card.Body>
       </Card>

@@ -116,7 +116,7 @@ const ServicePage = memo(() => {
   return (
     <Fragment>
       <div className="d-flex flex-row justify-content-between">
-        <h4 className="mb-0">Service</h4>
+        <h4 className="mb-0">Service Categories</h4>
         <Link
           className="nav-link "
           aria-current="page"
@@ -133,9 +133,6 @@ const ServicePage = memo(() => {
               onRemove={() => handleRemove(index)}
               images={item.image}
               itemsName={item.name}
-              ratings={item.rating}
-              productPrice={item.price}
-              productOffer={item.offer}
               productLiked={item.like}
             />
           );
