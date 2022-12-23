@@ -17,8 +17,9 @@ import { toast } from "react-toastify";
 import { useFormik, Field } from "formik";
 import * as Yup from "yup";
 import login from "../../assets/loginLogos/login.png";
-import logowomenyn from "../../assets/loginLogos/women_white_log.svg";
+import logowomenyn from "../../assets/loginLogos/new-womeyn.svg";
 import circlethree from "../../assets/loginLogos/circle.svg";
+import { ReactComponent as Home } from "../../assets/home.svg";
 import "./Signin.scss";
 
 const SignIn = memo(() => {
@@ -59,7 +60,6 @@ const SignIn = memo(() => {
         })
         .catch((err) => {
           if (err) {
-            console.log(err?.response?.data?.message);
             toast.error(`${err?.response?.data?.message} 😬`);
           }
         });
@@ -106,14 +106,7 @@ const SignIn = memo(() => {
                   <h6 className="seller">Sellers</h6>
                 </div>
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  height: "94%",
-                  paddingTop: "7%",
-                }}
-              >
+              <div className="logo-image">
                 <img src={login} className="Image-fluid" alt="images" />
               </div>
             </Col>

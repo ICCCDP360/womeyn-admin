@@ -1,17 +1,14 @@
 import axios from "axios";
 axios.interceptors.request.use(
   function (config) {
-    console.log("request", config.url);
     if (config.url === "/auth/admin/login") {
       config.url = process.env.REACT_APP_APIURL + config.url;
-      console.log("requestUrl", config.url);
     } else if (config.url === "/auth/admin/forgot-password") {
       config.url = process.env.REACT_APP_APIURL + config.url;
-      console.log("requestUrlAuth", config.url);
     } else if (config.url.search("/admin/update-photo") !== -1) {
       const token = localStorage.getItem("access_token");
       config.url = process.env.REACT_APP_APIURL + config.url;
-      console.log("image-url", config.url);
+
       config.headers = {
         ...config.headers,
         "Content-Type": false,
@@ -23,7 +20,7 @@ axios.interceptors.request.use(
     } else {
       const token = localStorage.getItem("access_token");
       config.url = process.env.REACT_APP_APIURL + config.url;
-      console.log(config.url, "configUrl");
+
       config.headers = {
         ...config.headers,
         "Content-Type": "application/json",

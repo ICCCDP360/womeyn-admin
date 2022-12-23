@@ -1,12 +1,11 @@
 @use "../abstract" as *;
 
-.cart
-{
-    width: 50%;
-    background-color: lightskyblue;
-    padding: 10px;
-    border-radius: 20px;
-    border: none;
-    outline: none;
-    font-weight: bold;
+.cart {
+  width: 50%;
+  background-color: lightskyblue;
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  font-weight: bold;
 }

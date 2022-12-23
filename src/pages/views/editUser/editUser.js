@@ -1,6 +1,6 @@
-import { useState, memo, Fragment } from "react";
+import { useState, memo, Fragment, useEffect } from "react";
 // Router
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 // React-bootstrap
 import {
@@ -12,13 +12,28 @@ import {
   Form,
 } from "react-bootstrap";
 
+import { getAdminByIdServices } from "../../../services/admin/adminServices";
+
 //Components
 import Card from "../../../components/bootstrap/card";
+import Loader from "../../../components/Loader";
 
-import { createAdmin } from "../../../services/admin/adminServices";
+const EditUser = memo((props) => {
+  const params = useParams();
 
-const AddUser = memo((props) => {
-  const navigate = useNavigate();
+  const history = useNavigate();
+
+  const [user, setUser] = useState("");
+
+  useEffect(() => {
+    getAdminByIdServices(params.id)
+      .then((res) => {
+        // setUsers(res.data.results);
+        //
+        setUser(res?.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   const [first, setFirst] = useState(false);
   const [second, setSecond] = useState(false);
@@ -36,12 +51,6 @@ const AddUser = memo((props) => {
   const checkedFour = () => {
     setFourth(!fourth);
   };
-  const checkList = [
-    "Admin Dashboard",
-    "Seller Dashboard",
-    "End Customer Dashboard",
-    "Support and Query Dashboard",
-  ];
 
   const [error, setError] = useState(false);
 
@@ -70,16 +79,17 @@ const AddUser = memo((props) => {
   };
 
   const handleContinue = () => {
-    if (!one && !two && !three && !four) {
-      setError(true);
-    } else if (one || two || three || four) {
-      confirm();
-    }
-    if (!first && !second && !third && !fourth) {
-      setError(true);
-    } else if (first || second || third || fourth) {
-      confirm();
-    }
+    // if (!one && !two && !three && !four) {
+    //   setError(true);
+    // } else if (one || two || three || four) {
+    //   confirm();
+    // }
+    // if (!first && !second && !third && !fourth) {
+    //   setError(true);
+    // } else if (first || second || third || fourth) {
+    //   confirm();
+    // }
+    confirm();
   };
 
   const stmacess = () => {
@@ -93,19 +103,14 @@ const AddUser = memo((props) => {
     document.getElementById("iq-tracker-position-2").classList.add("active");
   };
   const confirm = () => {
-    // if (!one && !two && !three && !four) {
-    //   setError(true);
-    // }
     if (!first && !second && !third && !fourth) {
       setError(true);
     }
-
     document.getElementById("stmacs").classList.remove("show");
     document.getElementById("confirm").classList.add("show");
     document.getElementById("iq-tracker-position-2").classList.remove("active");
     document.getElementById("iq-tracker-position-2").classList.add("done");
     document.getElementById("iq-tracker-position-3").classList.add("active");
-    console.log("first", form);
   };
 
   const goBack = () => {
@@ -124,71 +129,33 @@ const AddUser = memo((props) => {
     document.getElementById("iq-tracker-position-2").classList.add("active");
   };
 
-  const createUser = () => {
-    let permissionIds;
+  // const [users,setUsers]=useState({
 
-    first && second && third && fourth
-      ? (permissionIds = "1,2,3,4")
-      : second && third && fourth
-      ? (permissionIds = "2,3,4")
-      : first && second && fourth
-      ? (permissionIds = "1,2,4")
-      : first && third && fourth
-      ? (permissionIds = "1,3,4")
-      : first && second && third
-      ? (permissionIds = "1,2,3")
-      : third && fourth
-      ? (permissionIds = "3,4")
-      : second && fourth
-      ? (permissionIds = "2,4")
-      : second && third
-      ? (permissionIds = "2,3")
-      : first && fourth
-      ? (permissionIds = "1,4")
-      : first && third
-      ? (permissionIds = "1,3")
-      : first && second
-      ? (permissionIds = "1,2")
-      : fourth
-      ? (permissionIds = "4")
-      : third
-      ? (permissionIds = "3")
-      : second
-      ? (permissionIds = "2")
-      : first
-      ? (permissionIds = "1")
-      : (permissionIds = "");
+  // })
 
-    const data = {
-      email: form.email[0],
-      gender: "male",
-      password: "abc123=00",
-      firstName: form.name[0],
-      lastName: "admin",
-      contactNumber: form.number[0],
-      permissionIds: permissionIds,
-    };
-
-    console.log("form", form.name[0]);
-
-    console.log("data", data);
-
-    createAdmin(data)
-      .then(async (result) => {
-        console.log("result");
-        navigate("/womeyn/user-management");
-      })
-      .catch((err) => {
-        if (err) {
-          console.log(err);
-        }
-      });
-  };
+  if (!user) {
+    return <Loader />;
+  }
 
   return (
     <Fragment>
       <div className="title-with-icon">
-        <h3>Add User</h3>
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          onClick={() => history(`/womeyn/user-management`)}
+          style={{ cursor: "pointer" }}
+        >
+          <path
+            d="M14.6661 6.66663H4.54191L8.94374 2.28357C9.19491 2.03271 9.33602 1.69246 9.33602 1.33769C9.33602 0.98291 9.19491 0.642664 8.94374 0.391799C8.69256 0.140934 8.35189 0 7.99668 0C7.64146 0 7.30079 0.140934 7.04961 0.391799L0.380176 7.05298C0.258738 7.17968 0.163545 7.32908 0.10006 7.49261C-0.0333532 7.81696 -0.0333532 8.18077 0.10006 8.50511C0.163545 8.66865 0.258738 8.81805 0.380176 8.94475L7.04961 15.6059C7.17362 15.7308 7.32115 15.8299 7.48369 15.8975C7.64624 15.9652 7.82059 16 7.99668 16C8.17276 16 8.34711 15.9652 8.50966 15.8975C8.6722 15.8299 8.81973 15.7308 8.94374 15.6059C9.06876 15.4821 9.16799 15.3347 9.23571 15.1724C9.30343 15.01 9.3383 14.8359 9.3383 14.66C9.3383 14.4842 9.30343 14.31 9.23571 14.1477C9.16799 13.9853 9.06876 13.838 8.94374 13.7142L4.54191 9.3311H14.6661C15.0199 9.3311 15.3592 9.19074 15.6093 8.9409C15.8595 8.69105 16 8.35219 16 7.99886C16 7.64553 15.8595 7.30667 15.6093 7.05683C15.3592 6.80699 15.0199 6.66663 14.6661 6.66663Z"
+            fill="#232D42"
+          />
+        </svg>
+
+        <h3>Edit User</h3>
       </div>
       <Row>
         <Col sm="12">
@@ -214,6 +181,9 @@ const AddUser = memo((props) => {
       <Row>
         <Col>
           <Card>
+            {/* <div className="card-header">
+                            <h4>My Cart</h4>
+                        </div> */}
             <Card.Body className="p-0">
               <div id="basic" className="iq-product-tracker-card show b-0">
                 <Form>
@@ -224,12 +194,12 @@ const AddUser = memo((props) => {
                       type="text"
                       className={true ? "" : "is-valid"}
                       id="name"
-                      value={name}
-                      //   defaultValue=""
+                      value={user.firstName}
                       onChange={handleChanges}
                       required
                       style={{ color: "black" }}
                     />
+                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                     <div>
                       {error && name.length === 0 ? (
                         <div className="text-danger">Name is required</div>
@@ -248,19 +218,12 @@ const AddUser = memo((props) => {
                       type="email"
                       className={true ? "" : "is-valid"}
                       id="email"
-                      value={email}
-                      //   defaultValue=""
+                      value={user.email}
                       onChange={handleChanges}
                       required
                       style={{ color: "black" }}
                     />
-                    <div>
-                      {error && email.length === 0 ? (
-                        <div className="text-danger">Email is required</div>
-                      ) : (
-                        ""
-                      )}
-                    </div>
+                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                   </div>
                   <div className="field-container">
                     <Form.Label htmlFor="validationServer01">
@@ -271,12 +234,12 @@ const AddUser = memo((props) => {
                       type="text"
                       className={true ? "" : "is-valid"}
                       id="number"
-                      value={number}
-                      //   defaultValue=""
+                      value={user.contactNumber}
                       onChange={handleChanges}
                       required
                       style={{ color: "black" }}
                     />
+                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                     <div>
                       {error && number.length === 0 ? (
                         <div className="text-danger">Number is required</div>
@@ -290,10 +253,7 @@ const AddUser = memo((props) => {
                     <Button variant="secondary">Back</Button>{" "}
                     <Button
                       variant="primary"
-                      onClick={handleSubmit}
-                      //   onClick={() => {
-                      //     console.log(values);
-                      //   }}
+                      onClick={stmacess}
                       className="margin-left-button "
                     >
                       Continue
@@ -310,12 +270,12 @@ const AddUser = memo((props) => {
                       value={one}
                       onChange={checkedOne}
                       name="one"
-                      checked={first}
+                      // checked={first}
+                      checked={user.permissionIds.includes("1") ? true : first}
                     />
                     Admin Dashboard
                   </ListGroupItem>
                 </div>
-
                 <div className="field-container">
                   <ListGroupItem as="label">
                     <input
@@ -324,7 +284,8 @@ const AddUser = memo((props) => {
                       value={two}
                       onChange={checkedTwo}
                       name="two"
-                      checked={second}
+                      // checked={second}
+                      checked={user.permissionIds.includes("2") ? true : second}
                     />
                     Seller Dashboard
                   </ListGroupItem>
@@ -337,7 +298,8 @@ const AddUser = memo((props) => {
                       value={three}
                       onChange={checkedThree}
                       name="three"
-                      checked={third}
+                      // checked={third}
+                      checked={user.permissionIds.includes("3") ? true : third}
                     />
                     End Customer Dashboard
                   </ListGroupItem>
@@ -350,12 +312,13 @@ const AddUser = memo((props) => {
                       value={four}
                       onChange={checkedFour}
                       name="four"
-                      checked={fourth}
+                      // checked={fourth}
+                      checked={user.permissionIds.includes("4") ? true : fourth}
                     />
                     Support and Query Dashboard
                   </ListGroupItem>
                 </div>
-                <div>
+                {/* <div>
                   {error && !first && !second && !third && !fourth ? (
                     <div className="text-danger">
                       Please select at least one field
@@ -363,7 +326,7 @@ const AddUser = memo((props) => {
                   ) : (
                     ""
                   )}
-                </div>
+                </div> */}
                 <hr className="hr-horizontal" />
                 <div>
                   <Button variant="secondary" onClick={goBack}>
@@ -373,7 +336,7 @@ const AddUser = memo((props) => {
                     variant="primary"
                     onClick={handleContinue}
                     // onClick={() => {
-                    //   console.log(values);
+                    //
                     // }}
                     className="margin-left-button "
                   >
@@ -391,7 +354,7 @@ const AddUser = memo((props) => {
                       type="text"
                       className={true ? "" : "is-valid"}
                       id="validationServer01"
-                      value={form.email}
+                      defaultValue={user.email}
                       required
                       style={{ color: "black" }}
                     />
@@ -400,10 +363,8 @@ const AddUser = memo((props) => {
                   <div className="user-card-content field-container">
                     <Form.Label htmlFor="validationServer01">
                       Permissions Given
-                      {console.log("Checked", first, second, third, fourth)}
                     </Form.Label>
-
-                    {first && second && third && fourth ? (
+                    {user.permissionIds.includes("1,2,3,4") ? (
                       <div className="permission flex-container">
                         <span>Admin Dashboard</span>
                         <span>Seller Dashboard</span>
@@ -414,73 +375,67 @@ const AddUser = memo((props) => {
                           </span>
                         </div>
                       </div>
-                    ) : second && third && fourth ? (
+                    ) : user.permissionIds.includes("2,3,4") ? (
                       <div className="permission flex-container">
                         <span>Seller Dashboard</span>
                         <span>End Customer Dashboard</span>
                         <span>Support and Query Dashboard</span>
                       </div>
-                    ) : first && second && fourth ? (
+                    ) : user.permissionIds.includes("1,2,4") ? (
                       <div className="permission flex-container">
                         <span>Admin Dashboard</span>
                         <span>Seller Dashboard</span>
                         <span>Support and Query Dashboard</span>
                       </div>
-                    ) : first && third && fourth ? (
-                      <div className="permission flex-container">
-                        <span>Admin Dashboard</span>
-                        <span>End Customer Dashboard</span>
-                        <span>Support and Query Dashboard</span>
-                      </div>
-                    ) : first && second && third ? (
+                    ) : user.permissionIds.includes("1,2,3") ? (
                       <div className="permission flex-container">
                         <span>Admin Dashboard</span>
                         <span>Seller Dashboard</span>
                         <span>End Customer Dashboard</span>
                       </div>
-                    ) : third && fourth ? (
+                    ) : user.permissionIds.includes("3,4") ? (
                       <div className="permission flex-container">
                         <span>End Customer Dashboard</span>
                         <span>Support and Query Dashboard</span>
                       </div>
-                    ) : second && fourth ? (
+                    ) : user.permissionIds.includes("2,4") ? (
                       <div className="permission flex-container">
                         <span>Seller Dashboard</span>
                         <span>Support and Query Dashboard</span>
                       </div>
-                    ) : second && third ? (
+                    ) : user.permissionIds.includes("2,3") ? (
                       <div className="permission flex-container">
                         <span>Seller Dashboard</span>
                         <span>End Customer Dashboard</span>
                       </div>
-                    ) : first && fourth ? (
+                    ) : user.permissionIds.includes("1,4") ? (
                       <div className="permission flex-container">
                         <span>Admin Dashboard</span>
                         <span>Support and Query Dashboard</span>
                       </div>
-                    ) : first && third ? (
+                    ) : user.permissionIds.includes("1,3") ? (
                       <div className="permission flex-container">
                         <span>Admin Dashboard</span>
                         <span>End Customer Dashboard</span>
                       </div>
-                    ) : first && second ? (
+                    ) : user.permissionIds.includes("1,2") ? (
                       <div className="permission flex-container">
                         <span>Admin Dashboard</span>
                         <span>Seller Dashboard</span>
                       </div>
-                    ) : fourth ? (
+                    ) : user.permissionIds.includes("4") ? (
                       <div className="permission flex-container">
                         <span>Support and Query Dashboard</span>
                       </div>
-                    ) : third ? (
+                    ) : user.permissionIds.includes("3") ? (
                       <div className="permission flex-container">
                         <span>End Customer Dashboard</span>
                       </div>
-                    ) : second ? (
+                    ) : user.permissionIds.includes("2") ? (
                       <div className="permission flex-container">
                         <span>Seller Dashboard</span>
                       </div>
-                    ) : first ? (
+                    ) : user.permissionIds.includes("1") ? (
                       <div className="permission flex-container">
                         <span>Admin Dashboard</span>
                       </div>
@@ -492,10 +447,10 @@ const AddUser = memo((props) => {
                   </Button>{" "}
                   <Button
                     variant="primary"
-                    onClick={createUser}
+                    onClick={() => {}}
                     className="margin-left-button "
                   >
-                    Save
+                    Save Updates
                   </Button>{" "}
                 </Form>
               </div>
@@ -507,5 +462,5 @@ const AddUser = memo((props) => {
   );
 });
 
-AddUser.displayName = "AddUser";
-export default AddUser;
+EditUser.displayName = "EditUser";
+export default EditUser;

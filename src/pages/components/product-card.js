@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 
 //Components
 import Card from "../../components/bootstrap/card";
-import ShareOffcanvas from "../../components/partials/components/shareoffcanvas";
 
 const ProductCard = memo((props) => {
   return (
@@ -26,31 +25,10 @@ const ProductCard = memo((props) => {
             <div className="d-flex justify-content-between mb-2">
               <h5 className="mb-0">{props.itemsName}</h5>
               <div className="d-flex align-items-center">
-                {/* <svg
-                  width="18"
-                  className="me-2"
-                  viewBox="0 0 18 17"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M10.1043 0.677006L11.9317 4.32776C12.1108 4.68616 12.4565 4.93467 12.8573 4.99218L16.9453 5.58062C17.9554 5.72644 18.3573 6.95054 17.6263 7.65194L14.6702 10.4924C14.3797 10.7718 14.2474 11.1733 14.3162 11.5676L15.0138 15.5778C15.1856 16.5698 14.1298 17.3267 13.227 16.8574L9.57321 14.9627C9.21502 14.7768 8.78602 14.7768 8.42679 14.9627L4.773 16.8574C3.87023 17.3267 2.81439 16.5698 2.98724 15.5778L3.68385 11.5676C3.75257 11.1733 3.62033 10.7718 3.32982 10.4924L0.37368 7.65194C-0.357285 6.95054 0.0446417 5.72644 1.05466 5.58062L5.14265 4.99218C5.54354 4.93467 5.89028 4.68616 6.06937 4.32776L7.89574 0.677006C8.34765 -0.225669 9.65235 -0.225669 10.1043 0.677006Z"
-                    fill="#FFD329"
-                  />
-                </svg> */}
                 <p className="mb-0">({props.productLiked})</p>
-                {/* <span className="text-primary">{props.ratings}</span> */}
               </div>
             </div>
-            <div className="d-flex justify-content-between mb-4">
-              {/* <p className="mb-0">
-                {props.productPrice}
-                <small className="text-success"> {props.productOffer}</small>
-              </p>
-              <p className="mb-0">({props.productLiked})</p> */}
-            </div>
+            <div className="d-flex justify-content-between mb-4"></div>
             <div className="d-flex justify-content-between">
               <div className="d-flex gap-2 p-2">
                 <Link
@@ -107,7 +85,6 @@ const ProductCard = memo((props) => {
                   </span>
                 </Button>
               </div>
-              {/* <ShareOffcanvas share="3" /> */}
             </div>
           </Card.Body>
         </Card>

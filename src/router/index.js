@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo } from "react";
 
 //router
 import { Routes, Route } from "react-router-dom";
@@ -7,24 +7,24 @@ import Default from "../layout/default";
 //Pages
 import SignIn from "../pages/auth/sign-in";
 import Index from "../pages/views/dashboard";
-import EditUser from "../pages/views/seller-approval/edit-user/edit-user";
-import SellerApproval from "../pages/views/seller-approval/seller-approval";
-import UserManagement from "../pages/views/user-management/user-management";
-import ProductPage from "../pages/views/products-page/products-page";
+import EditUser from "../pages/views/editUser/editUser";
+import SellerApproval from "../pages/views/sellerApproval/sellerApproval";
+import UserManagement from "../pages/views/userManagement/userManagement";
+import ProductPage from "../pages/views/productsPage/productsPage";
 import ProtectedRoutes from "./protected-routes";
-import ForgetPassword from "../pages/views/forgot-password/forgot-password";
-import UpdateForgotPassword from "../pages/views/password-change/updateForgotPassword";
-import SellerProfile from "../pages/views/seller-profile/seller-profile";
-import ProductList from "../pages/views/product-list/product-list";
-import ServiceList from "../pages/views/service-list/service-list";
+import ForgetPassword from "../pages/views/forgotPassword/forgotPassword";
+import UpdateForgotPassword from "../pages/views/passwordChange/updateForgotPassword";
+import SellerProfile from "../pages/views/sellerProfile/sellerProfile";
+import ProductList from "../pages/views/productList/productList";
+import ServiceList from "../pages/views/serviceList/serviceList";
 
 //Users
-import UserProfile from "../pages/views/app/user-profile";
-import AddUser from "../pages/views/adduser/AddUser";
-import AddProduct from "../pages/views/add-product/add-product";
-import CouponCreation from "../pages/views/coupon-creation/coupon-creation";
-import ServicePage from "../pages/views/service-page/service-page";
-import AddService from "../pages/views/add-service/add-service";
+import UserProfile from "../pages/views/userProfile/userProfile";
+import AddUser from "../pages/views/addUser/addUser";
+import AddProduct from "../pages/views/addProduct/addProduct";
+import CouponCreation from "../pages/views/couponCreation/couponCreation";
+import ServicePage from "../pages/views/servicePage/servicePage";
+import AddService from "../pages/views/addService/addService";
 
 const IndexRouters = memo(() => {
   return (

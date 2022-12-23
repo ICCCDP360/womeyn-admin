@@ -440,7 +440,7 @@ const SidebarSmall = memo(() => {
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item as="li">
-                    <nav.Link href="#">
+                    <Nav.Link href="#">
                       <i className="icon">
                         <svg
                           width="18"
@@ -481,7 +481,7 @@ const SidebarSmall = memo(() => {
                         </svg>
                       </i>
                       <span>List User</span>
-                    </nav.Link>
+                    </Nav.Link>
                   </Nav.Item>
                   <Nav.Item as="li">
                     <Nav.Link href="#">

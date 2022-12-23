@@ -10,12 +10,6 @@ import { Link, useNavigate } from "react-router-dom";
 import Card from "../../components/bootstrap/card";
 
 const UserCard = memo((props) => {
-  console.log("permissions", props.id);
-  const navigate = useNavigate();
-  const getIndex = () => {
-    console.log("first", props.data.id);
-    // navigate(`/womeyn/seller-approval/edit/${props.data.id}`);
-  };
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
