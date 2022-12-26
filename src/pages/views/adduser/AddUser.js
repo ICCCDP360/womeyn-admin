@@ -36,12 +36,6 @@ const AddUser = memo((props) => {
   const checkedFour = () => {
     setFourth(!fourth);
   };
-  const checkList = [
-    "Admin Dashboard",
-    "Seller Dashboard",
-    "End Customer Dashboard",
-    "Support and Query Dashboard",
-  ];
 
   const [error, setError] = useState(false);
 

@@ -1,9 +1,13 @@
 @use "../../../../sass/abstract/" as *;
 
-.active path {
-  fill: #e95a5a !important;
-}
+// .active path {
+//   fill: #e95a5a !important;
+// }
 
 .svg-width {
   width: 20px;
+}
+
+.font-size-icon {
+  font-size: 20px;
 }

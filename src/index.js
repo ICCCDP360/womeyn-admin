@@ -14,16 +14,19 @@ import { store } from "./store";
 //toast
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ErrorBoundary from "./pages/errorBoundary/errorBoundary";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <ToastContainer></ToastContainer>
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </BrowserRouter>
+    <ErrorBoundary>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </BrowserRouter>
+    </ErrorBoundary>
   </React.StrictMode>
 );
 

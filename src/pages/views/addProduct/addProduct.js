@@ -104,7 +104,7 @@ const AddProduct = memo((props) => {
                       name="name"
                       type="text"
                       className={true ? "" : "is-valid"}
-                      id="name"
+                      id="categoryName"
                       //   value={name}
                       //   defaultValue=""
                       //   onChange={handleChanges}
@@ -124,29 +124,53 @@ const AddProduct = memo((props) => {
                     <Form.Label htmlFor="validationServer01">
                       Category Description
                     </Form.Label>
-                    {/* <Form.Control
-                      name="description"
+                    <Form.Control
+                      name="categoryDescription"
                       type="text"
                       className={true ? "" : "is-valid"}
                       id="description"
-                      aria-multiline={true}
-                      rows="5"
+                      as="textarea"
+                      rows={5}
                       //   value={email}
                       //   defaultValue=""
                       //   onChange={handleChanges}
                       required
                       style={{ color: "black" }}
-                    /> */}
-                    <div class="mb-3">
+                    />
+                    {/* <div class="mb-3">
                       <textarea
                         class="form-control"
                         id="exampleFormControlTextarea1"
                         rows="5"
                       ></textarea>
-                    </div>
+                    </div> */}
                     {/* <div>
                       {error && email.length === 0 ? (
                         <div className="text-danger">Email is required</div>
+                      ) : (
+                        ""
+                      )}
+                    </div> */}
+                  </div>
+
+                  <div className="field-container">
+                    <Form.Label htmlFor="validationServer01">
+                      Category Tags
+                    </Form.Label>
+                    <Form.Control
+                      name="Category Tag"
+                      type="text"
+                      className={true ? "" : "is-valid"}
+                      id="name"
+                      //   value={name}
+                      //   defaultValue=""
+                      //   onChange={handleChanges}
+                      required
+                      style={{ color: "black" }}
+                    />
+                    {/* <div>
+                      {error && name.length === 0 ? (
+                        <div className="text-danger">Name is required</div>
                       ) : (
                         ""
                       )}

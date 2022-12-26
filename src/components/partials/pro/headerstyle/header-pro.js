@@ -206,18 +206,7 @@ const Headerpro = memo((props) => {
                     aria-expanded={open}
                     role="button"
                   >
-                    <svg
-                      width="20"
-                      className="icon-20"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M9.14373 20.7821V17.7152C9.14372 16.9381 9.77567 16.3067 10.5584 16.3018H13.4326C14.2189 16.3018 14.8563 16.9346 14.8563 17.7152V20.7732C14.8562 21.4473 15.404 21.9951 16.0829 22H18.0438C18.9596 22.0023 19.8388 21.6428 20.4872 21.0007C21.1356 20.3586 21.5 19.4868 21.5 18.5775V9.86585C21.5 9.13139 21.1721 8.43471 20.6046 7.9635L13.943 2.67427C12.7785 1.74912 11.1154 1.77901 9.98539 2.74538L3.46701 7.9635C2.87274 8.42082 2.51755 9.11956 2.5 9.86585V18.5686C2.5 20.4637 4.04738 22 5.95617 22H7.87229C8.19917 22.0023 8.51349 21.8751 8.74547 21.6464C8.97746 21.4178 9.10793 21.1067 9.10792 20.7821H9.14373Z"
-                        fill="currentColor"
-                      />
-                    </svg>
+                    <span className="icon-home font-size-icon"></span>
                     <span className="nav-text ms-2">Home</span>
                   </Nav.Link>
                 </Nav.Item>
@@ -230,20 +219,7 @@ const Headerpro = memo((props) => {
                     role="button"
                     aria-controls="allPagesData"
                   >
-                    <svg
-                      width="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      {" "}
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M17.294 7.29105C17.294 10.2281 14.9391 12.5831 12 12.5831C9.0619 12.5831 6.70601 10.2281 6.70601 7.29105C6.70601 4.35402 9.0619 2 12 2C14.9391 2 17.294 4.35402 17.294 7.29105ZM12 22C7.66237 22 4 21.295 4 18.575C4 15.8539 7.68538 15.1739 12 15.1739C16.3386 15.1739 20 15.8789 20 18.599C20 21.32 16.3146 22 12 22Z"
-                        fill="currentColor"
-                      ></path>{" "}
-                    </svg>
+                    <span className="icon-profile font-size-icon"></span>
                     <span className="nav-text ms-2">Your Profile</span>
                   </Nav.Link>
                 </Nav.Item>
@@ -259,21 +235,7 @@ const Headerpro = memo((props) => {
                     role="button"
                     aria-controls="elementsData"
                   >
-                    {/* <Logout className="svg-width" /> */}
-                    <svg
-                      width="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      {" "}
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M9.89535 11.23C9.45785 11.23 9.11192 11.57 9.11192 12C9.11192 12.42 9.45785 12.77 9.89535 12.77H16V17.55C16 20 13.9753 22 11.4724 22H6.51744C4.02471 22 2 20.01 2 17.56V6.45C2 3.99 4.03488 2 6.52762 2H11.4927C13.9753 2 16 3.99 16 6.44V11.23H9.89535ZM19.6302 8.5402L22.5502 11.4502C22.7002 11.6002 22.7802 11.7902 22.7802 12.0002C22.7802 12.2002 22.7002 12.4002 22.5502 12.5402L19.6302 15.4502C19.4802 15.6002 19.2802 15.6802 19.0902 15.6802C18.8902 15.6802 18.6902 15.6002 18.5402 15.4502C18.2402 15.1502 18.2402 14.6602 18.5402 14.3602L20.1402 12.7702H16.0002V11.2302H20.1402L18.5402 9.6402C18.2402 9.3402 18.2402 8.8502 18.5402 8.5502C18.8402 8.2402 19.3302 8.2402 19.6302 8.5402Z"
-                        fill="currentColor"
-                      ></path>{" "}
-                    </svg>
+                    <span className="icon-logout font-size-icon"></span>
                     <span className="nav-text ms-2">Logout</span>
                   </Nav.Link>
                 </Nav.Item>

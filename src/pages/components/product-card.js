@@ -37,7 +37,8 @@ const ProductCard = memo((props) => {
                   role="button"
                 >
                   <span className="btn-inner">
-                    <svg
+                    <span className="icon-edit"></span>
+                    {/* <svg
                       width="24"
                       viewBox="0 0 24 24"
                       fill="none"
@@ -56,7 +57,7 @@ const ProductCard = memo((props) => {
                         d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z"
                         fill="currentColor"
                       ></path>
-                    </svg>
+                    </svg> */}
                   </span>
                 </Link>
                 <Button
@@ -66,7 +67,8 @@ const ProductCard = memo((props) => {
                   onClick={props.onRemove}
                 >
                   <span className="btn-inner">
-                    <svg
+                    <span className="icon-delete"></span>
+                    {/* <svg
                       width="24"
                       viewBox="0 0 24 24"
                       fill="none"
@@ -81,7 +83,7 @@ const ProductCard = memo((props) => {
                         d="M21 5.97686C21 5.56588 20.6761 5.24389 20.2871 5.24389H17.3714C16.7781 5.24389 16.2627 4.8219 16.1304 4.22692L15.967 3.49795C15.7385 2.61698 14.9498 2 14.0647 2H9.93624C9.0415 2 8.26054 2.61698 8.02323 3.54595L7.87054 4.22792C7.7373 4.8219 7.22185 5.24389 6.62957 5.24389H3.71385C3.32386 5.24389 3 5.56588 3 5.97686V6.35685C3 6.75783 3.32386 7.08982 3.71385 7.08982H20.2871C20.6761 7.08982 21 6.75783 21 6.35685V5.97686Z"
                         fill="currentColor"
                       ></path>
-                    </svg>
+                    </svg> */}
                   </span>
                 </Button>
               </div>
