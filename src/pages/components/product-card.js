@@ -9,6 +9,8 @@ import { Link } from "react-router-dom";
 //Components
 import Card from "../../components/bootstrap/card";
 
+import "./styles.scss";
+
 const ProductCard = memo((props) => {
   return (
     <Fragment>
@@ -16,17 +18,18 @@ const ProductCard = memo((props) => {
         <Card className="flex-row">
           <Card.Header className="rounded-0 rounded-start bg-soft-secondary p-0">
             <Image
-              src={props.images}
-              className="img-fluid h-100 p-3"
+              src={`https://my-demo-11-bucket.s3.ap-south-1.amazonaws.com/${props.images}`}
+              // src={props.images}
+              className="image-style p-3"
               alt="wishlist-img"
             />
           </Card.Header>
           <Card.Body className="rounded-end iq-wishlist-card">
             <div className="d-flex justify-content-between mb-2">
               <h5 className="mb-0">{props.itemsName}</h5>
-              <div className="d-flex align-items-center">
+              {/* <div className="d-flex align-items-center">
                 <p className="mb-0">({props.productLiked})</p>
-              </div>
+              </div> */}
             </div>
             <div className="d-flex justify-content-between mb-4"></div>
             <div className="d-flex justify-content-between">

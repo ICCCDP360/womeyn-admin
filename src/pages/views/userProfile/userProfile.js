@@ -197,7 +197,7 @@ const Profileuser = memo(() => {
 
     formData.append("upl", imageuploads);
 
-    //
+    console.log("formData", formData);
 
     updateAdminImageServices(userid, formData)
       .then((res) => {

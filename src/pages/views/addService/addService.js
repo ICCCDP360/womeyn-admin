@@ -18,8 +18,27 @@ import Card from "../../../components/bootstrap/card";
 import Camera from "../../../assets/images/bxs_camera.svg";
 import "./styles.scss";
 
+//Services
+import { createCategory } from "../../../services/category/categoryServices";
+
 const AddService = memo((props) => {
-  const [selectedImage, setSelectedImage] = useState("");
+  const userId = localStorage.getItem("user_id");
+  const navigate = useNavigate();
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [imageData, setImageData] = useState(null);
+  const [error, setError] = useState(false);
+
+  const [form, setForm] = useState({
+    categoryName: "",
+    categoryDescription: "",
+    categoryTags: "",
+  });
+
+  const { categoryName, categoryDescription, categoryTags } = form;
+
+  const handleChanges = (e) => {
+    setForm({ ...form, [e.target.name]: [e.target.value] });
+  };
 
   const handleRemoveImage = (id) => {
     const ImageDatas = selectedImage.filter((items, index) => {
@@ -29,18 +48,39 @@ const AddService = memo((props) => {
     setSelectedImage(ImageDatas);
   };
   const handleImageChange = (e) => {
-    setSelectedImage([...selectedImage, e.target.files[0]]);
+    setSelectedImage([e.target.files[0]]);
+    setImageData(e.target.files[0]);
+    // console.log("Image", e.target.files[0]);
   };
 
   const handleSubmit = () => {
-    stmacess();
+    if (
+      categoryName.length === 0 ||
+      categoryDescription.length === 0 ||
+      categoryTags.length === 0
+    ) {
+      setError(true);
+    } else if (categoryName && categoryDescription && categoryTags) {
+      stmacess();
+    }
   };
 
   const handleContinue = () => {
-    confirm();
+    if (!selectedImage) {
+      setError(true);
+    } else {
+      confirm();
+    }
   };
 
   const stmacess = () => {
+    if (
+      categoryName.length === 0 ||
+      categoryDescription.length === 0 ||
+      categoryTags.length === 0
+    ) {
+      setError(true);
+    }
     document.getElementById("basic").classList.remove("show");
     document.getElementById("stmacs").classList.add("show");
     document.getElementById("iq-tracker-position-1").classList.remove("active");
@@ -48,6 +88,9 @@ const AddService = memo((props) => {
     document.getElementById("iq-tracker-position-2").classList.add("active");
   };
   const confirm = () => {
+    if (!selectedImage) {
+      setError(true);
+    }
     document.getElementById("stmacs").classList.remove("show");
     document.getElementById("confirm").classList.add("show");
     document.getElementById("iq-tracker-position-2").classList.remove("active");
@@ -71,12 +114,38 @@ const AddService = memo((props) => {
     document.getElementById("iq-tracker-position-2").classList.add("active");
   };
 
-  const createUser = () => {};
+  const createService = (e) => {
+    e.preventDefault();
+
+    console.log("image", imageData);
+    const formData = new FormData();
+
+    formData.append("name", form.categoryName[0]);
+    formData.append("description", form.categoryDescription[0]);
+    formData.append("typeId", 2);
+    formData.append("createdBy", userId);
+    formData.append("sampleTags", form.categoryTags[0]);
+    formData.append("upl", imageData);
+
+    // console.log("imageData", formData);
+    console.log("name", form.categoryName[0]);
+
+    createCategory(formData)
+      .then(async (result) => {
+        console.log(result);
+        navigate("/womeyn/service-category");
+      })
+      .catch((err) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+  };
 
   return (
     <Fragment>
       <div className="title-with-icon">
-        <h2>Add Service</h2>
+        <h2>Add Category</h2>
       </div>
       <Row>
         <Col sm="12">
@@ -88,7 +157,7 @@ const AddService = memo((props) => {
               className="active iq-tracker-position-0"
               id="iq-tracker-position-1"
             >
-              Service Info
+              Category Info
             </li>
             <li className="iq-tracker-position-0" id="iq-tracker-position-2">
               Upload Image
@@ -107,59 +176,81 @@ const AddService = memo((props) => {
                 <Form>
                   <div className="field-container">
                     <Form.Label htmlFor="validationServer01">
-                      SErvice Name
+                      Category Name
                     </Form.Label>
                     <Form.Control
-                      name="name"
+                      name="categoryName"
                       type="text"
                       className={true ? "" : "is-valid"}
-                      id="name"
-                      //   value={name}
-                      //   defaultValue=""
-                      //   onChange={handleChanges}
+                      id="categoryName"
+                      value={categoryName}
+                      defaultValue=""
+                      onChange={handleChanges}
                       required
                       style={{ color: "black" }}
                     />
-                    {/* <div>
-                      {error && name.length === 0 ? (
-                        <div className="text-danger">Name is required</div>
+                    <div>
+                      {error && categoryName.length === 0 ? (
+                        <div className="text-danger">
+                          Category Name is required
+                        </div>
                       ) : (
                         ""
                       )}
-                    </div> */}
+                    </div>
                   </div>
 
                   <div className="field-container">
                     <Form.Label htmlFor="validationServer01">
-                      Service Description
+                      Category Description
                     </Form.Label>
-                    {/* <Form.Control
-                      name="description"
+                    <Form.Control
+                      name="categoryDescription"
                       type="text"
                       className={true ? "" : "is-valid"}
-                      id="description"
-                      aria-multiline={true}
-                      rows="5"
-                      //   value={email}
-                      //   defaultValue=""
-                      //   onChange={handleChanges}
+                      id="categoryDescription"
+                      as="textarea"
+                      rows={5}
+                      value={categoryDescription}
+                      defaultValue=""
+                      onChange={handleChanges}
                       required
                       style={{ color: "black" }}
-                    /> */}
-                    <div class="mb-3">
-                      <textarea
-                        class="form-control"
-                        id="exampleFormControlTextarea1"
-                        rows="5"
-                      ></textarea>
-                    </div>
-                    {/* <div>
-                      {error && email.length === 0 ? (
-                        <div className="text-danger">Email is required</div>
+                    />
+
+                    <div>
+                      {error && categoryDescription.length === 0 ? (
+                        <div className="text-danger">
+                          Category Description is required
+                        </div>
                       ) : (
                         ""
                       )}
-                    </div> */}
+                    </div>
+                  </div>
+
+                  <div className="field-container">
+                    <Form.Label htmlFor="validationServer01">
+                      Category Tags
+                    </Form.Label>
+                    <Form.Control
+                      name="categoryTags"
+                      type="text"
+                      className={true ? "" : "is-valid"}
+                      id="categoryTags"
+                      value={categoryTags}
+                      defaultValue=""
+                      onChange={handleChanges}
+                      required
+                      style={{ color: "black" }}
+                    />
+                    <div>
+                      {error && categoryTags.length === 0 ? (
+                        <div className="text-danger">Tag is required</div>
+                      ) : (
+                        ""
+                      )}
+                    </div>
                   </div>
                   <hr className="hr-horizontal" />
                   <div>
@@ -167,9 +258,6 @@ const AddService = memo((props) => {
                     <Button
                       variant="primary"
                       onClick={handleSubmit}
-                      //   onClick={() => {
-                      //
-                      //   }}
                       className="margin-left-button "
                     >
                       Continue
@@ -179,14 +267,16 @@ const AddService = memo((props) => {
               </div>
               <div id="stmacs" className="iq-product-tracker-card  b-0">
                 <h6>Add Image</h6>
-                <div>
-                  <label htmlFor="upload-button">
-                    <div className="main-camera-section">
-                      <div className="inside-camera-section-upload">
-                        <img src={Camera} alt="no image" />
+                <div className="mt-4">
+                  {!selectedImage ? (
+                    <label htmlFor="upload-button">
+                      <div className="main-camera-section">
+                        <div className="inside-camera-section-upload">
+                          <img src={Camera} alt="no image" />
+                        </div>
                       </div>
-                    </div>
-                  </label>
+                    </label>
+                  ) : null}
                   <div>
                     <input
                       id="upload-button"
@@ -198,18 +288,17 @@ const AddService = memo((props) => {
                       multiple
                     />
                   </div>
+
                   {selectedImage && (
                     <div className="row justify-content-center gap-2">
                       {selectedImage.map((item, index) => {
                         return (
-                          <div
-                            key={index}
-                            className="container mt-2 col-lg-3 mb-3"
-                          >
+                          <div key={index} className="container mt-2  mb-3">
                             <img
                               src={URL.createObjectURL(item)}
                               alt="Avatar"
                               class="image"
+                              style={{ width: "50%" }}
                             />
                             <div class="overlay">
                               <div
@@ -239,15 +328,13 @@ const AddService = memo((props) => {
                     </div>
                   )}
                 </div>
-                {/* <div>
-                  {error && !first && !second && !third && !fourth ? (
-                    <div className="text-danger">
-                      Please select at least one field
-                    </div>
+                <div className="mt-3">
+                  {error && !selectedImage ? (
+                    <div className="text-danger">Image is required.</div>
                   ) : (
                     ""
                   )}
-                </div> */}
+                </div>
                 <hr className="hr-horizontal" />
                 <div>
                   <Button variant="secondary" onClick={goBack}>
@@ -256,9 +343,6 @@ const AddService = memo((props) => {
                   <Button
                     variant="primary"
                     onClick={handleContinue}
-                    // onClick={() => {
-                    //
-                    // }}
                     className="margin-left-button "
                   >
                     Continue
@@ -266,29 +350,75 @@ const AddService = memo((props) => {
                 </div>
               </div>
               <div id="confirm" className="iq-product-tracker-card  b-0">
+                <h2 className="mb-3">Review Details</h2>
                 <Form>
                   <div className="field-container">
                     <Form.Label htmlFor="validationServer01">
-                      Review Details
+                      <h6>Category Name</h6>
                     </Form.Label>
-                    {/* <Form.Control
+                    <Form.Control
                       type="text"
                       className={true ? "" : "is-valid"}
                       id="validationServer01"
-                      //   value={form.email}
+                      value={form.categoryName}
                       required
                       style={{ color: "black" }}
-                    /> */}
-                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                    />
                   </div>
-                  +-``
+                  <div className="field-container">
+                    <Form.Label htmlFor="validationServer01">
+                      <h6> Category Description</h6>
+                    </Form.Label>
+                    <Form.Control
+                      type="text"
+                      className={true ? "" : "is-valid"}
+                      id="validationServer01"
+                      as="textarea"
+                      rows={5}
+                      value={form.categoryDescription}
+                      required
+                      style={{ color: "black" }}
+                    />
+                  </div>
+                  <div className="field-container">
+                    <Form.Label htmlFor="validationServer01">
+                      <h6>Category Tags</h6>
+                    </Form.Label>
+                    <Form.Control
+                      type="text"
+                      className={true ? "" : "is-valid"}
+                      id="validationServer01"
+                      value={form.categoryTags}
+                      required
+                      style={{ color: "black" }}
+                    />
+                  </div>
+                  <div>
+                    <h6>Category Image</h6>
+                    {selectedImage && (
+                      <div className="row justify-content-center gap-2">
+                        {selectedImage.map((item, index) => {
+                          return (
+                            <div key={index} className="container mt-2  mb-3">
+                              <img
+                                src={URL.createObjectURL(item)}
+                                alt="Avatar"
+                                class="image"
+                                style={{ width: "50%" }}
+                              />
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
                   <hr className="hr-horizontal" />
                   <Button variant="secondary" onClick={goBack2}>
                     Back
                   </Button>{" "}
                   <Button
                     variant="primary"
-                    onClick={createUser}
+                    onClick={createService}
                     className="margin-left-button "
                   >
                     Save
