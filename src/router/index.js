@@ -17,6 +17,9 @@ import UpdateForgotPassword from "../pages/views/passwordChange/updateForgotPass
 import SellerProfile from "../pages/views/sellerProfile/sellerProfile";
 import ProductList from "../pages/views/productList/productList";
 import ServiceList from "../pages/views/serviceList/serviceList";
+// import  from "../pages/views/productsPage/subCategoryList";
+import SubCategory from "../pages/views/productsPage/subCategoryList";
+import SubCategoryPage from "../pages/views/productsPage/subCategoryPage";
 
 //Users
 import UserProfile from "../pages/views/userProfile/userProfile";
@@ -61,6 +64,14 @@ const IndexRouters = memo(() => {
             element={<ProductPage></ProductPage>}
           ></Route>
           <Route path="product-add" element={<AddProduct></AddProduct>}></Route>
+          <Route
+            path="product-category/:categoryId"
+            element={<SubCategory></SubCategory>}
+          ></Route>
+          <Route
+            path="sub-category/:categoryId"
+            element={<SubCategoryPage></SubCategoryPage>}
+          ></Route>
           <Route
             path="service-category"
             element={<ServicePage></ServicePage>}

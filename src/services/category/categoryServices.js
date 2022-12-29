@@ -13,9 +13,25 @@ export function createCategory(data) {
 }
 
 export function getProductCategory() {
-  return HttpInterceptor.get(`/admin/categories-list?typeId=1`);
+  return HttpInterceptor.get(
+    `/admin/categories-list?typeId=1&&sortBy=_id:desc`
+  );
+}
+
+export function getProductSubCategory(id) {
+  return HttpInterceptor.get(
+    `/admin/categories-list?typeId=1&&categoryId=${id}&&sortBy=_id:desc`
+  );
 }
 
 export function getServiceCategory() {
-  return HttpInterceptor.get(`/admin/categories-list?typeId=2`);
+  return HttpInterceptor.get(
+    `/admin/categories-list?typeId=2&&sortBy=_id:desc`
+  );
+}
+
+export function getServiceSubCategory(id) {
+  return HttpInterceptor.get(
+    `/admin/categories-list?typeId=2&&categoryId=${id}&&sortBy=_id:desc`
+  );
 }

@@ -64,6 +64,7 @@ const ServicePage = memo(() => {
               images={item.imageName}
               itemsName={item.name}
               // productLiked={item.like}
+              id={item.id}
             />
           );
         })}
