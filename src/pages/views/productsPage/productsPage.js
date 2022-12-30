@@ -41,26 +41,24 @@ const ProductPage = memo(() => {
       .catch((err) => console.log(err));
   }, []);
 
-  // const handleRemove = (index) => {
-  //   Swal.fire({
-  //     icon: "error",
-  //     title: "Are you sure?",
-  //     text: "You want to delete this item",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#3085d6",
-  //     cancelButtonColor: "#d33",
-  //     confirmButtonText: "Yes, delete it!",
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       setProductList(() =>
-  //         productList.filter((item, productIndex) => index !== productIndex)
-  //       );
-  //       Swal.fire("Deleted!", "Your file has been deleted.", "success");
-  //     }
-  //   });
-  // };
-
-  // }
+  const handleRemove = (index) => {
+    Swal.fire({
+      icon: "error",
+      title: "Are you sure?",
+      text: "You want to delete this item",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setProductList(() =>
+          productList.filter((item, productIndex) => index !== productIndex)
+        );
+        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+      }
+    });
+  };
 
   return (
     <Fragment>
@@ -81,6 +79,7 @@ const ProductPage = memo(() => {
               key={index}
               images={item.imageName}
               itemsName={item.name}
+              onRemove={handleRemove}
               // onClick={() => navigate("/womeyn/product-category")}
               id={item.id}
             />

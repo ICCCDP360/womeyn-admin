@@ -172,7 +172,7 @@ const VerticalNav = memo(() => {
             <span className="item-name">Service Category</span>
           </Link>
         </li>
-        <li
+        {/* <li
           className={`${
             location.pathname === "/womeyn/product-list" ? "active" : ""
           } nav-item`}
@@ -229,7 +229,7 @@ const VerticalNav = memo(() => {
             </OverlayTrigger>
             <span className="item-name">Services</span>
           </Link>
-        </li>
+        </li> */}
         <li>
           <hr className="hr-horizontal" />
         </li>

@@ -15,31 +15,40 @@ const ProductCard = memo((props) => {
   return (
     <Fragment>
       <Col>
-        <Link to={`/womeyn/product-category/${props.id}`}>
-          <Card className="flex-row">
-            <Card.Header className="rounded-0 rounded-start bg-soft-secondary p-0">
+        {/* <Link to={`/womeyn/product-category/${props.id}`}> */}
+        <Card className="flex-row">
+          <Card.Header className="rounded-0 rounded-start bg-soft-secondary p-0">
+            <Link
+              to={{
+                pathname: `/womeyn/product-category/${props.id}`,
+                name: { category: `${props.itemsName}` },
+              }}
+            >
               <Image
                 src={`https://my-demo-11-bucket.s3.ap-south-1.amazonaws.com/${props.images}`}
                 // src={props.images}
                 className="image-style p-3"
                 alt="wishlist-img"
               />
-            </Card.Header>
-            <Card.Body className="rounded-end iq-wishlist-card">
-              <div className="d-flex justify-content-between mb-2">
-                <h5 className="mb-0">{props.itemsName}</h5>
-              </div>
-              {/* <div className="d-flex justify-content-between mb-4"></div> */}
-              <div className="d-flex justify-content-between">
-                <div className="d-flex gap-2">
-                  <Link
-                    className="btn btn-primary btn-icon btn-sm rounded-pill"
-                    to="/e-commerce/order-process"
-                    role="button"
-                  >
-                    <span className="btn-inner">
-                      <span className="icon-edit"></span>
-                      {/* <svg
+            </Link>
+          </Card.Header>
+          <Card.Body className="rounded-end iq-wishlist-card">
+            <div className="d-flex justify-content-between mb-2">
+              <Link to={`/womeyn/product-category/${props.id}`}>
+                <h5 className="mb-0 title">{props.itemsName}</h5>
+              </Link>
+            </div>
+            {/* <div className="d-flex justify-content-between mb-4"></div> */}
+            <div className="d-flex align-self-end mt-5">
+              <div className="d-flex gap-2">
+                <Link
+                  className="btn btn-primary btn-icon btn-sm rounded-pill"
+                  // to="/e-commerce/order-process"
+                  role="button"
+                >
+                  <span className="btn-inner">
+                    <span className="icon-edit"></span>
+                    {/* <svg
                       width="24"
                       viewBox="0 0 24 24"
                       fill="none"
@@ -59,17 +68,20 @@ const ProductCard = memo((props) => {
                         fill="currentColor"
                       ></path>
                     </svg> */}
-                    </span>
-                  </Link>
-                  <Button
-                    className="btn btn-primary btn-icon btn-sm rounded-pill delete-btn"
-                    type="button"
-                    role="button"
-                    onClick={props.onRemove}
-                  >
-                    <span className="btn-inner">
-                      <span className="icon-delete"></span>
-                      {/* <svg
+                  </span>
+                </Link>
+                <Button
+                  className="btn btn-primary btn-icon btn-sm rounded-pill delete-btn"
+                  type="button"
+                  role="button"
+                  onClick={props.onRemove}
+                >
+                  <span className="btn-inner">
+                    <span
+                      className="icon-delete"
+                      onClick={props.onRemove}
+                    ></span>
+                    {/* <svg
                       width="24"
                       viewBox="0 0 24 24"
                       fill="none"
@@ -85,13 +97,13 @@ const ProductCard = memo((props) => {
                         fill="currentColor"
                       ></path>
                     </svg> */}
-                    </span>
-                  </Button>
-                </div>
+                  </span>
+                </Button>
               </div>
-            </Card.Body>
-          </Card>
-        </Link>
+            </div>
+          </Card.Body>
+        </Card>
+        {/* </Link> */}
       </Col>
     </Fragment>
   );

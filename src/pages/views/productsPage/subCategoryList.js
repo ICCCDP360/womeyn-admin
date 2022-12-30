@@ -2,7 +2,7 @@ import { memo, Fragment, useState, useEffect } from "react";
 
 //react-bootstrap
 import { Row, Col, Button } from "react-bootstrap";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
 
 //components
 import Card from "../../../components/bootstrap/card";
@@ -90,6 +90,10 @@ const SubCategory = memo(() => {
   const [error, setError] = useState(false);
   const [subCategory, setSubCategory] = useState([]);
 
+  const location = useLocation();
+  const name = location.name?.category;
+  console.log("name", name);
+
   useEffect(() => {
     getProductSubCategory(categoryId)
       .then((res) => {
@@ -152,7 +156,12 @@ const SubCategory = memo(() => {
     <Fragment>
       <Row>
         <div className="header-title d-flex flex-row justify-content-between">
-          <h4 className="card-title">Category</h4>
+          {subCategory ? (
+            <h4 className="card-title">{name}</h4>
+          ) : (
+            <h4 className="card-title">Category</h4>
+          )}
+          {/* <h4 className="card-title">Category</h4> */}
           <Button className="mb-2" onClick={handleShow}>
             + Add a New Sub Category
           </Button>
@@ -169,7 +178,7 @@ const SubCategory = memo(() => {
                   <thead>
                     <tr>
                       <th>Name</th>
-                      <th>Description</th>
+                      <th>Path</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -183,7 +192,7 @@ const SubCategory = memo(() => {
                             {item.name}
                           </Link>
                         </td>
-                        <td>{item.description}</td>
+                        <td>{item.path}</td>
                       </tr>
                     ))}
                   </tbody>

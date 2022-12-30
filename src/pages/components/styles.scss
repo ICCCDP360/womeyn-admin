@@ -4,3 +4,9 @@
   width: 150px;
   height: 150px;
 }
+
+.title {
+  &:hover {
+    color: #e95a5a;
+  }
+}

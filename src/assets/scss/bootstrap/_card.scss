@@ -35,6 +35,7 @@
     var(--#{$prefix}card-border-color);
   @include border-radius(var(--#{$prefix}card-border-radius));
   @include box-shadow(var(--#{$prefix}card-box-shadow));
+  padding: 10px;
 
   > hr {
     margin-right: 0;
