@@ -21,6 +21,7 @@ import img8 from "../../../assets/images/earth_souls.png";
 import img9 from "../../../assets/images/earth_souls.png";
 import Loader from "../../../components/Loader";
 import { sellerApprovalServices } from "../../../services/seller/sellerServices";
+import { ProductListServices } from "../../../services/list/listServices";
 
 let description =
   "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.";
@@ -105,6 +106,7 @@ const ProductList = memo((props) => {
     setShow(true);
   };
 
+  const [length, setLength] = useState("");
   const [sellers, setSellers] = useState([]);
   const [sellerLimit, setSellerLimit] = useState(10);
   const [loading, setLoading] = useState(false);
@@ -134,9 +136,10 @@ const ProductList = memo((props) => {
       .catch((err) => console.log(err));
   };
   useEffect(() => {
-    getSellerServices()
+    ProductListServices()
       .then((res) => {
         setSellers(res.data.results);
+        console.log("arrayLength", res.data.results.length);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -148,108 +151,6 @@ const ProductList = memo((props) => {
   const handleSelect = () => {
     navigate(`/womeyn/seller-profile`);
   };
-
-  const table = [
-    {
-      img: img1,
-      name: "Earthy Souls",
-      email: "@shefali.malik@earthysouls",
-      desc: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
-      contact: "musk.e@mail.com",
-      countryname: "USA",
-      actionadd: add,
-      actionedit: edit,
-      actionremove: remove,
-    },
-    {
-      img: img2,
-      name: "Earthy Souls",
-      email: "@shefali.malik@earthysouls",
-      desc: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
-      contact: "mclark@mail.com",
-      countryname: "SPN",
-      actionadd: add,
-      actionedit: edit,
-      actionremove: remove,
-    },
-    {
-      img: img3,
-      name: "Earthy Souls",
-      email: "@shefali.malik@earthysouls",
-      desc: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
-      contact: "mist.e@mail.com",
-      countryname: "UAE",
-      actionadd: add,
-      actionedit: edit,
-      actionremove: remove,
-    },
-    {
-      img: img4,
-      name: "Earthy Souls",
-      email: "@shefali.malik@earthysouls",
-      desc: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
-      contact: "c.mark@mail.com",
-      countryname: " JPN",
-      actionadd: add,
-      actionedit: edit,
-      actionremove: remove,
-    },
-    {
-      img: img5,
-      name: "Earthy Souls",
-      email: "@shefali.malik@earthysouls",
-      desc: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
-      contact: "dennis.e@mail.com",
-      countryname: "IND",
-      actionadd: add,
-      actionedit: edit,
-      actionremove: remove,
-    },
-    {
-      img: img6,
-      name: "Earthy Souls",
-      email: "@shefali.malik@earthysouls",
-      desc: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
-      contact: "musk.e@mail.com",
-      countryname: "GRC",
-      actionadd: add,
-      actionedit: edit,
-      actionremove: remove,
-    },
-    {
-      img: img7,
-      name: "Earthy Souls",
-      email: "@shefali.malik@earthysouls",
-      desc: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
-      contact: "musk.e@mail.com",
-      countryname: "GRC",
-      actionadd: add,
-      actionedit: edit,
-      actionremove: remove,
-    },
-    {
-      img: img8,
-      name: "Earthy Souls",
-      email: "@shefali.malik@earthysouls",
-      desc: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
-      contact: "mason.j@mail.com",
-      countryname: "ITL",
-      actionadd: add,
-      actionedit: edit,
-      actionremove: remove,
-    },
-    {
-      img: img9,
-      name: "Earthy Souls",
-      email: "@shefali.malik@earthysouls",
-      desc: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
-      contact: "park.e@mail.com",
-      countryname: "GER",
-      actionadd: add,
-      actionedit: edit,
-      actionremove: remove,
-    },
-  ];
 
   if (!sellers) {
     return <Loader />;
@@ -302,8 +203,8 @@ const ProductList = memo((props) => {
                             <thead>
                               <tr>
                                 <th>Product</th>
-                                <th>Description</th>
-                                <th>Tags</th>
+                                <th>Brand</th>
+                                <th>Color</th>
                                 <th>Status</th>
                                 <th className="text-center">Action</th>
                               </tr>
@@ -320,14 +221,14 @@ const ProductList = memo((props) => {
                                             <Link
                                               to={`/womeyn/seller-profile/${item.id}`}
                                             >
-                                              {item?.profileImageName ? (
+                                              {item?.imageUrls ? (
                                                 <img
                                                   className="rounded me-3"
                                                   style={{
                                                     width: 64,
                                                     height: 64,
                                                   }}
-                                                  src={`https://my-demo-11-bucket.s3.ap-south-1.amazonaws.com/${item.profileImageName}`}
+                                                  src={`https://my-demo-11-bucket.s3.ap-south-1.amazonaws.com/${item.imageUrls}`}
                                                   alt=""
                                                   loading="lazy"
                                                 />
@@ -351,67 +252,38 @@ const ProductList = memo((props) => {
                                               }
                                             >
                                               <h5 className="iq-sub-label text-uppercase">
-                                                {item.firstName}
+                                                {item.productName}
                                               </h5>
                                               <p className="mb-0">
-                                                {item.email}
+                                                {item.modelName}
                                               </p>
                                             </div>
                                           </div>
                                         </td>
-                                        <td className="text-dark no-wrap">{`${description.slice(
-                                          0,
-                                          100
-                                        )}...`}</td>
-                                        <td className="text-dark no-wrap flex-container">
-                                          <div>
-                                            <Button
-                                              type="button"
-                                              variant="soft-secondary"
-                                            >
-                                              Clothing
-                                            </Button>{" "}
-                                            <Button
-                                              type="button"
-                                              variant="soft-secondary"
-                                            >
-                                              Personal Care
-                                            </Button>{" "}
-                                            <Button
-                                              type="button"
-                                              variant="soft-secondary"
-                                            >
-                                              Beauty
-                                            </Button>{" "}
-                                            <Button
-                                              type="button"
-                                              variant="soft-secondary"
-                                            >
-                                              Lifestyle
-                                            </Button>{" "}
-                                            <Button variant="icon btn-warning warning">
-                                              +4
-                                            </Button>
-                                          </div>
+                                        <td className="text-dark no-wrap">
+                                          {item.brandName}
+                                        </td>
+                                        <td className="text-dark no-wrap ">
+                                          {item.styleName}
                                         </td>
 
-                                        <td>
+                                        <td className=" no-wrap">
                                           {item.stateId === 1 ? (
-                                            <div className="d-flex gap-2 justify-content-start">
+                                            <div className="d-flex gap-2 justify-content-start no-wrap">
                                               <div className="status-box bg-success"></div>
                                               <p className="p-bold green-text">
                                                 Active
                                               </p>
                                             </div>
                                           ) : item.stateId === 2 ? (
-                                            <div className="d-flex gap-2 justify-content-start">
+                                            <div className="d-flex gap-2 justify-content-start no-wrap">
                                               <div className="status-box bg-info"></div>
                                               <p className="p-bold blue-text">
                                                 Pending
                                               </p>
                                             </div>
                                           ) : item.stateId === 3 ? (
-                                            <div className="d-flex gap-2 justify-content-start">
+                                            <div className="d-flex gap-2 justify-content-start no-wrap">
                                               <div className="status-box "></div>
                                               <p className="p-bold yellow-text">
                                                 Pending Approval
@@ -584,14 +456,17 @@ const ProductList = memo((props) => {
                               </Button>
                             </Modal.Footer>
                           </Modal>
-                          <div className="loadMore-div">
-                            <Button
-                              className="mt-5 loadMore-button"
-                              onClick={loadMoreSellers}
-                            >
-                              Load More
-                            </Button>
-                          </div>
+                          {sellerLimit[sellerLimit.length - 1] ===
+                          sellers[sellers.length - 1] ? (
+                            <div className="loadMore-div">
+                              <Button
+                                className="mt-5 loadMore-button"
+                                onClick={loadMoreSellers}
+                              >
+                                Load More
+                              </Button>
+                            </div>
+                          ) : null}
                         </Col>
                       </Row>
                     </div>

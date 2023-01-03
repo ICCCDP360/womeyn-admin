@@ -65,11 +65,11 @@ const IndexRouters = memo(() => {
           ></Route>
           <Route path="product-add" element={<AddProduct></AddProduct>}></Route>
           <Route
-            path="product-category/:categoryId"
+            path="product-category/:categoryId/:name"
             element={<SubCategory></SubCategory>}
           ></Route>
           <Route
-            path="sub-category/:categoryId"
+            path="sub-category/:categoryId/:name"
             element={<SubCategoryPage></SubCategoryPage>}
           ></Route>
           <Route

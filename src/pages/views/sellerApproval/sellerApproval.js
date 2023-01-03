@@ -598,14 +598,25 @@ const SellerApproval = memo((props) => {
                               </Button>
                             </Modal.Footer>
                           </Modal>
-                          <div className="loadMore-div">
+                          {/* <div className="loadMore-div">
                             <Button
                               className="mt-5 loadMore-button"
                               onClick={loadMoreSellers}
                             >
                               Load More
                             </Button>
-                          </div>
+                          </div> */}
+                          {sellerLimit[sellerLimit.length - 1] ===
+                          sellers[sellers.length - 1] ? (
+                            <div className="loadMore-div">
+                              <Button
+                                className="mt-5 loadMore-button"
+                                onClick={loadMoreSellers}
+                              >
+                                Load More
+                              </Button>
+                            </div>
+                          ) : null}
                         </Col>
                       </Row>
                     </div>

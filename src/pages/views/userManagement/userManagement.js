@@ -184,14 +184,17 @@ const UserManagement = memo((props) => {
                         </Col>
                       </Row>
                     </div>
-                    <div className="loadMore-div">
-                      <Button
-                        className="mt-5 loadMore-button"
-                        onClick={loadMoreUsers}
-                      >
-                        Load More
-                      </Button>
-                    </div>
+                    {userLimit[userLimit.length - 1] ===
+                    users[users.length - 1] ? (
+                      <div className="loadMore-div">
+                        <Button
+                          className="mt-5 loadMore-button"
+                          onClick={loadMoreUsers}
+                        >
+                          Load More
+                        </Button>
+                      </div>
+                    ) : null}
                   </Tab.Pane>
                   <Tab.Pane
                     eventKey="2"
@@ -481,14 +484,17 @@ const UserManagement = memo((props) => {
                               </Button>
                             </Modal.Footer>
                           </Modal>
-                          <div className="loadMore-div">
-                            <Button
-                              className="mt-5 loadMore-button"
-                              onClick={loadMoreSellers}
-                            >
-                              Load More
-                            </Button>
-                          </div>
+                          {sellerLimit[sellerLimit.length - 1] ===
+                          sellers[sellers.length - 1] ? (
+                            <div className="loadMore-div">
+                              <Button
+                                className="mt-5 loadMore-button"
+                                onClick={loadMoreSellers}
+                              >
+                                Load More
+                              </Button>
+                            </div>
+                          ) : null}
                         </Col>
                       </Row>
                     </div>

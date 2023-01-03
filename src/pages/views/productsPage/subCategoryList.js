@@ -17,6 +17,8 @@ import {
   getProductSubCategory,
 } from "../../../services/category/categoryServices";
 
+import "./styles.scss";
+
 // const addSubCategory = ({ value: text }) => {
 //   Swal.fire({
 //     title: "Add Sub Category",
@@ -85,14 +87,14 @@ const addSubCategory = async () => {
 
 const SubCategory = memo(() => {
   const userId = localStorage.getItem("user_id");
-  let { categoryId } = useParams();
+  let { categoryId, name } = useParams();
   const navigate = useNavigate();
   const [error, setError] = useState(false);
   const [subCategory, setSubCategory] = useState([]);
 
   const location = useLocation();
-  const name = location.name?.category;
-  console.log("name", name);
+  // const name = location.name.pathname;
+  console.log("location", location);
 
   useEffect(() => {
     getProductSubCategory(categoryId)
@@ -156,11 +158,36 @@ const SubCategory = memo(() => {
     <Fragment>
       <Row>
         <div className="header-title d-flex flex-row justify-content-between">
-          {subCategory ? (
-            <h4 className="card-title">{name}</h4>
-          ) : (
-            <h4 className="card-title">Category</h4>
-          )}
+          <div className="header-title d-flex flex-row">
+            <div onClick={() => navigate(-1)} className="cursor-style mt-3">
+              <svg
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                class="icon-32"
+                width="30"
+                height="30"
+                viewBox="0 0 24 24"
+                style={{ color: "black" }}
+              >
+                <path
+                  d="M4.25 12.2744L19.25 12.2744"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+                <path
+                  d="M10.2998 18.2988L4.2498 12.2748L10.2998 6.24976"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+              </svg>
+            </div>
+            <h2 className="mt-2 ms-2">{name}</h2>
+          </div>
+
           {/* <h4 className="card-title">Category</h4> */}
           <Button className="mb-2" onClick={handleShow}>
             + Add a New Sub Category
@@ -179,6 +206,7 @@ const SubCategory = memo(() => {
                     <tr>
                       <th>Name</th>
                       <th>Path</th>
+                      <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -186,13 +214,21 @@ const SubCategory = memo(() => {
                       <tr key={index}>
                         <td>
                           <Link
-                            to={`/womeyn/sub-category/${item.id}`}
+                            to={`/womeyn/sub-category/${item.id}/${item.name}`}
                             style={{ color: "black" }}
                           >
                             {item.name}
                           </Link>
                         </td>
-                        <td>{item.path}</td>
+                        <td style={{ color: "black" }}>{item.path}</td>
+                        <td>
+                          <p>
+                            <div className="svg-style d-flex gap-3">
+                              <span className="icon-edit"></span>
+                              <span className="icon-delete"></span>
+                            </div>
+                          </p>
+                        </td>
                       </tr>
                     ))}
                   </tbody>

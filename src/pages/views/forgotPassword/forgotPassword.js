@@ -25,7 +25,7 @@ import { Modal } from "bootstrap";
 import "./styles.scss";
 // import { forgotPasswordServices } from "../../../services/forgotPassword-services/forgotPassword-services";
 import { forgotPasswordServices } from "../../../services/password/passwordServices";
-import logowomenyn from "../../../assets/loginLogos/women_white_log.svg";
+import logowomenyn from "../../../assets/loginLogos/new-womeyn.svg";
 import circlethree from "../../../assets/loginLogos/circle.svg";
 import login from "../../../assets/loginLogos/login.png";
 import "../../auth/Signin.scss";
