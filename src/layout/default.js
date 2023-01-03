@@ -1,72 +1,71 @@
-import { useEffect, memo, Fragment, useContext, useState } from 'react'
-import { Navigate, Outlet, useLocation } from 'react-router-dom'
+import { useEffect, memo, Fragment, useContext, useState } from "react";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 //react-shepherd
-import { ShepherdTour, ShepherdTourContext } from 'react-shepherd'
+import { ShepherdTour, ShepherdTourContext } from "react-shepherd";
 
 // header
-import Headerpro from '../components/partials/pro/headerstyle/header-pro'
+import Headerpro from "../components/partials/pro/headerstyle/header-pro";
 
 //subheader
-import SubHeader from '../components/partials/dashboard/headerstyle/sub-header'
+import SubHeader from "../components/partials/dashboard/headerstyle/sub-header";
 
 //sidebar
-import Sidebar from '../components/partials/dashboard/sidebarstyle/sidebar'
+import Sidebar from "../components/partials/dashboard/sidebarstyle/sidebar";
 
 //footer
-import Footer from '../components/partials/dashboard/footerstyle/footer'
+import Footer from "../components/partials/dashboard/footerstyle/footer";
 
-//default 
-import DefaultRouter from '../router/default-router'
+//default
+import DefaultRouter from "../router/default-router";
 
 //seetingoffCanvas
-import SettingOffCanvas from '../components/setting/SettingOffCanvas'
+import SettingOffCanvas from "../components/setting/SettingOffCanvas";
 
-import Loader from '../components/Loader'
+import Loader from "../components/Loader";
 
 // Import selectors & action from setting store
-import * as SettingSelector from '../store/setting/selectors'
-
+import * as SettingSelector from "../store/setting/selectors";
 
 // Redux Selector / Action
-import { useSelector } from 'react-redux';
-import loginServices from '../services/login_services/login-services'
+import { useSelector } from "react-redux";
+import loginServices from "../services/login_services/login-services";
 
 const Tour = () => {
   const tour = useContext(ShepherdTourContext);
-  const { pathname } = useLocation()
+  const { pathname } = useLocation();
   useEffect(() => {
-    if (pathname === '/dashboard' && sessionStorage.getItem('tour') !== 'true') {
+    if (
+      pathname === "/dashboard" &&
+      sessionStorage.getItem("tour") !== "true"
+    ) {
       tour?.start();
     }
   });
-  return (
-    <Fragment>
-    </Fragment>
-  );
+  return <Fragment></Fragment>;
 };
 
 const Default = memo((props) => {
   let location = useLocation();
-  const pageLayout = useSelector(SettingSelector.page_layout)
-  const appName = useSelector(SettingSelector.app_name)
+  const pageLayout = useSelector(SettingSelector.page_layout);
+  const appName = useSelector(SettingSelector.app_name);
   const [authUser, setAuthUser] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    loginServices.useAuth().then(result => {
+    loginServices.useAuth().then((result) => {
       if (result) {
         setAuthUser(result);
-        setLoading(false)
+        setLoading(false);
       } else {
-        setLoading(false)
+        setLoading(false);
       }
-    })
-  }, [authUser])
+    });
+  }, [authUser]);
 
   const closeTour = () => {
-    sessionStorage.setItem('tour', 'true')
-  }
+    sessionStorage.setItem("tour", "true");
+  };
 
   // shepherd
   const newSteps = [
@@ -77,15 +76,17 @@ const Default = memo((props) => {
       buttons: [
         {
           type: "next",
-          text: "Next"
-        }
+          text: "Next",
+        },
       ],
       when: {
         show: () => {
-          document.querySelector('.shepherd-modal-overlay-container').classList.add('shepherd-modal-is-visible')
+          document
+            .querySelector(".shepherd-modal-overlay-container")
+            .classList.add("shepherd-modal-is-visible");
         },
-        cancel: () => closeTour()
-      }
+        cancel: () => closeTour(),
+      },
     },
     {
       title: "<h4>Profile Setting</h4>",
@@ -95,16 +96,16 @@ const Default = memo((props) => {
         {
           type: "back",
           classes: "shepherd-button-secondary",
-          text: "Back"
+          text: "Back",
         },
         {
           type: "next",
-          text: "Next"
-        }
+          text: "Next",
+        },
       ],
       when: {
-        cancel: () => closeTour()
-      }
+        cancel: () => closeTour(),
+      },
     },
     {
       title: "<h4>Live Customizer</h4>",
@@ -114,50 +115,49 @@ const Default = memo((props) => {
         {
           type: "back",
           classes: "shepherd-button-secondary",
-          text: "Back"
+          text: "Back",
         },
         {
           action() {
-            sessionStorage.setItem('tour', 'true')
+            sessionStorage.setItem("tour", "true");
             return this.next();
           },
-          text: "Done"
-        }
+          text: "Done",
+        },
       ],
       when: {
-        cancel: () => closeTour()
-      }
+        cancel: () => closeTour(),
+      },
     },
   ];
   const tourOptions = {
     defaultStepOptions: {
       cancelIcon: {
-        enabled: true
-      }
+        enabled: true,
+      },
     },
     when: {
-      cancel: function () {
-      }
-    }
+      cancel: function () {},
+    },
   };
-  var subHeader = '';
-  var commanclass = '';
+  var subHeader = "";
+  var commanclass = "";
   switch (location.pathname) {
-    case '/dashboard/special-pages/calender':
-    case '/dashboard/special-pages/billing':
-    case '/dashboard/special-pages/kanban':
-    case '/dashboard/special-pages/pricing':
-    case '/dashboard/special-pages/timeline':
-    case '/dashboard/table/table-data':
-    case '/dashboard/table/bootstrap-table':
-    case '/dashboard/table/border-table':
-    case '/dashboard/table/fancy-table':
-    case '/dashboard/table/fixed-table':
-      subHeader = <SubHeader />
-      commanclass = 'iq-banner default'
+    case "/dashboard/special-pages/calender":
+    case "/dashboard/special-pages/billing":
+    case "/dashboard/special-pages/kanban":
+    case "/dashboard/special-pages/pricing":
+    case "/dashboard/special-pages/timeline":
+    case "/dashboard/table/table-data":
+    case "/dashboard/table/bootstrap-table":
+    case "/dashboard/table/border-table":
+    case "/dashboard/table/fancy-table":
+    case "/dashboard/table/fixed-table":
+      subHeader = <SubHeader />;
+      commanclass = "iq-banner default";
       break;
     default:
-      break
+      break;
   }
 
   if (authUser && !loading) {
@@ -177,18 +177,14 @@ const Default = memo((props) => {
             </div>
             <Footer />
           </main>
-          <SettingOffCanvas />
+          {/* <SettingOffCanvas /> */}
         </ShepherdTour>
       </Fragment>
-    )
+    );
   } else if (!loading) {
-    return (
-      <Navigate to='/'></Navigate>
-    )
+    return <Navigate to="/"></Navigate>;
   }
+});
 
-}
-)
-
-Default.displayName = "Default"
-export default Default
+Default.displayName = "Default";
+export default Default;

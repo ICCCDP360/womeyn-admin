@@ -223,22 +223,6 @@ const Headerpro = memo((props) => {
                     <span className="nav-text ms-2">Your Profile</span>
                   </Nav.Link>
                 </Nav.Item>
-
-                <Nav.Item as="li">
-                  <Nav.Link
-                    className="menu-arrow justify-content-start"
-                    onClick={() => {
-                      setOpen12(!open12);
-                      logOut();
-                    }}
-                    aria-expanded={open12}
-                    role="button"
-                    aria-controls="elementsData"
-                  >
-                    <span className="icon-logout font-size-icon"></span>
-                    <span className="nav-text ms-2">Logout</span>
-                  </Nav.Link>
-                </Nav.Item>
               </ul>
             </div>
           </div>
