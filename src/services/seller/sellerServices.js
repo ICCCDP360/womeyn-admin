@@ -5,15 +5,7 @@ export function getSellerServices() {
 }
 
 export function getSellerByIdServices(id) {
-  return new Promise((resolve, reject) => {
-    HttpInterceptor.get(`/admin/seller/profile/${id}`)
-      .then((response) => {
-        resolve(response.data);
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
+  return HttpInterceptor.get(`/admin/seller/profile/${id}`);
 }
 
 export function sellerApprovalServices(id, data) {

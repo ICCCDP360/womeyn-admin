@@ -185,7 +185,7 @@ const SubCategory = memo(() => {
                 ></path>
               </svg>
             </div>
-            <h2 className="mt-2 ms-2">{name}</h2>
+            <h2 className="mt-2 ms-2">Categories</h2>
           </div>
 
           {/* <h4 className="card-title">Category</h4> */}

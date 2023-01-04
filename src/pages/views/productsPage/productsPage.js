@@ -69,7 +69,7 @@ const ProductPage = memo(() => {
           aria-current="page"
           to="/womeyn/product-add"
         >
-          <Button style={{ marginBottom: 10 }}>+ Add a New Product</Button>
+          <Button style={{ marginBottom: 10 }}>+ Add a New Category</Button>
         </Link>
       </div>
       <Row className="row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-3 mt-4 ">

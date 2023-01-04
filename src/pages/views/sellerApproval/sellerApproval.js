@@ -99,9 +99,8 @@ const SellerApproval = memo((props) => {
   const [userId, setUserId] = useState("");
 
   const handleClose = () => setShow(false);
-  const handleShow = (item) => {
-    //
-    setUserId(item?.id);
+  const handleShow = (id) => {
+    setUserId(id);
     setShow(true);
   };
 

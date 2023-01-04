@@ -182,7 +182,7 @@ const ProductList = memo((props) => {
                       role="tab"
                       aria-selected="true"
                     >
-                      <span className="iq-mail-section">New Registrations</span>
+                      <span className="iq-mail-section">New Products</span>
                     </Nav.Link>
                   </div>
                 </Nav>
@@ -219,7 +219,7 @@ const ProductList = memo((props) => {
                                         <td>
                                           <div className="d-flex align-items-center">
                                             <Link
-                                              to={`/womeyn/seller-profile/${item.id}`}
+                                            // to={`/womeyn/seller-profile/${item.id}`}
                                             >
                                               {item?.imageUrls ? (
                                                 <img
@@ -247,9 +247,9 @@ const ProductList = memo((props) => {
                                             </Link>
                                             <div
                                               className="media-support-info"
-                                              onClick={() =>
-                                                handleSelect(item?.id)
-                                              }
+                                              // onClick={() =>
+                                              //   handleSelect(item?.id)
+                                              // }
                                             >
                                               <h5 className="iq-sub-label text-uppercase">
                                                 {item.productName}

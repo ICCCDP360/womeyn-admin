@@ -70,7 +70,6 @@ const VerticalNav = memo(() => {
   useEffect(() => {
     PendingApprovalServices()
       .then((res) => {
-        console.log("res", res?.data);
         setPendingList(res?.data);
       })
       .catch((err) => console.log(err));
