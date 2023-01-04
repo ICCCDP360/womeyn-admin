@@ -358,11 +358,9 @@ const SellerApproval = memo((props) => {
                                                 />
                                               )}
                                             </Link>
-                                            <div
+                                            <Link
                                               className="media-support-info"
-                                              onClick={() =>
-                                                handleSelect(item?.id)
-                                              }
+                                              to={`/womeyn/seller-profile/${item.id}`}
                                             >
                                               <h5 className="iq-sub-label text-uppercase">
                                                 {item.firstName}
@@ -370,7 +368,7 @@ const SellerApproval = memo((props) => {
                                               <p className="mb-0">
                                                 {item.email}
                                               </p>
-                                            </div>
+                                            </Link>
                                           </div>
                                         </td>
                                         <td className="text-dark no-wrap">{`${description.slice(
