@@ -228,7 +228,7 @@ const ProductList = memo((props) => {
                                                     width: 64,
                                                     height: 64,
                                                   }}
-                                                  src={`https://my-demo-11-bucket.s3.ap-south-1.amazonaws.com/${item.imageUrls}`}
+                                                  src={`https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.vecteezy.com%2Fsystem%2Fresources%2Fpreviews%2F000%2F256%2F642%2Foriginal%2Fvector-modern-luxury-brand-logo-background.jpg&f=1&nofb=1&ipt=030e7161fb3b352746bc50fb7c4ba82becfbbe3612eb0ae1d7c1c940c7af6c57&ipo=images`}
                                                   alt=""
                                                   loading="lazy"
                                                 />

@@ -125,8 +125,8 @@ const AddProduct = memo((props) => {
     formData.append("sampleTags", form.categoryTags[0]);
     formData.append("upl", imageData);
 
-    // console.log("imageData", formData);
-    console.log("name", form.categoryName[0]);
+    console.log("formData", formData);
+    // console.log("name", form.categoryName[0]);
 
     createCategory(formData)
       .then(async (result) => {
