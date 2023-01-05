@@ -411,7 +411,7 @@ const SellerApproval = memo((props) => {
                                             <div className="d-flex gap-2 justify-content-start">
                                               <div className="status-box bg-success"></div>
                                               <p className="p-bold green-text">
-                                                Active
+                                                Approved
                                               </p>
                                             </div>
                                           ) : item.stateId === 2 ? (

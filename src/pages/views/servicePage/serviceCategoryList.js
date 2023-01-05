@@ -203,9 +203,9 @@ const serviceCategoryList = memo(() => {
                   <tbody>
                     {subCategory.map((item, index) => (
                       <tr key={index}>
-                        <td>
+                        <td onClick={() => window.location.reload(false)}>
                           <Link
-                            to={`/womeyn/sub-category/${item.id}`}
+                            to={`/womeyn/category/${item.id}`}
                             style={{ color: "black" }}
                           >
                             {item.name}

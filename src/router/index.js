@@ -20,6 +20,7 @@ import ServiceList from "../pages/views/serviceList/serviceList";
 // import  from "../pages/views/productsPage/subCategoryList";
 import SubCategory from "../pages/views/productsPage/subCategoryList";
 import SubCategoryPage from "../pages/views/productsPage/subCategoryPage";
+import ProductDetails from "../pages/views/productList/productDetails";
 
 //Users
 import UserProfile from "../pages/views/userProfile/userProfile";
@@ -65,7 +66,7 @@ const IndexRouters = memo(() => {
           ></Route>
           <Route path="product-add" element={<AddProduct></AddProduct>}></Route>
           <Route
-            path="product-category/:categoryId/:name"
+            path="category/:categoryId/:name"
             element={<SubCategory></SubCategory>}
           ></Route>
           <Route
@@ -80,6 +81,10 @@ const IndexRouters = memo(() => {
           <Route
             path="product-list"
             element={<ProductList></ProductList>}
+          ></Route>
+          <Route
+            path="product-details/:id"
+            element={<ProductDetails></ProductDetails>}
           ></Route>
           <Route
             path="service-list"

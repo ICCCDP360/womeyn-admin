@@ -159,7 +159,12 @@ const SubCategory = memo(() => {
       <Row>
         <div className="header-title d-flex flex-row justify-content-between">
           <div className="header-title d-flex flex-row">
-            <div onClick={() => navigate(-1)} className="cursor-style mt-3">
+            <div
+              onClick={() => {
+                window.location.reload(false);
+              }}
+              className="cursor-style mt-3"
+            >
               <svg
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -168,6 +173,7 @@ const SubCategory = memo(() => {
                 height="30"
                 viewBox="0 0 24 24"
                 style={{ color: "black" }}
+                onClick={() => navigate(-1)}
               >
                 <path
                   d="M4.25 12.2744L19.25 12.2744"
@@ -212,9 +218,9 @@ const SubCategory = memo(() => {
                   <tbody>
                     {subCategory.map((item, index) => (
                       <tr key={index}>
-                        <td>
+                        <td onClick={() => window.location.reload(false)}>
                           <Link
-                            to={`/womeyn/sub-category/${item.id}/${item.name}`}
+                            to={`/womeyn/category/${item.id}/${item.name}`}
                             style={{ color: "black" }}
                           >
                             {item.name}

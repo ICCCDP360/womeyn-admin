@@ -11,7 +11,7 @@ const SidebarSmall = memo(() => {
     <Fragment>
       <aside className="sidebar sidebar-default sidebar-small">
         <div className="sidebar-header d-flex align-items-center justify-content-start">
-          <Link to="../dashboard/index.html" className="navbar-brand">
+          <Link to="/womeyn//dashboard/index.html" className="navbar-brand">
             <svg
               width="30"
               className="text-primary"
@@ -66,7 +66,7 @@ const SidebarSmall = memo(() => {
                 <Link
                   className="nav-link active"
                   aria-current="page"
-                  href="/dashboard"
+                  to="/womeyn/dashboard"
                   data-sidebar-toggle="tooltip"
                   data-bs-placement="right"
                   title="Default"

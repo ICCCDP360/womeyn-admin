@@ -206,7 +206,7 @@ const ProductList = memo((props) => {
                                 <th>Brand</th>
                                 <th>Color</th>
                                 <th>Status</th>
-                                <th className="text-center">Action</th>
+                                <th>Action</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -219,16 +219,16 @@ const ProductList = memo((props) => {
                                         <td>
                                           <div className="d-flex align-items-center">
                                             <Link
-                                            // to={`/womeyn/seller-profile/${item.id}`}
+                                              to={`/womeyn/product-details/${item.id}`}
                                             >
-                                              {item?.imageUrls ? (
+                                              {item?.productThumbImage ? (
                                                 <img
                                                   className="rounded me-3"
                                                   style={{
                                                     width: 64,
                                                     height: 64,
                                                   }}
-                                                  src={`https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.vecteezy.com%2Fsystem%2Fresources%2Fpreviews%2F000%2F256%2F642%2Foriginal%2Fvector-modern-luxury-brand-logo-background.jpg&f=1&nofb=1&ipt=030e7161fb3b352746bc50fb7c4ba82becfbbe3612eb0ae1d7c1c940c7af6c57&ipo=images`}
+                                                  src={`https://my-demo-11-bucket.s3.ap-south-1.amazonaws.com/${item.productThumbImage}`}
                                                   alt=""
                                                   loading="lazy"
                                                 />
@@ -239,7 +239,7 @@ const ProductList = memo((props) => {
                                                     width: 64,
                                                     height: 64,
                                                   }}
-                                                  src="https://sialifehospital.com/wp-content/uploads/2021/04/testimonial-1.png"
+                                                  src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Finspgr.id%2Fapp%2Fuploads%2F2015%2F03%2Fproduct-design-koziol-08.jpg&f=1&nofb=1&ipt=078467f63de2ea6f20060d3e53ef1d5f6da17b052c3c038685b76a91aa01cc7c&ipo=images"
                                                   alt=""
                                                   loading="lazy"
                                                 />
@@ -272,7 +272,7 @@ const ProductList = memo((props) => {
                                             <div className="d-flex gap-2 justify-content-start no-wrap">
                                               <div className="status-box bg-success"></div>
                                               <p className="p-bold green-text">
-                                                Active
+                                                Approved
                                               </p>
                                             </div>
                                           ) : item.stateId === 2 ? (

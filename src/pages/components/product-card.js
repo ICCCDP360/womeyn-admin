@@ -20,7 +20,7 @@ const ProductCard = memo((props) => {
           <Card.Header className="rounded-0 rounded-start bg-soft-secondary p-0">
             <Link
               to={{
-                pathname: `/womeyn/product-category/${props.id}/${props.itemsName}`,
+                pathname: `/womeyn/category/${props.id}/${props.itemsName}`,
                 // state: { category: `${props.itemsName}` },
                 state: "hhh",
               }}
@@ -35,9 +35,7 @@ const ProductCard = memo((props) => {
           </Card.Header>
           <Card.Body className="rounded-end iq-wishlist-card">
             <div className="d-flex justify-content-between mb-2">
-              <Link
-                to={`/womeyn/product-category/${props.id}/${props.itemsName}`}
-              >
+              <Link to={`/womeyn/category/${props.id}/${props.itemsName}`}>
                 <h5 className="mb-0 title">{props.itemsName}</h5>
               </Link>
             </div>

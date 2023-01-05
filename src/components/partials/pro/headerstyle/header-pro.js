@@ -167,10 +167,13 @@ const Headerpro = memo((props) => {
   return (
     <Navbar expand="xl" className={`nav iq-navbar ${headerNavbar} `}>
       <Container fluid className="navbar-inner">
-        <Link to="/dashboard" className="navbar-brand">
+        {/* <div
+          onClick={() => history(`/womeyn/dashboard`)}
+          className="navbar-brand"
+        >
           <Logo color={true} />
           <h4 className="logo-title d-none d-sm-block">{props.app_name}</h4>
-        </Link>
+        </div> */}
         <div
           className="sidebar-toggle"
           data-toggle="sidebar"

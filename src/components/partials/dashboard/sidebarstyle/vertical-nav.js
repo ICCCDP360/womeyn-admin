@@ -102,7 +102,7 @@ const VerticalNav = memo(() => {
         >
           <Link
             className={`${
-              location.pathname === "/dashboard" ? "active" : ""
+              location.pathname === "/womeyn/dashboard" ? "active" : ""
             } nav-link `}
             aria-current="page"
             to="/womeyn/dashboard"
@@ -363,7 +363,9 @@ const VerticalNav = memo(() => {
           >
             <OverlayTrigger
               placement="right"
-              overlay={<Tooltip>Products</Tooltip>}
+              overlay={
+                <Tooltip>Products ({pendingList.TotalProductsCount})</Tooltip>
+              }
             >
               <i className="icon">
                 <span
@@ -375,7 +377,9 @@ const VerticalNav = memo(() => {
                 ></span>
               </i>
             </OverlayTrigger>
-            <span className="item-name">Products</span>
+            <span className="item-name">
+              Products ({pendingList.TotalProductsCount})
+            </span>
           </Link>
         </li>
         {/* <li
