@@ -360,10 +360,6 @@ const ProductDetails = memo(() => {
                   <Table bordered className="mb-0">
                     <tbody>
                       <tr>
-                        <th>Type</th>
-                        <td>Backpack</td>
-                      </tr>
-                      <tr>
                         <th>BrandName</th>
                         <td>{single?.brandName}</td>
                       </tr>
