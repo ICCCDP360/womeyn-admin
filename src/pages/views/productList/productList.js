@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { getSellerServices } from "../../../services/seller/sellerServices";
 import { Row, Col } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
+import Select from "react-select";
 
 //Images
 //img
@@ -22,6 +23,8 @@ import img9 from "../../../assets/images/earth_souls.png";
 import Loader from "../../../components/Loader";
 import { sellerApprovalServices } from "../../../services/seller/sellerServices";
 import { ProductListServices } from "../../../services/list/listServices";
+
+import "./styles.scss";
 
 let description =
   "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.";
@@ -110,6 +113,7 @@ const ProductList = memo((props) => {
   const [sellers, setSellers] = useState([]);
   const [sellerLimit, setSellerLimit] = useState(10);
   const [loading, setLoading] = useState(false);
+  const [options, setOptions] = useState([{ value: "", label: "" }]);
   const actionReject = () => {
     setLoading(true);
 
@@ -136,13 +140,25 @@ const ProductList = memo((props) => {
       .catch((err) => console.log(err));
   };
   useEffect(() => {
+    let seller;
     ProductListServices()
       .then((res) => {
         setSellers(res.data.results);
-        console.log("arrayLength", res.data.results.length);
+        seller = res.data.results.map((e) => {
+          return { value: e.sellerId, label: e.sellerId };
+        });
+        setOptions(seller);
+        console.log("arrayLength", seller);
       })
       .catch((err) => console.log(err));
   }, []);
+
+  const [selectedOption, setSelectedOption] = useState();
+
+  const handleChange = (selectedOption) => {
+    setSelectedOption(selectedOption.value);
+    console.log("selectedOption", selectedOption.value);
+  };
 
   const loadMoreSellers = () => {
     setSellerLimit(sellerLimit + 10);
@@ -160,6 +176,13 @@ const ProductList = memo((props) => {
     <Fragment>
       <div className="d-flex flex-row justify-content-between">
         <h3>Product Approval</h3>
+        <div style={{ width: 250 }}>
+          <Select
+            value={selectedOption}
+            onChange={handleChange}
+            options={options}
+          />
+        </div>
       </div>
       <div>
         <Card>
@@ -216,7 +239,7 @@ const ProductList = memo((props) => {
                                   return (
                                     <>
                                       <tr key={index}>
-                                        <td>
+                                        <td className="text-dark wrap">
                                           <div className="d-flex align-items-center">
                                             <Link
                                               to={`/womeyn/product-details/${item.id}`}
@@ -247,13 +270,14 @@ const ProductList = memo((props) => {
                                             </Link>
                                             <div
                                               className="media-support-info"
+
                                               // onClick={() =>
                                               //   handleSelect(item?.id)
                                               // }
                                             >
-                                              <h5 className="iq-sub-label text-uppercase">
+                                              <h6 className="iq-sub-label text-uppercase product-name">
                                                 {item.productName}
-                                              </h5>
+                                              </h6>
                                               <p className="mb-0">
                                                 {item.modelName}
                                               </p>
