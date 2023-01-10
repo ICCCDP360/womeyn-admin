@@ -1,4 +1,4 @@
-import { useState, memo, Fragment } from "react";
+import { useState, memo, Fragment, useEffect } from "react";
 // Router
 import { Link, useNavigate } from "react-router-dom";
 
@@ -16,10 +16,12 @@ import {
 import Card from "../../../components/bootstrap/card";
 
 import { createAdmin } from "../../../services/admin/adminServices";
+import { PermissionListServices } from "../../../services/permission/permissionServices";
 
 const AddUser = memo((props) => {
   const navigate = useNavigate();
 
+  const [permission, setPermission] = useState([]);
   const [first, setFirst] = useState(false);
   const [second, setSecond] = useState(false);
   const [third, setThird] = useState(false);
@@ -38,6 +40,16 @@ const AddUser = memo((props) => {
   };
 
   const [error, setError] = useState(false);
+
+  useEffect(() => {
+    PermissionListServices()
+      .then((res) => {
+        // setUsers(res.data.results);
+        console.log("subCategory", res?.data?.results);
+        setPermission(res?.data?.results);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   const [form, setForm] = useState({
     name: "",
@@ -359,6 +371,23 @@ const AddUser = memo((props) => {
                   )}
                 </div>
                 <hr className="hr-horizontal" />
+                {/* {permission.map((list) => {
+                  return (
+                    <div className="field-container">
+                      <ListGroupItem as="label">
+                        <input
+                          className="form-check-input me-5"
+                          type="checkbox"
+                          value={four}
+                          onChange={checkedFour}
+                          name="four"
+                          checked={fourth}
+                        />
+                        {list.name}
+                      </ListGroupItem>
+                    </div>
+                  );
+                })} */}
                 <div>
                   <Button variant="secondary" onClick={goBack}>
                     Back

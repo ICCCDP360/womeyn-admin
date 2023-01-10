@@ -188,21 +188,21 @@ const VerticalNav = memo(() => {
             <span className="item-name">User Management</span>
           </Link>
         </li>
-        {/* <li
+        <li
           className={`${
-            location.pathname === "/womeyn/product-category" ? "active" : ""
+            location.pathname === "/womeyn/create-coupon" ? "active" : ""
           } nav-item`}
         >
           <Link
             className={`${
-              location.pathname === "/womeyn/product-category" ? "active" : ""
+              location.pathname === "/womeyn/create-coupon" ? "active" : ""
             } nav-link `}
             aria-current="page"
-            to="/womeyn/product-category"
+            to="/womeyn/create-coupon"
           >
             <OverlayTrigger
               placement="right"
-              overlay={<Tooltip>Product Category</Tooltip>}
+              overlay={<Tooltip>Coupons</Tooltip>}
             >
               <i className="icon">
                 <span
@@ -214,38 +214,9 @@ const VerticalNav = memo(() => {
                 ></span>
               </i>
             </OverlayTrigger>
-            <span className="item-name">Product Category</span>
+            <span className="item-name">Coupons</span>
           </Link>
         </li>
-        <li
-          className={`${
-            location.pathname === "/womeyn/service-category" ? "active" : ""
-          } nav-item`}
-        >
-          <Link
-            className={`${
-              location.pathname === "/womeyn/service-category" ? "active" : ""
-            } nav-link `}
-            aria-current="page"
-            to="/womeyn/service-category"
-          >
-            <OverlayTrigger
-              placement="right"
-              overlay={<Tooltip>Service Category</Tooltip>}
-            >
-              <i className="icon">
-                <span
-                  className={`${
-                    location.pathname === "/dashboard"
-                      ? "active"
-                      : "icon-service"
-                  } icon-size`}
-                ></span>
-              </i>
-            </OverlayTrigger>
-            <span className="item-name">Service Category</span>
-          </Link>
-        </li> */}
 
         <Accordion.Item
           as="li"
