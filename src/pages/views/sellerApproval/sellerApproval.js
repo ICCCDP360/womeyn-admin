@@ -270,7 +270,7 @@ const SellerApproval = memo((props) => {
     <Fragment>
       <div className="d-flex flex-row justify-content-between">
         <h3>Approvals</h3>
-        <div>
+        <div style={{ width: 170 }}>
           <Select
             value={selectedOption}
             onChange={handleChange}
@@ -334,10 +334,11 @@ const SellerApproval = memo((props) => {
                               <thead>
                                 <tr>
                                   <th>Seller</th>
-                                  <th>Description</th>
-                                  <th>Services/Products</th>
+                                  {/* <th>Description</th> */}
+                                  <th>Products</th>
+                                  <th>Services</th>
                                   <th>Status</th>
-                                  <th className="text-center">Action</th>
+                                  <th>Action</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -389,11 +390,7 @@ const SellerApproval = memo((props) => {
                                               </Link>
                                             </div>
                                           </td>
-                                          <td className="text-dark no-wrap">{`${description.slice(
-                                            0,
-                                            100
-                                          )}...`}</td>
-                                          <td className="text-dark no-wrap flex-container">
+                                          <td className="text-dark ">
                                             <div>
                                               <Button
                                                 type="button"
@@ -424,6 +421,69 @@ const SellerApproval = memo((props) => {
                                               </Button>
                                             </div>
                                           </td>
+                                          {/* <td className="text-dark no-wrap flex-container"> */}
+                                          <td className="text-dark">
+                                            <div>
+                                              <Button
+                                                type="button"
+                                                variant="soft-secondary"
+                                              >
+                                                Clothing
+                                              </Button>{" "}
+                                              <Button
+                                                type="button"
+                                                variant="soft-secondary"
+                                              >
+                                                Personal Care
+                                              </Button>{" "}
+                                              <Button
+                                                type="button"
+                                                variant="soft-secondary"
+                                              >
+                                                Beauty
+                                              </Button>{" "}
+                                              <Button
+                                                type="button"
+                                                variant="soft-secondary"
+                                              >
+                                                Lifestyle
+                                              </Button>{" "}
+                                              <Button variant="icon btn-warning warning">
+                                                +4
+                                              </Button>
+                                            </div>
+                                          </td>
+                                          {/* <td className="text-dark no-wrap flex-container">
+                                            <div>
+                                              <Button
+                                                type="button"
+                                                variant="soft-secondary"
+                                              >
+                                                Clothing
+                                              </Button>{" "}
+                                              <Button
+                                                type="button"
+                                                variant="soft-secondary"
+                                              >
+                                                Personal Care
+                                              </Button>{" "}
+                                              <Button
+                                                type="button"
+                                                variant="soft-secondary"
+                                              >
+                                                Beauty
+                                              </Button>{" "}
+                                              <Button
+                                                type="button"
+                                                variant="soft-secondary"
+                                              >
+                                                Lifestyle
+                                              </Button>{" "}
+                                              <Button variant="icon btn-warning warning">
+                                                +4
+                                              </Button>
+                                            </div>
+                                          </td> */}
 
                                           <td>
                                             {item.stateId === 1 ? (
@@ -662,10 +722,10 @@ const SellerApproval = memo((props) => {
                               <thead>
                                 <tr>
                                   <th>Seller</th>
-                                  <th>Description</th>
+                                  {/* <th>Description</th> */}
                                   <th>Products</th>
                                   <th>Status</th>
-                                  <th className="text-center">Action</th>
+                                  <th>Action</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -717,11 +777,12 @@ const SellerApproval = memo((props) => {
                                               </Link>
                                             </div>
                                           </td>
-                                          <td className="text-dark no-wrap">{`${description.slice(
+                                          {/* <td className="text-dark no-wrap">{`${description.slice(
                                             0,
                                             100
-                                          )}...`}</td>
-                                          <td className="text-dark no-wrap flex-container">
+                                          )}...`}</td> */}
+                                          {/* <td className="text-dark no-wrap flex-container"> */}
+                                          <td className="text-dark">
                                             <div>
                                               <Button
                                                 type="button"
@@ -990,10 +1051,10 @@ const SellerApproval = memo((props) => {
                               <thead>
                                 <tr>
                                   <th>Seller</th>
-                                  <th>Description</th>
+                                  {/* <th>Description</th> */}
                                   <th>Services</th>
                                   <th>Status</th>
-                                  <th className="text-center">Action</th>
+                                  <th>Action</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -1045,11 +1106,12 @@ const SellerApproval = memo((props) => {
                                               </Link>
                                             </div>
                                           </td>
-                                          <td className="text-dark no-wrap">{`${description.slice(
+                                          {/* <td className="text-dark no-wrap">{`${description.slice(
                                             0,
                                             100
-                                          )}...`}</td>
-                                          <td className="text-dark no-wrap flex-container">
+                                          )}...`}</td> */}
+                                          {/* <td className="text-dark no-wrap flex-container"> */}
+                                          <td className="text-dark">
                                             <div>
                                               <Button
                                                 type="button"

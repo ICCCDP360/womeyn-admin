@@ -30,8 +30,8 @@ const CouponCreation = memo((props) => {
   return (
     <Fragment className="mb-7">
       <div className="header">
-        <div className="d-flex flex-row">
-          <p className="text-dark">coupons</p>
+        <div className="d-flex flex-row gap-3">
+          <p className="text-primary">Coupons</p>
           <p className="text-dark ml-1">Create a new coupon</p>
         </div>
         <Row>
@@ -120,15 +120,15 @@ const CouponCreation = memo((props) => {
                   </Col>
                 </Row>
                 <div
-                  className="border rounded border-secondary bg-primary"
+                  className="border rounded border-secondary background"
                   style={{ width: "60%" }}
                 >
-                  <div className="p-1">
-                    <p className="text-dark">
+                  <div className="p-3">
+                    <p className="text-dark mb-0">
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                       sed do eiusmod tempor incididunt ut labore et dolore magna
                       aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                      ullamco laboris nisi ut aliquip ex ea commodo consequat
+                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
                     </p>
                   </div>
                 </div>
@@ -214,15 +214,15 @@ const CouponCreation = memo((props) => {
               </ul>
 
               <div
-                className="border rounded border-secondary bg-primary mb-3"
+                className="border rounded border-secondary background mb-3"
                 style={{ width: "60%" }}
               >
-                <div className="p-1">
-                  <p className="text-dark">
+                <div className="p-3">
+                  <p className="text-dark mb-0">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                     do eiusmod tempor incididunt ut labore et dolore magna
                     aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
                   </p>
                 </div>
               </div>
@@ -298,15 +298,15 @@ const CouponCreation = memo((props) => {
           <p className="text-dark">
             Select a duration for your coupon ---- YES/NO
           </p>
-          <Form>
+          <Form className="mb-5">
             <Row>
               <Col md="2">
                 <Form.Group className="form-group">
                   <select className="form-select mb-3 shadow-none">
                     <option defaultValue className="text-dark">
-                      Sellers
+                      Sellers One
                     </option>
-                    <option value="1">Seller One</option>
+                    {/* <option value="1">Seller One</option> */}
                     <option value="2">Seller Two</option>
                     <option value="3">Seller Three</option>
                   </select>
@@ -321,13 +321,16 @@ const CouponCreation = memo((props) => {
                     <option defaultValue className="text-dark">
                       Product
                     </option>
-                    <option value="1">Product</option>
+                    {/* <option value="1">Product</option> */}
                     <option value="2">Services</option>
                   </select>
                 </Form.Group>
               </Col>
             </Row>
           </Form>
+          <div className="mb-5">
+            <Button>Continue</Button>
+          </div>
         </div>
       </div>
     </Fragment>
