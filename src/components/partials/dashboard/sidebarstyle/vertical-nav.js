@@ -353,6 +353,35 @@ const VerticalNav = memo(() => {
             </span>
           </Link>
         </li>
+        <li
+          className={`${
+            location.pathname === "/womeyn/placement-list" ? "active" : ""
+          } nav-item`}
+        >
+          <Link
+            className={`${
+              location.pathname === "/womeyn/placement-list" ? "active" : ""
+            } nav-link `}
+            aria-current="page"
+            to="/womeyn/placement-list"
+          >
+            <OverlayTrigger
+              placement="right"
+              overlay={<Tooltip>Manage Placement</Tooltip>}
+            >
+              <i className="icon">
+                <span
+                  className={`${
+                    location.pathname === "/dashboard"
+                      ? "active"
+                      : "icon-product"
+                  } icon-size`}
+                ></span>
+              </i>
+            </OverlayTrigger>
+            <span className="item-name">Manage Placement</span>
+          </Link>
+        </li>
         {/* <li
           className={`${
             location.pathname === "/womeyn/service-list" ? "active" : ""

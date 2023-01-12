@@ -21,6 +21,8 @@ import ServiceList from "../pages/views/serviceList/serviceList";
 import SubCategory from "../pages/views/productsPage/subCategoryList";
 import SubCategoryPage from "../pages/views/productsPage/subCategoryPage";
 import ProductDetails from "../pages/views/productList/productDetails";
+import PlacementList from "../pages/views/placement/placementList";
+import AddPlacement from "../pages/views/placement/addPlacement";
 
 //Users
 import UserProfile from "../pages/views/userProfile/userProfile";
@@ -93,6 +95,14 @@ const IndexRouters = memo(() => {
           <Route
             path="create-coupon"
             element={<CouponCreation></CouponCreation>}
+          ></Route>
+          <Route
+            path="placement-list"
+            element={<PlacementList></PlacementList>}
+          ></Route>
+          <Route
+            path="add-placement"
+            element={<AddPlacement></AddPlacement>}
           ></Route>
         </Route>
       </Route>
