@@ -1,7 +1,9 @@
 import { HttpInterceptor } from "../auth/http-interceptors";
 
 export function getSellerServices() {
-  return HttpInterceptor.get(`/admin/sellers?sortBy=_id:desc&&limit=100`);
+  return HttpInterceptor.get(
+    `/admin/sellers?sortBy=_id:desc&&limit=100&&typeId=0`
+  );
 }
 
 export function getSellerByIdServices(id) {
