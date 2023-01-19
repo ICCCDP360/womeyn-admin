@@ -12,3 +12,10 @@
 .background {
   background-color: #ff9c9e5e !important;
 }
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+  // display: none;
+  // -webkit-appearance: none;
+  filter: invert(1);
+}

@@ -35,9 +35,29 @@ const CouponCreation = memo((props) => {
           <p className="text-dark ml-1">Create a new coupon</p>
         </div>
         <Row>
-          <Col sm="12" style={{ width: 330 }}>
+          {/* <Col sm="12" style={{ width: 330 }}>
+
             <ul
               className="text-center iq-product-tracker mb-0"
+              id="progressbar"
+            >
+              <li
+                className="active iq-tracker-position-0"
+                id="iq-tracker-position-1"
+              >
+                Products
+              </li>
+              <li className="iq-tracker-position-0" id="iq-tracker-position-2">
+                Details
+              </li>
+              <li className="iq-tracker-position-0" id="iq-tracker-position-3">
+                Review
+              </li>
+            </ul>
+          </Col> */}
+          <Col sm="12" style={{ width: 330 }}>
+            <ul
+              className="text-center iq-product-tracker mb-0 py-4"
               id="progressbar"
             >
               <li
@@ -74,25 +94,35 @@ const CouponCreation = memo((props) => {
       </div>
       <div>
         <div>
-          <h3>Set Schedule</h3>
-          <div className="border rounded border-secondary">
-            <div className="p-2">
+          <h3 className="ms-5">Set Schedule</h3>
+          <div style={{ border: "1px solid #D1D6E3", borderRadius: "5px" }}>
+            <div className="p-3 ps-5">
               <p className="text-dark">
-                Select a duration for your coupon between 1-95 days
+                Select a duration for your coupon between 1 - 90 days
               </p>
               <Form>
                 <Row>
-                  <Col md="2" className="mb-3">
+                  <Col md="3" className="mb-3 mt-2">
                     <Form.Label md="6" htmlFor="validationDefault01">
                       Start Date
                     </Form.Label>
-                    <Form.Group className="input-group">
+                    <Form.Group
+                      className="input-group"
+                      style={{
+                        border: "1px solid #828793",
+                        borderRadius: "5px",
+                      }}
+                    >
                       <span
                         className="input-group-text"
                         id="basic-addon1"
                       ></span>
                       <Form.Control
-                        type="text"
+                        style={{
+                          borderLeft: "1px solid #828793",
+                          textTransform: "uppercase",
+                        }}
+                        type="date"
                         id="validationCustomUsername"
                         aria-label="Username"
                         aria-describedby="basic-addon1"
@@ -100,17 +130,27 @@ const CouponCreation = memo((props) => {
                       />
                     </Form.Group>
                   </Col>
-                  <Col md="2" className="mb-3">
+                  <Col md="3" className="mb-3 mt-2">
                     <Form.Label htmlFor="validationDefault02">
                       End Date
                     </Form.Label>
-                    <Form.Group className="input-group">
+                    <Form.Group
+                      className="input-group"
+                      style={{
+                        border: "1px solid #828793",
+                        borderRadius: "5px",
+                      }}
+                    >
                       <span
                         className="input-group-text"
                         id="basic-addon1"
                       ></span>
                       <Form.Control
-                        type="text"
+                        style={{
+                          borderLeft: "1px solid #828793",
+                          textTransform: "uppercase",
+                        }}
+                        type="date"
                         id="validationCustomUsername"
                         aria-label="Username"
                         aria-describedby="basic-addon1"
@@ -120,15 +160,18 @@ const CouponCreation = memo((props) => {
                   </Col>
                 </Row>
                 <div
-                  className="border rounded border-secondary background"
-                  style={{ width: "60%" }}
+                  className="background"
+                  style={{
+                    width: "60%",
+                    border: "1px solid #D1D6E3",
+                    borderRadius: "5px",
+                  }}
                 >
                   <div className="p-3">
                     <p className="text-dark mb-0">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                      When you selected today as the start date, it will take up
+                      to 6 hours after coupon submission for your coupon to be
+                      visible to costomers.
                     </p>
                   </div>
                 </div>
@@ -140,50 +183,57 @@ const CouponCreation = memo((props) => {
           </div>
         </div>
         <div className="content-margin">
-          <h3>Set Discount</h3>
-          <div className="border rounded border-secondary">
-            <div className="p-2">
-              <p className="text-dark">
-                Please enter the amount that you want to apply as the product
-                which you ordered to your coupon
+          <h3 className="ms-5">Set Discount</h3>
+          <div style={{ border: "1px solid #D1D6E3", borderRadius: "5px" }}>
+            <div className="p-3 ps-3">
+              <p className="text-dark p-3 pt-1" style={{ width: "60%" }}>
+                Please enter the discount amount that you want to apply to the
+                products which you added to your coupon in perviouse step.
               </p>
               <Form>
                 <Form.Group>
-                  <Form.Check className="d-block m-5">
+                  <Form.Check className="d-block ms-3">
                     <Form.Check.Input
                       className="me-2"
                       type="radio"
                       name="flexRadioDefault"
                       id="flexRadioDefault1"
+                      defaultChecked
                     />
                     <Form.Check.Label htmlFor="flexRadioDefault1 text-dark">
-                      Percentage Off
+                      <p className="ms-5 mb-0">Percentage Off</p>
                     </Form.Check.Label>
                   </Form.Check>
-                  <Form.Check className="d-block m-5">
+                  <Form.Check className="d-block ms-3 mt-3">
                     <Form.Check.Input
                       className="me-2"
                       type="radio"
                       name="flexRadioDefault"
                       id="flexRadioDefault2"
-                      defaultChecked
                     />
                     <Form.Check.Label htmlFor="flexRadioDefault2 text-dark">
-                      Money Off
+                      <p className="ms-5 ">Money Off</p>
                     </Form.Check.Label>
                   </Form.Check>
                 </Form.Group>
                 <Row>
-                  <Col md="2" className="mb-3">
+                  <Col md="3" className="mb-1">
                     <Form.Label md="6" htmlFor="validationDefault01">
-                      G-Discount
+                      <p className="ms-3 mb-0">Discount</p>
                     </Form.Label>
-                    <Form.Group className="input-group">
+                    <Form.Group
+                      className="input-group w-50 ms-3"
+                      style={{
+                        border: "1px solid #828793",
+                        borderRadius: "5px",
+                      }}
+                    >
                       <span
                         className="input-group-text"
                         id="basic-addon1"
                       ></span>
                       <Form.Control
+                        style={{ borderLeft: "1px solid #828793" }}
                         type="text"
                         id="validationCustomUsername"
                         aria-label="Username"
@@ -191,8 +241,13 @@ const CouponCreation = memo((props) => {
                         required
                       />
                     </Form.Group>
-                    <span>Maximum discount is $100</span>
                   </Col>
+                  <p
+                    style={{ color: "black", fontSize: "11px" }}
+                    className="ms-3 mb-0"
+                  >
+                    Minimum 1% and Maximum 80%
+                  </p>
                 </Row>
                 {/* <div>
                 <h6>End Date</h6>
@@ -202,39 +257,64 @@ const CouponCreation = memo((props) => {
           </div>
         </div>
         <div className="content-margin">
-          <h3>Set Budget</h3>
-          <div className="border rounded border-secondary">
-            <div className="p-2">
-              <p className="text-dark">
-                Select a duration for your coupon between 1-95 days
+          <h3 className="ms-5">Set Budget</h3>
+          <div style={{ border: "1px solid #D1D6E3", borderRadius: "5px" }}>
+            <div className="p-3 ps-5">
+              <p className="text-dark mb-0">
+                Your budget will be shared among the following 2 cost;
               </p>
               <ul className="text-dark">
-                <li>Select a duration for your coupon between 1-95 days </li>
-                <li>Select a duration for your coupon between 1-95 days</li>
+                <li>INR equivaletd of the discount that you are offering</li>
+                <li>Redemption fees (0.00 for each redemption)</li>
               </ul>
 
               <div
-                className="border rounded border-secondary background mb-3"
-                style={{ width: "60%" }}
+                className="background mb-3"
+                style={{
+                  width: "60%",
+                  border: "1px solid #D1D6E3",
+                  borderRadius: "5px",
+                }}
               >
                 <div className="p-3">
                   <p className="text-dark mb-0">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Budget are not hard limits. coupon budgets are for planning
+                    purpose only and budget overshooting should be expected.
+                    <span style={{ color: "blue", fontSize: "10px" }}>
+                      Learn more
+                    </span>
+                  </p>
+                  <p className="text-dark mb-0">
+                    Your coupon will be deactivated when ity reaches 80%
+                    utilisation
+                    <p
+                      style={{
+                        color: "blue",
+                        fontSize: "10px",
+                        marginBottom: "0px",
+                      }}
+                    >
+                      How do budgets work?
+                    </p>
                   </p>
                 </div>
               </div>
               <Form>
                 <Row>
-                  <Col md="2" className="mb-3">
-                    <Form.Group className="input-group">
+                  <Col md="3" className="mb-3">
+                    <Form.Group
+                      className="input-group"
+                      style={{
+                        border: "1px solid #828793",
+                        borderRadius: "5px",
+                      }}
+                    >
                       <span
                         className="input-group-text"
                         id="basic-addon1"
                       ></span>
                       <Form.Control
+                        style={{ borderLeft: "1px solid #828793" }}
                         type="text"
                         id="validationCustomUsername"
                         aria-label="Username"
@@ -242,8 +322,14 @@ const CouponCreation = memo((props) => {
                         required
                       />
                     </Form.Group>
-                    <span>Maximum discount is $100</span>
                   </Col>
+                  <span></span>
+                  <p
+                    style={{ color: "black", fontSize: "11px" }}
+                    className=" mb-0"
+                  >
+                    Minimum $ 50 and Maximum $100000
+                  </p>
                 </Row>
 
                 {/* <div>
@@ -254,24 +340,33 @@ const CouponCreation = memo((props) => {
           </div>
         </div>
         <div className="content-margin">
-          <h3>Coupon Title</h3>
-          <div className="border rounded border-secondary">
-            <div className="p-2">
-              <p className="text-dark">
-                Select a duration for your coupon between 1-95 days
+          <h3 className="ms-5">Coupon Title</h3>
+          <div style={{ border: "1px solid #D1D6E3", borderRadius: "5px" }}>
+            <div className="p-3 ps-5">
+              <p className="text-dark w-50">
+                For a more affective coupon title, please choose a definition
+                that accurately describes the product group that you added to
+                your coupon. For example ‘Save 15% on hand sanitisers’
               </p>
               <Form>
                 <Row>
-                  <Col md="4" className="mb-3">
+                  <Col md="3" className="mb-1">
                     <Form.Label md="6" htmlFor="validationDefault01">
                       Coupon Title
                     </Form.Label>
-                    <Form.Group className="input-group">
+                    <Form.Group
+                      className="input-group"
+                      style={{
+                        border: "1px solid #828793",
+                        borderRadius: "5px",
+                      }}
+                    >
                       <span
                         className="input-group-text"
                         id="basic-addon1"
                       ></span>
                       <Form.Control
+                        style={{ borderLeft: "1px solid #828793" }}
                         type="text"
                         id="validationCustomUsername"
                         aria-label="Username"
@@ -279,8 +374,19 @@ const CouponCreation = memo((props) => {
                         required
                       />
                     </Form.Group>
-                    <span>Maximum 30 characters allowed</span>
                   </Col>
+                  <p
+                    style={{ color: "black", fontSize: "11px" }}
+                    className=" mb-0"
+                  >
+                    Maximum 100 characters
+                  </p>
+                  <p
+                    style={{ color: "blue", fontSize: "11px" }}
+                    className=" mb-0"
+                  >
+                    Title guidlines
+                  </p>
                 </Row>
 
                 {/* <div>
@@ -290,21 +396,23 @@ const CouponCreation = memo((props) => {
             </div>
           </div>
         </div>
-        <div className="content-margin">
-          <h3>Targeting</h3>
+        <div className="content-margin ms-5">
+          <h3 className="mb-4">Targeting</h3>
           <p className="text-dark mb-3">
-            Select a duration for your coupon between 1-95 days
+            You may choose to limit the Audience of your coupon to one of the
+            customer segment below
           </p>
-          <p className="text-dark">
-            Select a duration for your coupon ---- YES/NO
-          </p>
+          <p className="text-dark">Is this a sitewide coupon - - - YES/ NO</p>
           <Form className="mb-5">
             <Row>
-              <Col md="2">
+              <Col md="3">
                 <Form.Group className="form-group">
-                  <select className="form-select mb-3 shadow-none">
+                  <select
+                    className="form-select mb-3 shadow-none"
+                    style={{ border: "1px solid #828793", borderRadius: "5px" }}
+                  >
                     <option defaultValue className="text-dark">
-                      Sellers One
+                      Sellers
                     </option>
                     {/* <option value="1">Seller One</option> */}
                     <option value="2">Seller Two</option>
@@ -314,10 +422,13 @@ const CouponCreation = memo((props) => {
               </Col>
             </Row>
             <Row>
-              <Col md="2">
+              <p className="text-dark">Please choose / product service</p>
+              <Col md="3">
                 <Form.Group className="form-group">
-                  <Form.Label> Products/Services</Form.Label>
-                  <select className="form-select mb-3 shadow-none">
+                  <select
+                    className="form-select mb-3 shadow-none"
+                    style={{ border: "1px solid #828793", borderRadius: "5px" }}
+                  >
                     <option defaultValue className="text-dark">
                       Product
                     </option>
@@ -328,8 +439,8 @@ const CouponCreation = memo((props) => {
               </Col>
             </Row>
           </Form>
-          <div className="mb-5">
-            <Button>Continue</Button>
+          <div className="mb-5 w-75">
+            <Button className="w-25">Continue</Button>
           </div>
         </div>
       </div>

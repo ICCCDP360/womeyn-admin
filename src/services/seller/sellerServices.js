@@ -13,3 +13,7 @@ export function getSellerByIdServices(id) {
 export function sellerApprovalServices(id, data) {
   return HttpInterceptor.patch(`/admin/sellers/${id}`, data);
 }
+
+export function getContentUpdateServices() {
+  return HttpInterceptor.get(`/admin/sellers/content-updated?typeId=1`);
+}

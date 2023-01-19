@@ -76,7 +76,9 @@ const UserManagement = memo((props) => {
       .catch((err) => console.log(err));
     getSellerServices()
       .then((res) => {
-        setSellers(res.data.results);
+        let sellerList = res.data.results.filter((data) => data.stateId === 1);
+        console.log("seller", sellerList);
+        setSellers(sellerList);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -209,8 +211,8 @@ const UserManagement = memo((props) => {
                             <thead>
                               <tr>
                                 <th>Seller</th>
-                                <th>Description</th>
-                                <th>Services/Product</th>
+                                <th>Seller Type</th>
+                                <th>Offering Services</th>
                                 <th>Status</th>
                                 <th className="text-center">Action</th>
                               </tr>
@@ -219,6 +221,9 @@ const UserManagement = memo((props) => {
                               {sellers
                                 .slice(0, sellerLimit)
                                 .map((item, index) => {
+                                  let data = item.offeringCategories
+                                    ? item.offeringCategories.split(",")
+                                    : null;
                                   return (
                                     <>
                                       <tr key={index}>
@@ -257,11 +262,39 @@ const UserManagement = memo((props) => {
                                             </div>
                                           </div>
                                         </td>
-                                        <td className="text-dark no-wrap">{`${description.slice(
-                                          0,
-                                          100
-                                        )}...`}</td>
-                                        <td className="text-dark no-wrap flex-container">
+                                        <td>
+                                          <h5 className="iq-sub-label text-uppercase">
+                                            {item.categoryTypeId === 1
+                                              ? "Products"
+                                              : item.categoryTypeId === 2
+                                              ? "Services"
+                                              : item.categoryTypeId === 2
+                                              ? "Products/Services"
+                                              : null}
+                                          </h5>
+                                        </td>
+                                        {data ? (
+                                          <td className="text-dark flex-wrap flex-container p-5">
+                                            {data.map((e) => {
+                                              return (
+                                                <div>
+                                                  <Button
+                                                    type="button"
+                                                    variant="soft-secondary"
+                                                  >
+                                                    {e}
+                                                  </Button>{" "}
+                                                  {/* <Button variant="icon btn-warning warning">
+                                                    +4
+                                                  </Button> */}
+                                                </div>
+                                              );
+                                            })}
+                                          </td>
+                                        ) : (
+                                          <td>{null}</td>
+                                        )}
+                                        {/* <td className="text-dark no-wrap flex-container">
                                           <div>
                                             <Button
                                               type="button"
@@ -291,7 +324,7 @@ const UserManagement = memo((props) => {
                                               +4
                                             </Button>
                                           </div>
-                                        </td>
+                                        </td> */}
 
                                         <td>
                                           {item.stateId === 1 ? (
@@ -328,7 +361,7 @@ const UserManagement = memo((props) => {
                                           {item.stateId === 1 ? (
                                             <>
                                               <div
-                                                className="d-flex gap-3 justify-content-start"
+                                                className="d-flex gap-3 justify-content-center"
                                                 style={{
                                                   marginBottom: 12,
                                                   cursor: "pointer",
