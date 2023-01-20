@@ -15,5 +15,5 @@ export function sellerApprovalServices(id, data) {
 }
 
 export function getContentUpdateServices() {
-  return HttpInterceptor.get(`/admin/sellers/content-updated?typeId=1`);
+  return HttpInterceptor.get(`/admin/sellers/content-updated?typeId=0`);
 }

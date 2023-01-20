@@ -7,3 +7,15 @@ export function ProductListServices() {
 export function ProductDetailsServices(id) {
   return HttpInterceptor.get(`/admin/product-details/${id}`);
 }
+
+export function ProductApprovalServices(id, data) {
+  return new Promise((resolve, reject) => {
+    HttpInterceptor.post(`/admin/product-update-status/${id}`, data)
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+}

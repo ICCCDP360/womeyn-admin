@@ -1,28 +1,32 @@
-import { useState, useEffect, memo, Fragment } from "react";
-import { Table, Nav, Tab, Button } from "react-bootstrap";
-import Card from "../../../components/bootstrap/card";
-import { useSelector } from "react-redux";
-import * as SettingSelector from "../../../store/setting/selectors";
-import { Link, useNavigate } from "react-router-dom";
-import { getSellerServices } from "../../../services/seller/sellerServices";
-import { Row, Col } from "react-bootstrap";
+import { Fragment, memo, useEffect, useState } from "react";
+import { Button, Col, Form, Nav, Row, Tab, Table } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
+import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import Select from "react-select";
+import Card from "../../../components/bootstrap/card";
+import { getSellerServices } from "../../../services/seller/sellerServices";
+import * as SettingSelector from "../../../store/setting/selectors";
 
 //Images
 //img
-import img1 from "../../../assets/images/earth_souls.png";
-import img2 from "../../../assets/images/earth_souls.png";
-import img3 from "../../../assets/images/earth_souls.png";
-import img4 from "../../../assets/images/earth_souls.png";
-import img5 from "../../../assets/images/earth_souls.png";
-import img6 from "../../../assets/images/earth_souls.png";
-import img7 from "../../../assets/images/earth_souls.png";
-import img8 from "../../../assets/images/earth_souls.png";
-import img9 from "../../../assets/images/earth_souls.png";
+import {
+  default as img1,
+  default as img2,
+  default as img3,
+  default as img4,
+  default as img5,
+  default as img6,
+  default as img7,
+  default as img8,
+  default as img9,
+} from "../../../assets/images/earth_souls.png";
 import Loader from "../../../components/Loader";
+import {
+  ProductApprovalServices,
+  ProductListServices,
+} from "../../../services/list/listServices";
 import { sellerApprovalServices } from "../../../services/seller/sellerServices";
-import { ProductListServices } from "../../../services/list/listServices";
 
 import "./styles.scss";
 
@@ -100,27 +104,57 @@ const ProductList = memo((props) => {
   );
   const [show, setShow] = useState(false);
 
-  const [userId, setUserId] = useState("");
+  const [show1, setShow1] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = (item) => {
-    //
-    setUserId(item?.id);
-    setShow(true);
-  };
+  const [userId, setUserId] = useState("");
 
   const [length, setLength] = useState("");
   const [sellers, setSellers] = useState([]);
   const [sellerLimit, setSellerLimit] = useState(10);
   const [loading, setLoading] = useState(false);
   const [options, setOptions] = useState([{ value: "", label: "" }]);
+
+  const handleClose = () => {
+    setShow1(false);
+    setShow(false);
+  };
+
+  const handleShow1 = (id) => {
+    setUserId(id);
+    setShow1(true);
+  };
+
+  const handleShow = (id) => {
+    setUserId(id);
+    setShow(true);
+  };
+
   const actionReject = () => {
     setLoading(true);
 
     const data = {
       stateId: "4",
     };
-    sellerApprovalServices(userId, data)
+    ProductApprovalServices(userId?.id, data)
+      .then((res) => {
+        console.log("response", res);
+        setLoading(false);
+
+        handleClose();
+        window.location.reload(false);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const actionApprove = () => {
+    setLoading(true);
+
+    const data = {
+      stateId: "1",
+    };
+    ProductApprovalServices(userId?.id, data);
+    console
+      .log("id", userId?.id)
       .then((res) => {
         setLoading(false);
 
@@ -129,16 +163,7 @@ const ProductList = memo((props) => {
       })
       .catch((err) => console.log(err));
   };
-  const actionApprove = (item) => {
-    const data = {
-      stateId: "1",
-    };
-    sellerApprovalServices(item?.id, data)
-      .then((res) => {
-        window.location.reload(false);
-      })
-      .catch((err) => console.log(err));
-  };
+
   useEffect(() => {
     let seller;
     ProductListServices()
@@ -338,6 +363,9 @@ const ProductList = memo((props) => {
                                                   viewBox="0 0 32 32"
                                                   fill="none"
                                                   xmlns="http://www.w3.org/2000/svg"
+                                                  onClick={() =>
+                                                    handleShow(item)
+                                                  }
                                                   //   onClick={() =>
                                                   //     handleShow(item)
                                                   //   }
@@ -376,6 +404,9 @@ const ProductList = memo((props) => {
                                                 // onClick={() =>
                                                 //   actionApprove(item)
                                                 // }
+                                                onClick={() =>
+                                                  handleShow1(item)
+                                                }
                                               >
                                                 <rect
                                                   width="32"
@@ -397,6 +428,7 @@ const ProductList = memo((props) => {
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 // onClick={() => handleShow(item)}
                                                 // onClick={handleShow}
+                                                onClick={() => handleShow(item)}
                                               >
                                                 <rect
                                                   width="32"
@@ -427,6 +459,9 @@ const ProductList = memo((props) => {
                                                 // onClick={() =>
                                                 //   actionApprove(item)
                                                 // }
+                                                onClick={() =>
+                                                  handleShow1(item)
+                                                }
                                               >
                                                 <rect
                                                   width="32"
@@ -461,13 +496,66 @@ const ProductList = memo((props) => {
                               </Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
-                              Do you really want to reject the seller?
+                              <h6 className="mb-5">
+                                Are you really want to reject the seller?
+                              </h6>
+                              <div className="field-container">
+                                <Form.Label htmlFor="validationServer01">
+                                  <h6>Reason for Rejection:</h6>
+                                </Form.Label>
+                                <Form.Control
+                                  name="categoryDescription"
+                                  type="text"
+                                  className={true ? "" : "is-valid"}
+                                  id="categoryDescription"
+                                  as="textarea"
+                                  rows={3}
+                                  // value={categoryDescription}
+                                  defaultValue=""
+                                  // onChange={handleChanges}
+                                  required
+                                  style={{ color: "black" }}
+                                />
+                              </div>
                             </Modal.Body>
                             <Modal.Footer>
                               <Button variant="secondary" onClick={handleClose}>
                                 Cancel
                               </Button>
                               <Button variant="primary" onClick={actionReject}>
+                                {loading ? (
+                                  <span
+                                    class="spinner-border spinner-border-sm"
+                                    role="status"
+                                    aria-hidden="true"
+                                  ></span>
+                                ) : (
+                                  "Confirm"
+                                )}
+                              </Button>
+                            </Modal.Footer>
+                          </Modal>
+
+                          <Modal
+                            show={show1}
+                            onHide={handleClose}
+                            backdrop="static"
+                            keyboard={false}
+                            centered
+                          >
+                            <Modal.Header closeButton>
+                              <Modal.Title style={{ color: "red" }}>
+                                Alert..!
+                              </Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                              Are you really want to approve the seller?
+                            </Modal.Body>
+                            <Modal.Footer>
+                              <Button variant="secondary" onClick={handleClose}>
+                                Cancel
+                              </Button>
+                              <Button variant="primary" onClick={actionApprove}>
                                 {loading ? (
                                   <span
                                     class="spinner-border spinner-border-sm"
