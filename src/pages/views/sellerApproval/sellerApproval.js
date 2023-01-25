@@ -212,20 +212,20 @@ const SellerApproval = memo((props) => {
     <Fragment>
       <div className="d-flex flex-row justify-content-between">
         <h3>Approvals</h3>
-        <div className="d-flex flex-row justify-content-between">
+        <div className="d-flex flex-row justify-content-between mb-2">
           <div style={{ width: 170, marginRight: 50 }}>
             <Select
-              value={selectedStatus.value}
-              onChange={handleSelect}
-              options={status}
+              value={selectedOption.value}
+              onChange={handleChange}
+              options={options}
             />
           </div>
 
           <div style={{ width: 170 }}>
             <Select
-              value={selectedOption.value}
-              onChange={handleChange}
-              options={options}
+              value={selectedStatus.value}
+              onChange={handleSelect}
+              options={status}
             />
           </div>
         </div>

@@ -1,13 +1,12 @@
-import { memo, Fragment, useEffect, useState } from "react";
-import { Button, Modal, Nav, Tab } from "react-bootstrap";
-import Card from "../../../components/bootstrap/card";
+import { Fragment, memo, useEffect, useState } from "react";
+import { Button, Col, Modal, Nav, Row, Tab, Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import * as SettingSelector from "../../../store/setting/selectors";
-import { Table, Row, Col } from "react-bootstrap";
-import UserCard from "../../components/user-card";
+import Card from "../../../components/bootstrap/card";
+import Loader from "../../../components/Loader";
 import { getAdminServices } from "../../../services/admin/adminServices";
 import { getSellerServices } from "../../../services/seller/sellerServices";
-import Loader from "../../../components/Loader";
+import * as SettingSelector from "../../../store/setting/selectors";
+import UserCard from "../../components/user-card";
 
 import { sellerApprovalServices } from "../../../services/seller/sellerServices";
 
@@ -74,8 +73,9 @@ const UserManagement = memo((props) => {
         setUsers(res?.data?.results);
       })
       .catch((err) => console.log(err));
-    getSellerServices()
+    getSellerServices(0)
       .then((res) => {
+        console.log("sellerData", res.data.results);
         let sellerList = res.data.results.filter((data) => data.stateId === 1);
         console.log("seller", sellerList);
         setSellers(sellerList);
