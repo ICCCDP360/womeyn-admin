@@ -1,7 +1,7 @@
-import { memo, Fragment, useEffect, useState } from "react";
+import { Fragment, memo, useEffect, useState } from "react";
 
 //react-bootstrap
-import { Row, Col, Image, Form, Button } from "react-bootstrap";
+import { Button, Col, Form, Image, Row } from "react-bootstrap";
 
 //components
 import Card from "../../../components/bootstrap/card";
@@ -13,10 +13,12 @@ import { toast } from "react-toastify";
 import "./styles.scss";
 
 //services
-import { getAdminBasicInfoServices } from "../../../services/admin/adminServices";
-import { updateAdminServices } from "../../../services/admin/adminServices";
-import { updateAdminSocialProfileServices } from "../../../services/admin/adminServices";
-import { updateAdminImageServices } from "../../../services/admin/adminServices";
+import {
+  getAdminBasicInfoServices,
+  updateAdminImageServices,
+  updateAdminServices,
+  updateAdminSocialProfileServices,
+} from "../../../services/admin/adminServices";
 import { changePasswordServices } from "../../../services/password/passwordServices";
 
 const Profileuser = memo(() => {
@@ -578,6 +580,7 @@ const Profileuser = memo(() => {
                         placeholder="Mobile Number"
                         onChange={handleUserDetailsChanges}
                         style={{ color: "black" }}
+                        maxLength={9}
                       />
                       <div>
                         {profileerror && contactNumber.length <= 0 ? (
@@ -610,6 +613,7 @@ const Profileuser = memo(() => {
                         }
                         onChange={handleUserDetailsChanges}
                         style={{ color: "black" }}
+                        maxLength={9}
                       />
                       <div>
                         {profileerror && alternateContactNumber.length <= 0 ? (

@@ -1,36 +1,37 @@
 import { memo } from "react";
 
 //router
-import { Routes, Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Default from "../layout/default";
 
 //Pages
 import SignIn from "../pages/auth/sign-in";
 import Index from "../pages/views/dashboard";
 import EditUser from "../pages/views/editUser/editUser";
-import SellerApproval from "../pages/views/sellerApproval/sellerApproval";
-import UserManagement from "../pages/views/userManagement/userManagement";
-import ProductPage from "../pages/views/productsPage/productsPage";
-import ProtectedRoutes from "./protected-routes";
 import ForgetPassword from "../pages/views/forgotPassword/forgotPassword";
 import UpdateForgotPassword from "../pages/views/passwordChange/updateForgotPassword";
-import SellerProfile from "../pages/views/sellerProfile/sellerProfile";
 import ProductList from "../pages/views/productList/productList";
+import ProductPage from "../pages/views/productsPage/productsPage";
+import SellerApproval from "../pages/views/sellerApproval/sellerApproval";
+import SellerProfile from "../pages/views/sellerProfile/sellerProfile";
 import ServiceList from "../pages/views/serviceList/serviceList";
+import UserManagement from "../pages/views/userManagement/userManagement";
+import ProtectedRoutes from "./protected-routes";
 // import  from "../pages/views/productsPage/subCategoryList";
+import Banner from "../pages/views/Banner/banner";
+import AddPlacement from "../pages/views/placement/addPlacement";
+import PlacementList from "../pages/views/placement/placementList";
+import ProductDetails from "../pages/views/productList/productDetails";
 import SubCategory from "../pages/views/productsPage/subCategoryList";
 import SubCategoryPage from "../pages/views/productsPage/subCategoryPage";
-import ProductDetails from "../pages/views/productList/productDetails";
-import PlacementList from "../pages/views/placement/placementList";
-import AddPlacement from "../pages/views/placement/addPlacement";
 
 //Users
-import UserProfile from "../pages/views/userProfile/userProfile";
-import AddUser from "../pages/views/addUser/addUser";
 import AddProduct from "../pages/views/addProduct/addProduct";
+import AddService from "../pages/views/addService/addService";
+import AddUser from "../pages/views/addUser/addUser";
 import CouponCreation from "../pages/views/couponCreation/couponCreation";
 import ServicePage from "../pages/views/servicePage/servicePage";
-import AddService from "../pages/views/addService/addService";
+import UserProfile from "../pages/views/userProfile/userProfile";
 
 const IndexRouters = memo(() => {
   return (
@@ -104,6 +105,7 @@ const IndexRouters = memo(() => {
             path="add-placement"
             element={<AddPlacement></AddPlacement>}
           ></Route>
+          <Route path="banner" element={<Banner></Banner>}></Route>
         </Route>
       </Route>
     </Routes>

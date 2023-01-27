@@ -1,4 +1,4 @@
-import { memo, Fragment, useEffect, useState, useContext } from "react";
+import { Fragment, memo, useContext, useEffect, useState } from "react";
 
 //Router
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -6,23 +6,23 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 //React-bootstrap
 import {
   Accordion,
-  Tooltip,
-  OverlayTrigger,
-  useAccordionButton,
   AccordionContext,
   Nav,
+  OverlayTrigger,
+  Tooltip,
+  useAccordionButton,
 } from "react-bootstrap";
 //Svg
+import { toast } from "react-toastify";
 import { ReactComponent as Dashboard } from "../../../../assets/svg/dashboard.svg";
-import { ReactComponent as SellerApproval } from "../../../../assets/svg/seller-approval.svg";
-import { ReactComponent as UserManagement } from "../../../../assets/svg/user-mng.svg";
 import { ReactComponent as Product } from "../../../../assets/svg/product.svg";
+import { ReactComponent as SellerApproval } from "../../../../assets/svg/seller-approval.svg";
 import { ReactComponent as Service } from "../../../../assets/svg/service.svg";
+import { ReactComponent as UserManagement } from "../../../../assets/svg/user-mng.svg";
 import "../../../../sass/components/_button.scss";
-import "./styles.scss";
 import { PendingApprovalServices } from "../../../../services/approval/pendingApprovalServices";
 import loginServices from "../../../../services/login_services/login-services";
-import { toast } from "react-toastify";
+import "./styles.scss";
 
 function CustomToggle({ children, eventKey, onClick }) {
   const { activeEventKey } = useContext(AccordionContext);
@@ -382,21 +382,21 @@ const VerticalNav = memo(() => {
             <span className="item-name">Manage Placement</span>
           </Link>
         </li>
-        {/* <li
+        <li
           className={`${
-            location.pathname === "/womeyn/service-list" ? "active" : ""
+            location.pathname === "/womeyn/banner" ? "active" : ""
           } nav-item`}
         >
           <Link
             className={`${
-              location.pathname === "/womeyn/service-list" ? "active" : ""
+              location.pathname === "/womeyn/banner" ? "active" : ""
             } nav-link `}
             aria-current="page"
-            to="/womeyn/service-list"
+            to="/womeyn/banner"
           >
             <OverlayTrigger
               placement="right"
-              overlay={<Tooltip>Services</Tooltip>}
+              overlay={<Tooltip>Banner</Tooltip>}
             >
               <i className="icon">
                 <span
@@ -408,9 +408,9 @@ const VerticalNav = memo(() => {
                 ></span>
               </i>
             </OverlayTrigger>
-            <span className="item-name">Services</span>
+            <span className="item-name">Banner</span>
           </Link>
-        </li> */}
+        </li>
         <li>
           <hr className="hr-horizontal" />
         </li>

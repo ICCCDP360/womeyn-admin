@@ -1,19 +1,19 @@
-import { useState, memo, Fragment, useEffect } from "react";
+import { Fragment, memo, useEffect, useState } from "react";
 import {
-  Row,
+  Button,
   Col,
+  Form,
   Image,
   Nav,
+  Row,
   Tab,
-  Form,
-  Button,
   Table,
 } from "react-bootstrap";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import Card from "../../../components/bootstrap/card";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { FreeMode, Navigation, Thumbs, Mousewheel } from "swiper";
 import Swal from "sweetalert2";
+import { FreeMode, Mousewheel, Navigation, Thumbs } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+import Card from "../../../components/bootstrap/card";
 import { ProductDetailsServices } from "../../../services/list/listServices";
 
 const ProductDetails = memo(() => {
@@ -327,7 +327,7 @@ const ProductDetails = memo(() => {
                   aria-labelledby="nav-description-tab"
                 >
                   <div className="d-flex flex-column">
-                    <p className="mb-0 text-secondary">
+                    {/* <p className="mb-0 text-secondary">
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                       Lacus eleifend ultrices vestibulum tempor augue bibendum
                       dolor quam malesuad.Lorem ipsum dolor sit amet,
@@ -348,7 +348,8 @@ const ProductDetails = memo(() => {
                       dolor quam malesuad. Lorem ipsum dolor sit amet,
                       consectetur adipiscing elit. Lacus eleifend ultrices
                       vestibulum tempor augue bibendum dolor quam malesuad.
-                    </p>
+                    </p> */}
+                    <p>{single?.productDescription}</p>
                   </div>
                 </Tab.Pane>
                 <Tab.Pane
