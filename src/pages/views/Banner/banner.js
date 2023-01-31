@@ -1,10 +1,29 @@
 import { Fragment, memo, useEffect, useState } from "react";
 import { Button, Col, Form, Nav, Row, Tab, Table } from "react-bootstrap";
+import Modal from "react-bootstrap/Modal";
+import Select from "react-select";
 import ProductImg from "../../../assets/product_logo.png";
+
+const Options = [
+  { value: "Item One", label: "Item One" },
+  { value: "Item Two", label: "Item Two" },
+  { value: "Item Three", label: "Item Three" },
+  { value: "Item Four", label: "Item Four" },
+  { value: "Item Five", label: "Item Five" },
+];
 
 const Banner = memo((props) => {
   const [options, setOptions] = useState("Top Products");
   const [toggleState, setToggleState] = useState(1);
+  const [show, setShow] = useState(false);
+
+  const handleShow = (id) => {
+    setShow(true);
+  };
+
+  const handleClose = () => {
+    setShow(false);
+  };
 
   const toggleTab = (index) => {
     setToggleState(index);
@@ -150,8 +169,9 @@ const Banner = memo((props) => {
                 >
                   Top Products
                 </p>
-                <Button>+ Add New Product</Button>
+                <Button onClick={() => handleShow()}>+ Add New Product</Button>
               </div>
+
               <Row>
                 <Col lg="4" md="2">
                   <div
@@ -598,7 +618,7 @@ const Banner = memo((props) => {
                 >
                   Top Services
                 </p>
-                <Button>+ Add New Service</Button>
+                <Button onClick={() => handleShow()}>+ Add New Service</Button>
               </div>
               <Row>
                 <Col lg="4" md="2">
@@ -1046,7 +1066,7 @@ const Banner = memo((props) => {
                 >
                   Top Categories
                 </p>
-                <Button>+ Add New Category</Button>
+                <Button onClick={() => handleShow()}>+ Add New Category</Button>
               </div>
               <Row>
                 <Col lg="4" md="2">
@@ -1494,7 +1514,9 @@ const Banner = memo((props) => {
                 >
                   Top Womenprenuers
                 </p>
-                <Button>+ Add New Womenprenuer</Button>
+                <Button onClick={() => handleShow()}>
+                  + Add New Womenprenuer
+                </Button>
               </div>
               <Row>
                 <Col lg="4" md="2">
@@ -1927,6 +1949,36 @@ const Banner = memo((props) => {
             </div>
           ) : null}
         </div>
+        <Modal
+          show={show}
+          onHide={handleClose}
+          backdrop="static"
+          keyboard={false}
+          centered
+        >
+          <Modal.Header closeButton>
+            <Modal.Title style={{ color: "red" }}>Select Item</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div className="field-container">
+              <Form.Label htmlFor="validationServer01">
+                <h6>Select One of the Items:</h6>
+              </Form.Label>
+              {/* <Form.Control style={{ color: "black" }}> */}
+              <Select
+                // value={selectedOption.value}
+                // onChange={handleChange}
+                options={Options}
+              />
+              {/* </Form.Control> */}
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Cancel
+            </Button>
+          </Modal.Footer>
+        </Modal>
 
         {/* <Row>
           <Col lg="4" md="2">
