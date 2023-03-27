@@ -215,16 +215,16 @@ function Allorder() {
                         <img
                           src={Stripe}
                           alt="no image"
-                          width={100}
+                          width={70}
                           // height={30}
                           style={{ borderRadius: "20%" }}
                         />
-                      ) : item?.paymentMethod === "Paypal" ? (
+                      ) : item?.paymentMethod === "PayPal" ? (
                         <img
                           src={paypal_logo}
                           alt="no image"
-                          width={30}
-                          height={30}
+                          width={70}
+                          // height={30}
                           style={{ borderRadius: "20%" }}
                         />
                       ) : null}
