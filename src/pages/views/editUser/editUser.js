@@ -1,62 +1,184 @@
-import { useState, memo, Fragment, useEffect } from "react";
+import { Fragment, memo, useEffect, useState } from "react";
 // Router
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 // React-bootstrap
-import {
-  Button,
-  Row,
-  Col,
-  ListGroup,
-  ListGroupItem,
-  Form,
-} from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 
-import { getAdminByIdServices } from "../../../services/admin/adminServices";
+import {
+  getAdminByIdServices,
+  updateUserServices,
+} from "../../../services/admin/adminServices";
 
 //Components
+import { toast } from "react-toastify";
 import Card from "../../../components/bootstrap/card";
 import Loader from "../../../components/Loader";
+const MyCheckBoxList = [
+  {
+    active: true,
+    name: "Dashboard",
+    id: 1,
+    // isChecked: false,
+  },
+  {
+    active: true,
+    name: "User Management",
+    id: 2,
+    // isChecked: false,
+  },
+  {
+    active: true,
+    name: "Coupons",
+    id: 3,
+    // isChecked: false,
+  },
+  {
+    active: true,
+    name: "Seller Approval",
+    id: 4,
+    // isChecked: false,
+  },
+  {
+    active: true,
+    name: "Products Approval",
+    id: 5,
+    // isChecked: false,
+  },
+  {
+    active: true,
+    name: "Services Approval",
+    id: 6,
+    // isChecked: false,
+  },
+  {
+    active: true,
+    name: "Manage Categories",
+    id: 7,
+    // isChecked: false,
+  },
+  {
+    active: true,
+    name: "Manage Banners",
+    id: 8,
+    // isChecked: false,
+  },
+  {
+    active: true,
+    name: "Recommendations",
+    id: 9,
+    // isChecked: false,
+  },
+  {
+    active: true,
+    name: "Manage Orders",
+    id: 10,
+    // isChecked: false,
+  },
+  {
+    active: true,
+    name: "Manage Transactions",
+    id: 11,
+    // isChecked: false,
+  },
+  {
+    active: true,
+    name: "Manage Subscribers",
+    id: 12,
+    // isChecked: false,
+  },
+];
+
+const Checkbox = ({ obj, onChange }) => {
+  return (
+    <>
+      <input
+        type="checkbox"
+        id={`custom-checkbox-${obj.index}`}
+        name={obj.name}
+        // value={obj.checked}
+        checked={obj.checked}
+        onChange={() => onChange({ ...obj, checked: !obj.checked })}
+        style={{ marginRight: 10 }}
+      />
+      {obj.name}
+    </>
+  );
+};
 
 const EditUser = memo((props) => {
+  const navigate = useNavigate();
   const params = useParams();
+
+  const [permissionId, setPermissionId] = useState([]);
+  const [permissionName, setPermissionName] = useState([]);
 
   const history = useNavigate();
 
   const [user, setUser] = useState("");
+
+  const [permissions, setPermissions] = useState(MyCheckBoxList);
+
+  const [Userdetails, setUsersdetails] = useState({
+    firstName: "",
+    email: "",
+    contactNumber: "",
+  });
+  const { firstName, email, contactNumber } = Userdetails;
+
+  const handleUserDetailsChanges = (e) => {
+    setUsersdetails({ ...Userdetails, [e.target.name]: e.target.value });
+  };
+
+  const handleUserProfileSubmit = (e) => {
+    e.preventDefault();
+    if (
+      firstName.length === 0 ||
+      email.length === 0 ||
+      contactNumber.length <= 8
+    ) {
+      setError(true);
+    }
+
+    if (firstName && email && contactNumber) {
+      stmacess();
+    }
+  };
 
   useEffect(() => {
     getAdminByIdServices(params.id)
       .then((res) => {
         // setUsers(res.data.results);
         //
+        console.log("res", res.data.permissionIds);
+        let pId = res.data.permissionIds;
+        let pArray = pId.split(",");
+        let permissionArray = pArray.map(Number);
+        permissionArray.map((e) => {
+          MyCheckBoxList.find((r) => {
+            if (e === r.id) {
+              r.checked = true;
+            }
+          });
+          console.log("array", MyCheckBoxList);
+        });
+        console.log("pArray", permissionArray);
+        setPermissions(MyCheckBoxList);
         setUser(res?.data);
+        setUsersdetails(res?.data);
       })
       .catch((err) => console.log(err));
   }, []);
 
-  const [first, setFirst] = useState(false);
-  const [second, setSecond] = useState(false);
-  const [third, setThird] = useState(false);
-  const [fourth, setFourth] = useState(false);
-  const checkedOne = () => {
-    setFirst(!first);
-  };
-  const checkedTwo = () => {
-    setSecond(!second);
-  };
-  const checkedThree = () => {
-    setThird(!third);
-  };
-  const checkedFour = () => {
-    setFourth(!fourth);
-  };
+  const [data, setData] = useState(MyCheckBoxList.sort((a, b) => a.id - b.id));
+
+  console.log("eData", data);
 
   const [error, setError] = useState(false);
 
   const [form, setForm] = useState({
     name: "",
-    email: "",
+    emailId: "",
     number: "",
     one: null,
     two: null,
@@ -64,38 +186,51 @@ const EditUser = memo((props) => {
     four: null,
   });
 
-  const { name, email, number, one, two, three, four } = form;
+  // const { firstName, email, contactNumber, one, two, three, four } = form;
+  const { name, emailId, number, one, two, three, four } = form;
 
   const handleChanges = (e) => {
-    setForm({ ...form, [e.target.name]: [e.target.value] });
+    setForm({ ...form, [e.target.firstName]: [e.target.value] });
   };
 
-  const handleSubmit = () => {
-    if (name.length === 0 || email.length === 0 || number.length === 0) {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (
+      firstName.length === 0 ||
+      email.length === 0 ||
+      contactNumber.length === 0
+    ) {
       setError(true);
-    } else if (name && email && number) {
+    } else if (firstName && email && contactNumber) {
       stmacess();
     }
   };
 
   const handleContinue = () => {
-    // if (!one && !two && !three && !four) {
-    //   setError(true);
-    // } else if (one || two || three || four) {
-    //   confirm();
-    // }
-    // if (!first && !second && !third && !fourth) {
-    //   setError(true);
-    // } else if (first || second || third || fourth) {
-    //   confirm();
-    // }
+    let id = [];
+    let name = [];
+
+    console.log("data", data);
+
+    data.map((e) => (e.checked ? id.push(e.id) : null));
+
+    data.map((e) => (e.checked ? name.push(e.name) : null));
+
+    setPermissionId(id);
+
+    setPermissionName(name);
+
+    console.log("a", name);
+
+    if (id.length === 0) {
+      setError(true);
+    } else {
+      confirm();
+    }
     confirm();
   };
 
   const stmacess = () => {
-    if (name.length === 0 || email.length === 0 || number.length === 0) {
-      setError(true);
-    }
     document.getElementById("basic").classList.remove("show");
     document.getElementById("stmacs").classList.add("show");
     document.getElementById("iq-tracker-position-1").classList.remove("active");
@@ -103,9 +238,9 @@ const EditUser = memo((props) => {
     document.getElementById("iq-tracker-position-2").classList.add("active");
   };
   const confirm = () => {
-    if (!first && !second && !third && !fourth) {
-      setError(true);
-    }
+    // if (!first && !second && !third && !fourth) {
+    //   setError(true);
+    // }
     document.getElementById("stmacs").classList.remove("show");
     document.getElementById("confirm").classList.add("show");
     document.getElementById("iq-tracker-position-2").classList.remove("active");
@@ -129,9 +264,38 @@ const EditUser = memo((props) => {
     document.getElementById("iq-tracker-position-2").classList.add("active");
   };
 
-  // const [users,setUsers]=useState({
+  const updateUser = () => {
+    let pId = permissionId.toString();
+    let pName = permissionName.toString();
+    const data = {
+      email: email,
+      password: "qwe12345",
+      firstName: firstName,
+      lastName: user?.lastName,
+      permissionIds: pId,
+      permissionNames: pName,
+      // permissionIds: user.permissionIds,
+    };
 
-  // })
+    updateUserServices(user.id, data)
+      .then((res) => {
+        toast.success("successfully User updated");
+        navigate("/womeyn/user-management");
+        console.log("result", res);
+      })
+      .catch((err) => {
+        toast.error("error");
+      });
+  };
+
+  const handleCheck = (item) => {
+    console.log("check", item);
+    if (item.isChecked === true) {
+      item.isChecked = false;
+    } else {
+      item.isChecked = true;
+    }
+  };
 
   if (!user) {
     return <Loader />;
@@ -190,18 +354,19 @@ const EditUser = memo((props) => {
                   <div className="field-container">
                     <Form.Label htmlFor="validationServer01">Name</Form.Label>
                     <Form.Control
-                      name="name"
+                      name="firstName"
                       type="text"
                       className={true ? "" : "is-valid"}
                       id="name"
-                      value={user.firstName}
-                      onChange={handleChanges}
+                      value={firstName}
+                      // defaultValue={firstName}
+                      onChange={handleUserDetailsChanges}
                       required
                       style={{ color: "black" }}
                     />
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                     <div>
-                      {error && name.length === 0 ? (
+                      {error && firstName.length <= 0 ? (
                         <div className="text-danger">Name is required</div>
                       ) : (
                         ""
@@ -218,30 +383,39 @@ const EditUser = memo((props) => {
                       type="email"
                       className={true ? "" : "is-valid"}
                       id="email"
-                      value={user.email}
-                      onChange={handleChanges}
+                      defaultValue={email}
+                      onChange={handleUserDetailsChanges}
                       required
                       style={{ color: "black" }}
+                      disabled
                     />
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                    <div>
+                      {error && email.length <= 0 ? (
+                        <div className="text-danger">email is required</div>
+                      ) : (
+                        ""
+                      )}
+                    </div>
                   </div>
                   <div className="field-container">
                     <Form.Label htmlFor="validationServer01">
                       Contact Details
                     </Form.Label>
                     <Form.Control
-                      name="number"
+                      name="contactNumber"
                       type="text"
                       className={true ? "" : "is-valid"}
                       id="number"
-                      value={user.contactNumber}
-                      onChange={handleChanges}
+                      value={contactNumber}
+                      onChange={handleUserDetailsChanges}
                       required
                       style={{ color: "black" }}
+                      maxLength={9}
                     />
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                     <div>
-                      {error && number.length === 0 ? (
+                      {error && contactNumber.length <= 0 ? (
                         <div className="text-danger">Number is required</div>
                       ) : (
                         ""
@@ -253,7 +427,7 @@ const EditUser = memo((props) => {
                     <Button variant="secondary">Back</Button>{" "}
                     <Button
                       variant="primary"
-                      onClick={stmacess}
+                      onClick={handleUserProfileSubmit}
                       className="margin-left-button "
                     >
                       Continue
@@ -263,70 +437,35 @@ const EditUser = memo((props) => {
               </div>
               <div id="stmacs" className="iq-product-tracker-card  b-0">
                 <div className="field-container">
-                  <ListGroupItem as="label">
-                    <input
-                      className="form-check-input me-5"
-                      type="checkbox"
-                      value={one}
-                      onChange={checkedOne}
-                      name="one"
-                      // checked={first}
-                      checked={user.permissionIds.includes("1") ? true : first}
-                    />
-                    Admin Dashboard
-                  </ListGroupItem>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      flexWrap: "wrap",
+                    }}
+                  >
+                    {data.map((obj, index) => (
+                      <div
+                        key={index}
+                        className="p-1"
+                        style={{ marginLeft: 40, marginRight: 20, width: 200 }}
+                      >
+                        <Checkbox
+                          obj={obj}
+                          onChange={(item) => {
+                            console.log("item", item);
+                            setData(
+                              data.map((d) => {
+                                console.log("d", d);
+                                return d.id === item.id ? item : d;
+                              })
+                            );
+                          }}
+                        />
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <div className="field-container">
-                  <ListGroupItem as="label">
-                    <input
-                      className="form-check-input me-5"
-                      type="checkbox"
-                      value={two}
-                      onChange={checkedTwo}
-                      name="two"
-                      // checked={second}
-                      checked={user.permissionIds.includes("2") ? true : second}
-                    />
-                    Seller Dashboard
-                  </ListGroupItem>
-                </div>
-                <div className="field-container">
-                  <ListGroupItem as="label">
-                    <input
-                      className="form-check-input me-5"
-                      type="checkbox"
-                      value={three}
-                      onChange={checkedThree}
-                      name="three"
-                      // checked={third}
-                      checked={user.permissionIds.includes("3") ? true : third}
-                    />
-                    End Customer Dashboard
-                  </ListGroupItem>
-                </div>
-                <div className="field-container">
-                  <ListGroupItem as="label">
-                    <input
-                      className="form-check-input me-5"
-                      type="checkbox"
-                      value={four}
-                      onChange={checkedFour}
-                      name="four"
-                      // checked={fourth}
-                      checked={user.permissionIds.includes("4") ? true : fourth}
-                    />
-                    Support and Query Dashboard
-                  </ListGroupItem>
-                </div>
-                {/* <div>
-                  {error && !first && !second && !third && !fourth ? (
-                    <div className="text-danger">
-                      Please select at least one field
-                    </div>
-                  ) : (
-                    ""
-                  )}
-                </div> */}
                 <hr className="hr-horizontal" />
                 <div>
                   <Button variant="secondary" onClick={goBack}>
@@ -357,6 +496,7 @@ const EditUser = memo((props) => {
                       defaultValue={user.email}
                       required
                       style={{ color: "black" }}
+                      disabled
                     />
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                   </div>
@@ -364,82 +504,15 @@ const EditUser = memo((props) => {
                     <Form.Label htmlFor="validationServer01">
                       Permissions Given
                     </Form.Label>
-                    {user.permissionIds.includes("1,2,3,4") ? (
-                      <div className="permission flex-container">
-                        <span>Admin Dashboard</span>
-                        <span>Seller Dashboard</span>
-                        <span>End Customer Dashboard</span>
-                        <div className="mt-2">
-                          <span className="p-1">
-                            Support and Query Dashboard
-                          </span>
-                        </div>
-                      </div>
-                    ) : user.permissionIds.includes("2,3,4") ? (
-                      <div className="permission flex-container">
-                        <span>Seller Dashboard</span>
-                        <span>End Customer Dashboard</span>
-                        <span>Support and Query Dashboard</span>
-                      </div>
-                    ) : user.permissionIds.includes("1,2,4") ? (
-                      <div className="permission flex-container">
-                        <span>Admin Dashboard</span>
-                        <span>Seller Dashboard</span>
-                        <span>Support and Query Dashboard</span>
-                      </div>
-                    ) : user.permissionIds.includes("1,2,3") ? (
-                      <div className="permission flex-container">
-                        <span>Admin Dashboard</span>
-                        <span>Seller Dashboard</span>
-                        <span>End Customer Dashboard</span>
-                      </div>
-                    ) : user.permissionIds.includes("3,4") ? (
-                      <div className="permission flex-container">
-                        <span>End Customer Dashboard</span>
-                        <span>Support and Query Dashboard</span>
-                      </div>
-                    ) : user.permissionIds.includes("2,4") ? (
-                      <div className="permission flex-container">
-                        <span>Seller Dashboard</span>
-                        <span>Support and Query Dashboard</span>
-                      </div>
-                    ) : user.permissionIds.includes("2,3") ? (
-                      <div className="permission flex-container">
-                        <span>Seller Dashboard</span>
-                        <span>End Customer Dashboard</span>
-                      </div>
-                    ) : user.permissionIds.includes("1,4") ? (
-                      <div className="permission flex-container">
-                        <span>Admin Dashboard</span>
-                        <span>Support and Query Dashboard</span>
-                      </div>
-                    ) : user.permissionIds.includes("1,3") ? (
-                      <div className="permission flex-container">
-                        <span>Admin Dashboard</span>
-                        <span>End Customer Dashboard</span>
-                      </div>
-                    ) : user.permissionIds.includes("1,2") ? (
-                      <div className="permission flex-container">
-                        <span>Admin Dashboard</span>
-                        <span>Seller Dashboard</span>
-                      </div>
-                    ) : user.permissionIds.includes("4") ? (
-                      <div className="permission flex-container">
-                        <span>Support and Query Dashboard</span>
-                      </div>
-                    ) : user.permissionIds.includes("3") ? (
-                      <div className="permission flex-container">
-                        <span>End Customer Dashboard</span>
-                      </div>
-                    ) : user.permissionIds.includes("2") ? (
-                      <div className="permission flex-container">
-                        <span>Seller Dashboard</span>
-                      </div>
-                    ) : user.permissionIds.includes("1") ? (
-                      <div className="permission flex-container">
-                        <span>Admin Dashboard</span>
-                      </div>
-                    ) : null}
+                    <div className="d-flex flex-wrap">
+                      {permissionName.map((item) => {
+                        return (
+                          <div className="permission flex-container mt-1 flex-wrap">
+                            <span>{item}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                   <hr className="hr-horizontal" />
                   <Button variant="secondary" onClick={goBack2}>
@@ -447,7 +520,7 @@ const EditUser = memo((props) => {
                   </Button>{" "}
                   <Button
                     variant="primary"
-                    onClick={() => {}}
+                    onClick={updateUser}
                     className="margin-left-button "
                   >
                     Save Updates

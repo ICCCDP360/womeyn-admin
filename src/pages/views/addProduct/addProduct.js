@@ -1,7 +1,7 @@
-import { useState, memo, Fragment } from "react";
+import { Fragment, memo, useState } from "react";
 
 // React-bootstrap
-import { Button, Row, Col, Form } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 
 // Router
 import { Link, useNavigate } from "react-router-dom";
@@ -142,8 +142,8 @@ const AddProduct = memo((props) => {
 
   return (
     <Fragment>
-      <div className="title-with-icon">
-        <h2>Add Category</h2>
+      <div>
+        <h2>Add a Product Category</h2>
       </div>
       <Row>
         <Col sm="12">

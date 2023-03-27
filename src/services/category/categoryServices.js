@@ -18,6 +18,14 @@ export function getProductCategory() {
   );
 }
 
+export function deleteProductCategory(id) {
+  return HttpInterceptor.delete(`/admin/delete-category/${id}`);
+}
+
+export function deleteProductSubCategory(id) {
+  return HttpInterceptor.delete(`/admin/delete-sub-category/${id}`);
+}
+
 export function getProductSubCategory(id) {
   return HttpInterceptor.get(
     `/admin/categories-list?typeId=1&&categoryId=${id}&&sortBy=_id:desc`

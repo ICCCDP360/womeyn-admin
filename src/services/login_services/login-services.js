@@ -17,6 +17,9 @@ class LoginServices {
       localStorage.removeItem("auth");
       localStorage.removeItem("access_token");
       localStorage.removeItem("user_id");
+      localStorage.removeItem("firstName");
+      localStorage.removeItem("lastName");
+      localStorage.removeItem("permissions");
       resolve(true);
     });
   };
@@ -28,6 +31,9 @@ class LoginServices {
       localStorage.setItem("auth", true);
       localStorage.setItem("access_token", data.tokens.access.token);
       localStorage.setItem("user_id", data.user.id);
+      localStorage.setItem("firstName", data.user.firstName);
+      localStorage.setItem("lastName", data.user.lastName);
+      localStorage.setItem("permissions", data.user.permissionIds);
       resolve(true);
     });
   };

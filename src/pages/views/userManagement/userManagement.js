@@ -31,6 +31,7 @@ const UserManagement = memo((props) => {
 
   const [userId, setUserId] = useState("");
   const [loading, setLoading] = useState(false);
+  // const [permissionNames, setPermissionNames] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = (item) => {
@@ -68,6 +69,8 @@ const UserManagement = memo((props) => {
   useEffect(() => {
     getAdminServices()
       .then((res) => {
+        console.log("user", res.data.results);
+        // let permissionArray = res.data.results
         // setUsers(res.data.results);
 
         setUsers(res?.data?.results);
@@ -99,9 +102,6 @@ const UserManagement = memo((props) => {
     <Fragment>
       <div className="d-flex flex-row justify-content-between">
         <h3>User Management</h3>
-        <Link className="nav-link " aria-current="page" to="/womeyn/user-add">
-          <Button style={{ marginBottom: 10 }}>+ Add User</Button>
-        </Link>
       </div>
       <div>
         <Card>
@@ -136,7 +136,7 @@ const UserManagement = memo((props) => {
                       role="tab"
                       aria-selected="false"
                     >
-                      <span className="iq-mail-section">Sellers</span>
+                      <span className="iq-mail-section">Womenpreneurs</span>
                     </Nav.Link>
                     <Nav.Link
                       eventKey="3"
@@ -148,7 +148,9 @@ const UserManagement = memo((props) => {
                       role="tab"
                       aria-selected="false"
                     >
-                      <span className="iq-mail-section">End Customers</span>
+                      <span className="iq-mail-section">
+                        Registered Customers
+                      </span>
                     </Nav.Link>
                   </div>
                 </Nav>
@@ -167,6 +169,21 @@ const UserManagement = memo((props) => {
                     <div className="d-flex flex-column">
                       <Row>
                         <Col sm="12">
+                          <Link
+                            className="nav-link d-flex justify-content-end"
+                            aria-current="page"
+                            to="/womeyn/user-add"
+                          >
+                            <Button
+                              style={{
+                                // marginBottom: 10,
+                                position: "absolute",
+                                top: "-9%",
+                              }}
+                            >
+                              + Add User
+                            </Button>
+                          </Link>
                           {users.slice(0, userLimit).map((user, index) => {
                             return (
                               <>
@@ -179,6 +196,12 @@ const UserManagement = memo((props) => {
                                   notificationdefault="Permissions:"
                                   contact={user.email}
                                   id={user.id}
+                                  permissions={user.permissionIds}
+                                  permissionNames={
+                                    user.permissionNames
+                                      ? user.permissionNames
+                                      : ""
+                                  }
                                 />
                               </>
                             );
@@ -186,7 +209,15 @@ const UserManagement = memo((props) => {
                         </Col>
                       </Row>
                     </div>
-                    {userLimit[userLimit.length - 1] ===
+                    <div className="loadMore-div">
+                      <Button
+                        className="mt-5 loadMore-button"
+                        onClick={loadMoreUsers}
+                      >
+                        Load More
+                      </Button>
+                    </div>
+                    {/* {userLimit[userLimit.length - 1] ===
                     users[users.length - 1] ? (
                       <div className="loadMore-div">
                         <Button
@@ -196,7 +227,7 @@ const UserManagement = memo((props) => {
                           Load More
                         </Button>
                       </div>
-                    ) : null}
+                    ) : null} */}
                   </Tab.Pane>
                   <Tab.Pane
                     eventKey="2"
@@ -211,8 +242,8 @@ const UserManagement = memo((props) => {
                             <thead>
                               <tr>
                                 <th>Seller</th>
-                                <th>Seller Type</th>
-                                <th>Offering Services</th>
+                                <th>Registered For</th>
+                                <th>Offering Categories</th>
                                 <th>Status</th>
                                 <th className="text-center">Action</th>
                               </tr>

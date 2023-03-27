@@ -1,13 +1,16 @@
-import { useEffect, useState, memo, Fragment } from "react";
+import { Fragment, memo, useEffect, useState } from "react";
 
 // React-boostrap
-import { Col, Row, Button, Nav, Tab } from "react-bootstrap";
+import { Button, Col, Nav, Row, Tab } from "react-bootstrap";
 
 // Sweetalert
 import Swal from "sweetalert2";
 
 // Services
-import { getProductCategory } from "../../../services/category/categoryServices";
+import {
+  deleteProductCategory,
+  getProductCategory,
+} from "../../../services/category/categoryServices";
 
 //Components
 import ProductCard from "../../components/product-card";
@@ -31,17 +34,19 @@ import img9 from "../../../assets/modules/e-commerce/images/wishlist/9.png";
 const ProductPage = memo(() => {
   const navigate = useNavigate();
   const [productList, setProductList] = useState([]);
+  const [status, setStatus] = useState(false);
 
   useEffect(() => {
+    setStatus(false);
     getProductCategory()
       .then((res) => {
         console.log("res", res?.data.results);
         setProductList(res?.data?.results);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [status]);
 
-  const handleRemove = (index) => {
+  const handleRemove = (id) => {
     Swal.fire({
       icon: "error",
       title: "Are you sure?",
@@ -52,10 +57,13 @@ const ProductPage = memo(() => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        setProductList(() =>
-          productList.filter((item, productIndex) => index !== productIndex)
-        );
-        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        deleteProductCategory(id)
+          .then((res) => {
+            setStatus(true);
+            console.log("res", res?.data);
+            Swal.fire("Deleted!", "Your file has been deleted.", "success");
+          })
+          .catch((err) => console.log(err));
       }
     });
   };
@@ -79,7 +87,7 @@ const ProductPage = memo(() => {
               key={index}
               images={item.imageName}
               itemsName={item.name}
-              onRemove={handleRemove}
+              onRemove={() => handleRemove(item.id)}
               // onClick={() => navigate("/womeyn/product-category")}
               id={item.id}
             />

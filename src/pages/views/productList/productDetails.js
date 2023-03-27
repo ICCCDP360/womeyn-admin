@@ -14,39 +14,24 @@ import Swal from "sweetalert2";
 import { FreeMode, Mousewheel, Navigation, Thumbs } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Card from "../../../components/bootstrap/card";
+import Loader from "../../../components/Loader";
 import { ProductDetailsServices } from "../../../services/list/listServices";
 
 const ProductDetails = memo(() => {
   const { id } = useParams();
-  const [single, setSingle] = useState([]);
+  const [single, setSingle] = useState();
   const history = useNavigate();
 
   useEffect(() => {
     ProductDetailsServices(id)
       .then((res) => {
-        console.log(res, "kalaiproduct");
+        console.log(res?.data, "kalaiproduct");
         setSingle(res?.data);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
-
-  //   const getFunctions = () => {
-  //     ProductDetailsServices(id)
-  //       .then((res) => {
-  //         console.log(res, "kalaiproduct");
-  //         setSingle(res);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //     // table1.forEach((element, index) => {
-  //     //     if (element.id == id) {
-  //     //         setSingle(element);
-  //     //     }
-  //     // })
-  //   };
 
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
@@ -58,25 +43,18 @@ const ProductDetails = memo(() => {
     });
   }
 
+  if (!single) {
+    return <Loader />;
+  }
+
+  console.log("single", single);
+
   return (
     <Fragment>
       <Row>
         <Card>
-          {/* <div className='d-flex justify-content-between'>
-                        <div>
-                            <Button onClick={() => history(-1)}>Back</Button>
-                        </div>
-                        <div className='d-flex gap-4'>
-                            <div>
-                                <Button>Delete</Button>
-                            </div>
-                            <div>
-                                <Button>Edit</Button>
-                            </div>
-                        </div>
-                    </div> */}
           <Card.Body>
-            <Row className="align-items-center">
+            <Row>
               <Col lg="7">
                 <div className="product-vertical-slider">
                   <div className="slider__flex">
@@ -93,42 +71,21 @@ const ProductDetails = memo(() => {
                           modules={[FreeMode, Thumbs]}
                           loop={true}
                         >
-                          <SwiperSlide>
-                            <div className="slider__image">
-                              <Image
-                                alt="product-15"
-                                src={`https://my-demo-11-bucket.s3.ap-south-1.amazonaws.com/${single?.productThumbImage}`}
-                                style={{ objectFit: "cover" }}
-                              />
-                            </div>
-                          </SwiperSlide>
-                          <SwiperSlide>
-                            <div className="slider__image">
-                              <Image
-                                alt="product-15"
-                                src={`https://my-demo-11-bucket.s3.ap-south-1.amazonaws.com/${single?.productThumbImage}`}
-                                style={{ objectFit: "cover" }}
-                              />
-                            </div>
-                          </SwiperSlide>
-                          <SwiperSlide>
-                            <div className="slider__image">
-                              <Image
-                                alt="product-15"
-                                src={`https://my-demo-11-bucket.s3.ap-south-1.amazonaws.com/${single?.productThumbImage}`}
-                                style={{ objectFit: "cover" }}
-                              />
-                            </div>
-                          </SwiperSlide>
-                          <SwiperSlide>
-                            <div className="slider__image">
-                              <Image
-                                alt="product-15"
-                                src={`https://my-demo-11-bucket.s3.ap-south-1.amazonaws.com/${single?.productThumbImage}`}
-                                style={{ objectFit: "cover" }}
-                              />
-                            </div>
-                          </SwiperSlide>
+                          {single?.productImages.map((e) => {
+                            return (
+                              <>
+                                <SwiperSlide>
+                                  <div className="slider__image">
+                                    <Image
+                                      alt="product-15"
+                                      src={`https://my-demo-11-bucket.s3.ap-south-1.amazonaws.com/${e?.name}`}
+                                      style={{ objectFit: "cover" }}
+                                    />
+                                  </div>
+                                </SwiperSlide>
+                              </>
+                            );
+                          })}
                         </Swiper>
                       </div>
                     </div>
@@ -147,42 +104,21 @@ const ProductDetails = memo(() => {
                         modules={[FreeMode, Thumbs, Mousewheel]}
                         loop={true}
                       >
-                        <SwiperSlide>
-                          <div className="slider__image">
-                            <Image
-                              alt="product-15"
-                              src={`https://my-demo-11-bucket.s3.ap-south-1.amazonaws.com/${single?.productThumbImage}`}
-                              style={{ objectFit: "cover" }}
-                            />
-                          </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                          <div className="slider__image">
-                            <Image
-                              alt="product-15"
-                              src={`https://my-demo-11-bucket.s3.ap-south-1.amazonaws.com/${single?.productThumbImage}`}
-                              style={{ objectFit: "cover" }}
-                            />
-                          </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                          <div className="slider__image">
-                            <Image
-                              alt="product-15"
-                              src={`https://my-demo-11-bucket.s3.ap-south-1.amazonaws.com/${single?.productThumbImage}`}
-                              style={{ objectFit: "cover" }}
-                            />
-                          </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                          <div className="slider__image">
-                            <Image
-                              alt="product-15"
-                              src={`https://my-demo-11-bucket.s3.ap-south-1.amazonaws.com/${single?.productThumbImage}`}
-                              style={{ objectFit: "cover" }}
-                            />
-                          </div>
-                        </SwiperSlide>
+                        {single?.productImages.map((e) => {
+                          return (
+                            <>
+                              <SwiperSlide>
+                                <div className="slider__image">
+                                  <Image
+                                    alt="product-15"
+                                    src={`https://my-demo-11-bucket.s3.ap-south-1.amazonaws.com/${e?.name}`}
+                                    style={{ objectFit: "cover" }}
+                                  />
+                                </div>
+                              </SwiperSlide>
+                            </>
+                          );
+                        })}
                       </Swiper>
                     </div>
                   </div>
@@ -190,7 +126,7 @@ const ProductDetails = memo(() => {
               </Col>
               <Col lg="5">
                 <div className="border-bottoms">
-                  <div className="d-flex flex-column justify-items-center mb-3">
+                  <div className="d-flex flex-column justify-items-start mb-3">
                     <div className="d-flex justify-content-between mb-2">
                       <h1 className="mb-0 fs-1">{single?.productName}</h1>
                       <div className="d-flex justify-content-end "></div>
@@ -266,12 +202,11 @@ const ProductDetails = memo(() => {
                   </div>
                   <div className="d-flex my-4">
                     <h4 className="mb-0"> Price:</h4>
-                    <h4 className="text-primary mb-0 ms-2">$100</h4>
+                    <h4 className="text-primary mb-0 ms-2">
+                      ${single?.salePrice}
+                    </h4>
                   </div>
                 </div>
-                {/* <div className="border-bottom">
-                                    <p className="py-4 mb-0">{single.desc}</p>
-                                </div> */}
               </Col>
             </Row>
           </Card.Body>
@@ -327,28 +262,6 @@ const ProductDetails = memo(() => {
                   aria-labelledby="nav-description-tab"
                 >
                   <div className="d-flex flex-column">
-                    {/* <p className="mb-0 text-secondary">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Lacus eleifend ultrices vestibulum tempor augue bibendum
-                      dolor quam malesuad.Lorem ipsum dolor sit amet,
-                      consectetur adipiscing elit. Lacus eleifend ultrices
-                      vestibulum tempor augue bibendum dolor quam malesuad.
-                    </p>
-                    <Row className="row-cols-2 row-cols-lg-5 py-3"></Row>
-                    <p className="mb-3 text-secondary">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Lacus eleifend ultrices vestibulum tempor augue bibendum
-                      dolor quam malesuad.Lorem ipsum dolor sit amet,
-                      consectetur adipiscing elit. Lacus eleifend ultrices
-                      vestibulum tempor augue bibendum dolor quam malesuad.
-                    </p>
-                    <p className="mb-0 text-secondary">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Lacus eleifend ultrices vestibulum tempor augue bibendum
-                      dolor quam malesuad. Lorem ipsum dolor sit amet,
-                      consectetur adipiscing elit. Lacus eleifend ultrices
-                      vestibulum tempor augue bibendum dolor quam malesuad.
-                    </p> */}
                     <p>{single?.productDescription}</p>
                   </div>
                 </Tab.Pane>
@@ -361,20 +274,58 @@ const ProductDetails = memo(() => {
                   <Table bordered className="mb-0">
                     <tbody>
                       <tr>
-                        <th>BrandName</th>
+                        <th>Brand Name</th>
                         <td>{single?.brandName}</td>
                       </tr>
                       <tr>
-                        <th>ModalName</th>
+                        <th>Modal Name</th>
                         <td>{single?.modelName}</td>
                       </tr>
                       <tr>
-                        <th>StyleName</th>
+                        <th>Style Name</th>
                         <td>{single?.styleName}</td>
                       </tr>
                       <tr>
-                        <th>manufacturerName</th>
+                        <th>Manufacture's Name</th>
                         <td>{single?.manufacturerName}</td>
+                      </tr>
+                      <tr>
+                        <th>Quantity</th>
+                        <td>{single?.quantityLeft}</td>
+                      </tr>
+                      <tr>
+                        <th>Actual Price</th>
+                        <td>{single?.actualPrice}</td>
+                      </tr>
+                      <tr>
+                        <th>Offer Percentage</th>
+                        <td>{single?.offerPercentag} %</td>
+                      </tr>
+                      <tr>
+                        <th>Selling Price</th>
+                        <td>{single?.salePrice}</td>
+                      </tr>
+                      <tr>
+                        <th>Target Gender</th>
+                        <td>
+                          {single?.targetGender === "1"
+                            ? "Male"
+                            : single?.targetGender === "2"
+                            ? "Female"
+                            : single?.targetGender === "3"
+                            ? "All"
+                            : null}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Is Shipping Required</th>
+                        <td>
+                          {single?.isShippingRequired === 1
+                            ? "Myself"
+                            : single?.isShippingRequired === 2
+                            ? "Womeyn"
+                            : null}
+                        </td>
                       </tr>
                     </tbody>
                   </Table>

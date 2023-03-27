@@ -13,3 +13,83 @@
     border-radius: 10px;
   }
 }
+
+
+//placementlist----------------------------
+
+.placement-tabsize{
+  @include mdBreakPoint{
+    width: 50% !important;
+  }
+  @include smBreakPoint{
+    width: 50% !important;
+  }
+  .placementlist-full-container{
+    border: 1px solid #C0C0C0;
+    border-radius: 5px;
+    margin-top: 5%;
+    background: #fff;
+    .placementlist-center-container{
+      min-height: 100px;
+      .placementheaderlist{
+        display: flex;
+        justify-content: space-between;
+        margin-left: 3%;
+        .placement-title-text{
+          margin-top: 5%;
+          font-size: 18px;
+          font-weight: 600;
+          color: #E95A5A;
+          @include mdBreakPoint{
+            margin-top: 2%;
+          }
+        }
+      }
+      .placementcode-text{
+        font-size: 16px;
+        font-weight: 400;
+        color: black;
+        margin-top: 5%;
+        margin-left: 3%;
+        color: #E95A5A;
+        @include mdBreakPoint{
+          margin-top: 2%;
+        }
+      }
+      .placementcode-desc{
+        font-size: 13px;
+        font-weight: 400;
+        color: black;
+        margin-top: 1%;
+        margin-left: 3%;
+      }
+    }
+    
+    .placement-btm-container{
+      display: flex;
+      justify-content: space-between;
+      padding: 3%;
+      border-top: 1px solid #C0C0C0;
+      .placement-edit-btn{
+        background-color: white;
+        border: 1px solid #C0C0C0;
+        border-radius: 5px;
+        padding: 1%;
+        padding-right: 5%;
+        padding-left: 5%;
+      }
+      .placement-dlte-btn{
+        background-color: white;
+        border: 1px solid #C0C0C0;
+        border-radius: 5px;
+        padding: 1%;
+        padding-right: 5%;
+        padding-left: 5%;
+      }
+      .placement-switch-btn{
+        height: 20px;
+        width: 40px;
+      }
+    }
+  }
+}

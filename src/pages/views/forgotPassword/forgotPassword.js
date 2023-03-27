@@ -1,7 +1,7 @@
-import { memo, Fragment, useState, useRef } from "react";
+import { Fragment, memo, useRef, useState } from "react";
 
 //react-bootstrap
-import { Row, Col, Image, Form, Button } from "react-bootstrap";
+import { Button, Col, Form, Image, Row } from "react-bootstrap";
 
 //router
 import { Link, useNavigate } from "react-router-dom";
@@ -9,25 +9,22 @@ import { Link, useNavigate } from "react-router-dom";
 //components
 import Card from "../../../components/bootstrap/card";
 
-// img
-import auth2 from "../../../assets/images/auth/02.png";
-
 // Import selectors & action from setting store
 import * as SettingSelector from "../../../store/setting/selectors";
 
 // Redux Selector / Action
+import { Field, useFormik } from "formik";
 import { useSelector } from "react-redux";
-import { useFormik, Field } from "formik";
 import * as Yup from "yup";
 
-import { toast } from "react-toastify";
 import { Modal } from "bootstrap";
+import { toast } from "react-toastify";
 import "./styles.scss";
 // import { forgotPasswordServices } from "../../../services/forgotPassword-services/forgotPassword-services";
-import { forgotPasswordServices } from "../../../services/password/passwordServices";
-import logowomenyn from "../../../assets/loginLogos/new-womeyn.svg";
 import circlethree from "../../../assets/loginLogos/circle.svg";
 import login from "../../../assets/loginLogos/login.png";
+import logowomenyn from "../../../assets/loginLogos/new-womeyn.svg";
+import { forgotPasswordServices } from "../../../services/password/passwordServices";
 import "../../auth/Signin.scss";
 
 const ForgetPassword = memo(() => {

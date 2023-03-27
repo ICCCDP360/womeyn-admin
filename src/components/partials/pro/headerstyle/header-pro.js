@@ -1,23 +1,23 @@
-import { useState, useEffect, memo } from "react";
+import { memo, useEffect, useState } from "react";
 
 //react-bootstrap
 import {
-  Navbar,
+  Button,
+  Collapse,
   Container,
-  Nav,
   Dropdown,
   Form,
   Image,
-  Button,
-  Collapse,
+  Nav,
+  Navbar,
 } from "react-bootstrap";
 
 //router
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 //component
-import CustomToggle from "../../../dropdowns";
 import Card from "../../../bootstrap/card";
+import CustomToggle from "../../../dropdowns";
 // import Modalpopup from "../../../../views/modules/auth/components/modal-popup";
 
 // logo
@@ -29,15 +29,18 @@ import { useSelector } from "react-redux";
 // Import selectors & action from setting store
 import * as SettingSelector from "../../../../store/setting/selectors";
 
-import RadioBtn from "../../../setting/elements/radio-btn";
-import loginServices from "../../../../services/login_services/login-services";
 import { toast } from "react-toastify";
+import loginServices from "../../../../services/login_services/login-services";
+import RadioBtn from "../../../setting/elements/radio-btn";
 import "./styles.scss";
 
 import { ReactComponent as Logout } from "../../../../assets/svg/logout.svg";
 
 const Headerpro = memo((props) => {
   let history = useNavigate();
+
+  const firstName = localStorage.getItem("firstName");
+  const lastName = localStorage.getItem("lastName");
 
   const themeFontSize = useSelector(SettingSelector.theme_font_size);
   const headerNavbar = useSelector(SettingSelector.header_navbar);
@@ -156,7 +159,7 @@ const Headerpro = memo((props) => {
 
   const logOut = () => {
     loginServices.logout(null).then((result) => {
-      toast.success("Logout Success");
+      toast.success("Logged out Successfully");
       if (result) {
         setTimeout(() => {
           history("/");
@@ -201,19 +204,6 @@ const Headerpro = memo((props) => {
           >
             <div className="offcanvas-body">
               <ul className="iq-nav-menu list-unstyled">
-                <Nav.Item as="li" className="active">
-                  <Nav.Link
-                    className="menu-arrow justify-content-start"
-                    onClick={() => history(`/womeyn/dashboard`)}
-                    aria-controls="homeData"
-                    aria-expanded={open}
-                    role="button"
-                  >
-                    <span className="icon-home font-size-icon"></span>
-                    <span className="nav-text ms-2">Home</span>
-                  </Nav.Link>
-                </Nav.Item>
-
                 <Nav.Item as="li">
                   <Nav.Link
                     className="menu-arrow justify-content-start"
@@ -223,7 +213,9 @@ const Headerpro = memo((props) => {
                     aria-controls="allPagesData"
                   >
                     <span className="icon-profile font-size-icon"></span>
-                    <span className="nav-text ms-2">Your Profile</span>
+                    <span className="nav-text ms-2" style={{ fontSize: 18 }}>
+                      {firstName} {lastName}
+                    </span>
                   </Nav.Link>
                 </Nav.Item>
               </ul>
@@ -261,7 +253,7 @@ const Headerpro = memo((props) => {
         >
           <ul className="mb-2 navbar-nav ms-auto align-items-center navbar-list mb-lg-0">
             <li className="nav-item dropdown me-0 me-xl-3">
-              <div
+              {/* <div
                 className="d-flex align-items-center mr-2 iq-font-style"
                 role="group"
                 aria-label="First group"
@@ -299,13 +291,13 @@ const Headerpro = memo((props) => {
                     A
                   </span>
                 </RadioBtn>
-              </div>
+              </div> */}
             </li>
             <Dropdown
               as="li"
               className="nav-item border-end pe-3 d-none d-xl-block"
             >
-              <div className="form-group input-group mb-0 search-input">
+              {/* <div className="form-group input-group mb-0 search-input">
                 <Form.Control type="text" placeholder="Search..." />
                 <span className="input-group-text">
                   <svg
@@ -331,7 +323,7 @@ const Headerpro = memo((props) => {
                     ></path>
                   </svg>
                 </span>
-              </div>
+              </div> */}
             </Dropdown>
             <Dropdown
               as="li"

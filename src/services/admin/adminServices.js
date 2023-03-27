@@ -49,7 +49,15 @@ export function updateAdminImageServices(id, data) {
 }
 
 export function getAdminServices() {
-  return HttpInterceptor.get(`/admin/users?sortBy=_id:desc&&limit=100`);
+  return HttpInterceptor.get(`/admin/users?sortBy=updatedAt:desc&&limit=100`);
+}
+
+export function updateUserServices(id, data) {
+  return HttpInterceptor.patch(`/admin/users/${id}`, data);
+}
+
+export function deleteAdminServices(id) {
+  return HttpInterceptor.delete(`/admin/users/${id}`);
 }
 
 export function getAdminByIdServices(id) {

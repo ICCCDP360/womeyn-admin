@@ -19,3 +19,95 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   // -webkit-appearance: none;
   filter: invert(1);
 }
+
+
+//coupon list---------------------------------
+
+.coupon-tabsize{
+  @include mdBreakPoint{
+    width: 50% !important;
+  }
+  @include smBreakPoint{
+    width: 50% !important;
+  }
+  .couponlist-full-container{
+    border: 1px solid #C0C0C0;
+    border-radius: 5px;
+    margin-top: 5%;
+    background: #fff;
+    .couponlist-center-container{
+      height: 140px;
+      @include xlBreakPoint{
+        height: 130px;
+      }
+      @include lgBreakPoint{
+        height: 130px;
+      }
+      @include mdBreakPoint{
+        height: 140px;
+      }
+      @include smBreakPoint{
+        height: 140px;
+      }
+      .couponheaderlist{
+        display: flex;
+        justify-content: space-between;
+        margin-left: 3%;
+        .coupon-title-text{
+          margin-top: 5%;
+          font-size: 18px;
+          font-weight: 600;
+          color: #E95A5A;
+          @include mdBreakPoint{
+            margin-top: 2%;
+          }
+        }
+      }
+      .couponcode-text{
+        font-size: 16px;
+        font-weight: 400;
+        color: black;
+        margin-top: 5%;
+        margin-left: 3%;
+        color: #E95A5A;
+        @include mdBreakPoint{
+          margin-top: 2%;
+        }
+      }
+      .couponcode-desc{
+        font-size: 13px;
+        font-weight: 400;
+        color: black;
+        margin-top: 1%;
+        margin-left: 3%;
+      }
+    }
+    
+    .coupon-btm-container{
+      display: flex;
+      justify-content: space-between;
+      padding: 3%;
+      border-top: 1px solid #C0C0C0;
+      .coupon-edit-btn{
+        background-color: white;
+        border: 1px solid #C0C0C0;
+        border-radius: 5px;
+        padding: 1%;
+        padding-right: 5%;
+        padding-left: 5%;
+      }
+      .coupon-dlte-btn{
+        background-color: white;
+        border: 1px solid #C0C0C0;
+        border-radius: 5px;
+        padding: 1%;
+        padding-right: 5%;
+        padding-left: 5%;
+      }
+      .coupon-switch-btn{
+        height: 20px;
+        width: 40px;
+      }
+    }
+  }
+}

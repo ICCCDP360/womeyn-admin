@@ -1,12 +1,13 @@
-import { memo, Fragment, useState } from "react";
+import { Fragment, memo, useState } from "react";
 
 // React-bootstrap
-import { Row, Col, Image, Button, Table, Form } from "react-bootstrap";
+import { Button, Col, Form, Image, Row, Table } from "react-bootstrap";
 
 //Components
 import Card from "../../../components/bootstrap/card";
 
 //Img
+import { useNavigate } from "react-router-dom";
 import img1 from "../../../assets/images/table/1.png";
 import img2 from "../../../assets/images/table/2.png";
 import img3 from "../../../assets/images/table/3.png";
@@ -16,49 +17,11 @@ import img6 from "../../../assets/images/table/6.png";
 import img7 from "../../../assets/images/table/7.png";
 import img8 from "../../../assets/images/table/8.png";
 import img9 from "../../../assets/images/table/9.png";
-import { useNavigate } from "react-router-dom";
 
 const CustomerList = memo(() => {
   const history = useNavigate();
 
   const [serach, setSearch] = useState("");
-
-  const usa = (
-    <svg
-      width="18"
-      className="me-2"
-      viewBox="0 0 20 16"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <rect y="0.5" width="20" height="13.75" fill="#EEF3F8" />
-      <rect y="0.5" width="11.25" height="8.75" fill="#41479B" />
-      <rect x="11.25" y="0.5" width="8.75" height="1.25" fill="#DC251C" />
-      <rect x="11.25" y="3" width="8.75" height="1.25" fill="#DC251C" />
-      <rect x="11.25" y="5.5" width="8.75" height="1.25" fill="#DC251C" />
-      <rect x="11.25" y="8" width="8.75" height="1.25" fill="#DC251C" />
-      <rect y="10.5" width="20" height="1.25" fill="#DC251C" />
-      <rect y="13" width="20" height="1.25" fill="#DC251C" />
-      <rect x="1.25" y="1.75" width="1.25" height="1.25" fill="#C5D0EC" />
-      <rect x="3.75" y="1.75" width="1.25" height="1.25" fill="#C5D0EC" />
-      <rect x="6.25" y="1.75" width="1.25" height="1.25" fill="#C5D0EC" />
-      <rect x="8.75" y="1.75" width="1.25" height="1.25" fill="#C5D0EC" />
-      <rect x="1.25" y="4.25" width="1.25" height="1.25" fill="#C5D0EC" />
-      <rect x="3.75" y="4.25" width="1.25" height="1.25" fill="#C5D0EC" />
-      <rect x="6.25" y="4.25" width="1.25" height="1.25" fill="#C5D0EC" />
-      <rect x="2.5" y="5.5" width="1.25" height="1.25" fill="#C5D0EC" />
-      <rect x="5" y="5.5" width="1.25" height="1.25" fill="#C5D0EC" />
-      <rect x="7.5" y="5.5" width="1.25" height="1.25" fill="#C5D0EC" />
-      <rect x="2.5" y="3" width="1.25" height="1.25" fill="#C5D0EC" />
-      <rect x="5" y="3" width="1.25" height="1.25" fill="#C5D0EC" />
-      <rect x="7.5" y="3" width="1.25" height="1.25" fill="#C5D0EC" />
-      <rect x="8.75" y="4.25" width="1.25" height="1.25" fill="#C5D0EC" />
-      <rect x="1.25" y="6.75" width="1.25" height="1.25" fill="#C5D0EC" />
-      <rect x="3.75" y="6.75" width="1.25" height="1.25" fill="#C5D0EC" />
-      <rect x="6.25" y="6.75" width="1.25" height="1.25" fill="#C5D0EC" />
-      <rect x="8.75" y="6.75" width="1.25" height="1.25" fill="#C5D0EC" />
-    </svg>
-  );
 
   const spn = (
     <svg
@@ -87,20 +50,6 @@ const CustomerList = memo(() => {
       />
       <rect x="6.25" y="5.5" width="2.5" height="2.5" fill="#A6A6A6" />
       <circle cx="6.25" cy="8" r="0.625" fill="#41479B" />
-    </svg>
-  );
-
-  const itl = (
-    <svg
-      width="18"
-      className="me-2"
-      viewBox="0 0 20 16"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <rect y="0.5" width="20" height="15" fill="#F5F8FB" />
-      <rect y="0.5" width="6.25" height="15" fill="#2B9F5A" />
-      <rect x="13.75" y="0.5" width="6.25" height="15" fill="#DC251C" />
     </svg>
   );
 

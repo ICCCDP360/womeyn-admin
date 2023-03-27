@@ -1,8 +1,8 @@
-import { memo, Fragment, useState, useEffect } from "react";
+import { Fragment, memo, useEffect, useState } from "react";
 
 //react-bootstrap
-import { Row, Col, Button } from "react-bootstrap";
-import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
+import { Button, Col, Row } from "react-bootstrap";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 
 //components
 import Card from "../../../components/bootstrap/card";
@@ -14,6 +14,7 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import {
   createCategory,
+  deleteProductSubCategory,
   getProductSubCategory,
 } from "../../../services/category/categoryServices";
 
@@ -61,42 +62,20 @@ const addSubCategory = async () => {
   }
 };
 
-// const addSubCategory = async () => {
-//   const { value: text } = await Swal.fire({
-//     title: "Add Sub Category",
-//     html: `
-//     <input
-//       type="text"
-//       inputLabel: "Name",
-//       inputPlaceholder: "Add Sub Category...",
-//       class="swal2-input"
-//       id="name">`,
-//     input: "textarea",
-//     inputLabel: "Description",
-//     inputPlaceholder: "Type your message here...",
-//     inputAttributes: {
-//       "aria-label": "Type your message here",
-//     },
-//     showCancelButton: true,
-//   });
-
-//   if (text) {
-//     Swal.fire(text);
-//   }
-// };
-
 const SubCategory = memo(() => {
   const userId = localStorage.getItem("user_id");
   let { categoryId, name } = useParams();
   const navigate = useNavigate();
   const [error, setError] = useState(false);
   const [subCategory, setSubCategory] = useState([]);
+  const [status, setStatus] = useState(false);
 
   const location = useLocation();
   // const name = location.name.pathname;
   console.log("location", location);
 
   useEffect(() => {
+    setStatus(false);
     getProductSubCategory(categoryId)
       .then((res) => {
         // setUsers(res.data.results);
@@ -104,7 +83,7 @@ const SubCategory = memo(() => {
         setSubCategory(res?.data?.results);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [status]);
 
   const [form, setForm] = useState({
     categoryName: "",
@@ -154,13 +133,37 @@ const SubCategory = memo(() => {
       });
   };
 
+  const handleRemove = (id) => {
+    Swal.fire({
+      icon: "error",
+      title: "Are you sure?",
+      text: "You want to delete this item",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteProductSubCategory(id)
+          .then((res) => {
+            setStatus(true);
+            console.log("res", res?.data);
+            Swal.fire("Deleted!", "Your file has been deleted.", "success");
+          })
+          .catch((err) => console.log(err));
+      }
+    });
+  };
+
   return (
     <Fragment>
       <Row>
         <div className="header-title d-flex flex-row justify-content-between">
           <div className="header-title d-flex flex-row">
             <div
+              // onClick={() => navigate(-1)}
               onClick={() => {
+                navigate(-1);
                 window.location.reload(false);
               }}
               className="cursor-style mt-3"
@@ -173,7 +176,7 @@ const SubCategory = memo(() => {
                 height="30"
                 viewBox="0 0 24 24"
                 style={{ color: "black" }}
-                onClick={() => navigate(-1)}
+                // onClick={() => navigate(-1)}
               >
                 <path
                   d="M4.25 12.2744L19.25 12.2744"
@@ -231,7 +234,10 @@ const SubCategory = memo(() => {
                           <p>
                             <div className="svg-style d-flex gap-3">
                               <span className="icon-edit"></span>
-                              <span className="icon-delete"></span>
+                              <span
+                                className="icon-delete"
+                                onClick={() => handleRemove(item.id)}
+                              ></span>
                             </div>
                           </p>
                         </td>

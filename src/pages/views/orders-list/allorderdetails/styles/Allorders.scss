@@ -1,0 +1,110 @@
+@use "../../../../../sass/abstract/" as *;
+
+.exports {
+  width: 50%;
+  border-radius: 12px;
+  padding: 7px;
+  border: 1px solid red;
+}
+.box-shdow {
+  padding: 5px 15px !important;
+  border-radius: 10px;
+  // opacity: 0.;
+  // font-weight: 600;
+}
+.cursor-texts {
+  cursor: pointer;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  .header-btn {
+    padding: 1%;
+    background-color: #e95a5a;
+    color: white;
+    border: none;
+    border-radius: 18px;
+    @include xsBreakPoint {
+      font-size: 12px;
+    }
+  }
+  .rightside-btn {
+    // display: flex;
+    .header-btn1 {
+      padding: 1%;
+      width: 150px;
+      border: 1px solid gray;
+      @include xsBreakPoint {
+        width: 100px;
+        font-size: 10px;
+      }
+    }
+    .header-btn2 {
+      padding: 1%;
+      width: 150px;
+      margin-left: 5%;
+      border: 1px solid gray;
+      @include xsBreakPoint {
+        width: 100px;
+        font-size: 10px;
+        margin-left: 2%;
+      }
+    }
+  }
+}
+
+.content-container {
+  display: flex;
+  justify-content: space-around;
+  background-color: white;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  .set-img {
+    width: 100px;
+    height: 75px;
+    @include smBreakPoint {
+      width: 30px;
+      height: 40px;
+    }
+    @include xsBreakPoint {
+      width: 30px;
+      height: 40px;
+    }
+  }
+  .header-text {
+    font-weight: 500;
+    color: black;
+    @include smBreakPoint {
+      font-size: 11px;
+      margin-bottom: 0px;
+    }
+    @include xsBreakPoint {
+      font-size: 11px;
+      margin-bottom: 0px;
+    }
+  }
+  .sub-header-text {
+    color: black;
+    @include smBreakPoint {
+      font-size: 11px;
+    }
+    @include xsBreakPoint {
+      font-size: 11px;
+    }
+  }
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 1%;
+  background-color: white;
+}
+
+.invoiceprint {
+  background-color: #e95a5a !important;
+  border: none !important;
+  color: white !important;
+  padding: 10px 20px !important;
+}

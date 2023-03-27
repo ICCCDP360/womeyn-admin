@@ -1,15 +1,15 @@
-import { useState, memo, Fragment, useEffect } from "react";
+import { Fragment, memo, useEffect, useMemo, useState } from "react";
 // Router
 import { Link, useNavigate } from "react-router-dom";
 
 // React-bootstrap
 import {
   Button,
-  Row,
   Col,
+  Form,
   ListGroup,
   ListGroupItem,
-  Form,
+  Row,
 } from "react-bootstrap";
 
 //Components
@@ -18,26 +18,106 @@ import Card from "../../../components/bootstrap/card";
 import { createAdmin } from "../../../services/admin/adminServices";
 import { PermissionListServices } from "../../../services/permission/permissionServices";
 
+const MyCheckBoxList = [
+  {
+    active: true,
+    name: "Dashboard",
+    id: 1,
+  },
+  {
+    active: true,
+    name: "User Management",
+    id: 2,
+  },
+  {
+    active: true,
+    name: "Coupons",
+    id: 3,
+  },
+  {
+    active: true,
+    name: "Seller Approval",
+    id: 4,
+  },
+  {
+    active: true,
+    name: "Products Approval",
+    id: 5,
+  },
+  {
+    active: true,
+    name: "Services Approval",
+    id: 6,
+  },
+  {
+    active: true,
+    name: "Manage Categories",
+    id: 7,
+  },
+  {
+    active: true,
+    name: "Manage Banners",
+    id: 8,
+  },
+  {
+    active: true,
+    name: "Recommendations",
+    id: 9,
+  },
+  {
+    active: true,
+    name: "Manage Orders",
+    id: 10,
+  },
+  {
+    active: true,
+    name: "Manage Transactions",
+    id: 11,
+  },
+  {
+    active: true,
+    name: "Manage Subscribers",
+    id: 12,
+  },
+];
+
+const allCheckBox = [{ active: true, name: "select All", id: 0 }];
+
+const Checkbox = ({ obj, onChange }) => {
+  return (
+    <>
+      <input
+        type="checkbox"
+        id={`custom-checkbox-${obj.index}`}
+        name={obj.name}
+        value={obj.checked}
+        checked={obj.checked}
+        onChange={() => onChange({ ...obj, checked: !obj.checked })}
+        style={{ marginRight: 10 }}
+      />
+      {obj.name}
+    </>
+  );
+};
+
 const AddUser = memo((props) => {
+  const [data, setData] = useState(MyCheckBoxList.sort((a, b) => a.id - b.id));
+
+  // console.log("sortedData", data);
+
+  const isVerified = useMemo(() => {
+    return data.every((d) => d.checked);
+  }, [data]);
+
   const navigate = useNavigate();
 
   const [permission, setPermission] = useState([]);
+  const [permissionId, setPermissionId] = useState([]);
+  const [permissionName, setPermissionName] = useState([]);
   const [first, setFirst] = useState(false);
   const [second, setSecond] = useState(false);
   const [third, setThird] = useState(false);
   const [fourth, setFourth] = useState(false);
-  const checkedOne = () => {
-    setFirst(!first);
-  };
-  const checkedTwo = () => {
-    setSecond(!second);
-  };
-  const checkedThree = () => {
-    setThird(!third);
-  };
-  const checkedFour = () => {
-    setFourth(!fourth);
-  };
 
   const [error, setError] = useState(false);
 
@@ -45,7 +125,7 @@ const AddUser = memo((props) => {
     PermissionListServices()
       .then((res) => {
         // setUsers(res.data.results);
-        console.log("subCategory", res?.data?.results);
+        // console.log("subCategory", res?.data?.results);
         setPermission(res?.data?.results);
       })
       .catch((err) => console.log(err));
@@ -64,7 +144,10 @@ const AddUser = memo((props) => {
   const { name, email, number, one, two, three, four } = form;
 
   const handleChanges = (e) => {
-    setForm({ ...form, [e.target.name]: [e.target.value] });
+    setForm({
+      ...form,
+      [e.target.name]: [e.target.value],
+    });
   };
 
   const handleSubmit = () => {
@@ -76,14 +159,24 @@ const AddUser = memo((props) => {
   };
 
   const handleContinue = () => {
-    if (!one && !two && !three && !four) {
+    let id = [];
+    let name = [];
+
+    console.log("cData", data);
+
+    data.map((e) => (e.checked ? id.push(e.id) : null));
+
+    data.map((e) => (e.checked ? name.push(e.name) : null));
+
+    setPermissionId(id);
+
+    setPermissionName(name);
+
+    // console.log("a", name);
+
+    if (id.length === 0) {
       setError(true);
-    } else if (one || two || three || four) {
-      confirm();
-    }
-    if (!first && !second && !third && !fourth) {
-      setError(true);
-    } else if (first || second || third || fourth) {
+    } else {
       confirm();
     }
   };
@@ -99,13 +192,6 @@ const AddUser = memo((props) => {
     document.getElementById("iq-tracker-position-2").classList.add("active");
   };
   const confirm = () => {
-    // if (!one && !two && !three && !four) {
-    //   setError(true);
-    // }
-    if (!first && !second && !third && !fourth) {
-      setError(true);
-    }
-
     document.getElementById("stmacs").classList.remove("show");
     document.getElementById("confirm").classList.add("show");
     document.getElementById("iq-tracker-position-2").classList.remove("active");
@@ -131,39 +217,8 @@ const AddUser = memo((props) => {
   };
 
   const createUser = () => {
-    let permissionIds;
-
-    first && second && third && fourth
-      ? (permissionIds = "1,2,3,4")
-      : second && third && fourth
-      ? (permissionIds = "2,3,4")
-      : first && second && fourth
-      ? (permissionIds = "1,2,4")
-      : first && third && fourth
-      ? (permissionIds = "1,3,4")
-      : first && second && third
-      ? (permissionIds = "1,2,3")
-      : third && fourth
-      ? (permissionIds = "3,4")
-      : second && fourth
-      ? (permissionIds = "2,4")
-      : second && third
-      ? (permissionIds = "2,3")
-      : first && fourth
-      ? (permissionIds = "1,4")
-      : first && third
-      ? (permissionIds = "1,3")
-      : first && second
-      ? (permissionIds = "1,2")
-      : fourth
-      ? (permissionIds = "4")
-      : third
-      ? (permissionIds = "3")
-      : second
-      ? (permissionIds = "2")
-      : first
-      ? (permissionIds = "1")
-      : (permissionIds = "");
+    let pId = permissionId.toString();
+    let pName = permissionName.toString();
 
     const data = {
       email: form.email[0],
@@ -172,12 +227,13 @@ const AddUser = memo((props) => {
       firstName: form.name[0],
       lastName: "admin",
       contactNumber: form.number[0],
-      permissionIds: permissionIds,
+      permissionIds: pId,
+      permissionNames: pName,
     };
 
-    console.log("form", form.name[0]);
+    // console.log("form", form.name[0]);
 
-    console.log("data", data);
+    // console.log("data", data);
 
     createAdmin(data)
       .then(async (result) => {
@@ -190,6 +246,14 @@ const AddUser = memo((props) => {
         }
       });
   };
+
+  const getData = () => {
+    let a = [];
+    const selectedData = data.map((e) => (e.checked ? a.push(e.order) : null));
+    console.log("ddd===>", a);
+  };
+
+  // console.log("fff", permissionId);
 
   return (
     <Fragment>
@@ -206,7 +270,7 @@ const AddUser = memo((props) => {
               className="active iq-tracker-position-0"
               id="iq-tracker-position-1"
             >
-              Basic Info
+              User Info
             </li>
             <li className="iq-tracker-position-0" id="iq-tracker-position-2">
               System Access
@@ -282,6 +346,7 @@ const AddUser = memo((props) => {
                       onChange={handleChanges}
                       required
                       style={{ color: "black" }}
+                      maxLength={11}
                     />
                     <div>
                       {error && number.length === 0 ? (
@@ -293,7 +358,9 @@ const AddUser = memo((props) => {
                   </div>
                   <hr className="hr-horizontal" />
                   <div>
-                    <Button variant="secondary">Back</Button>{" "}
+                    <Button variant="secondary" onClick={() => navigate(-1)}>
+                      Back
+                    </Button>{" "}
                     <Button
                       variant="primary"
                       onClick={handleSubmit}
@@ -309,60 +376,34 @@ const AddUser = memo((props) => {
               </div>
               <div id="stmacs" className="iq-product-tracker-card  b-0">
                 <div className="field-container">
-                  <ListGroupItem as="label">
-                    <input
-                      className="form-check-input me-5"
-                      type="checkbox"
-                      value={one}
-                      onChange={checkedOne}
-                      name="one"
-                      checked={first}
-                    />
-                    Admin Dashboard
-                  </ListGroupItem>
-                </div>
-
-                <div className="field-container">
-                  <ListGroupItem as="label">
-                    <input
-                      className="form-check-input me-5"
-                      type="checkbox"
-                      value={two}
-                      onChange={checkedTwo}
-                      name="two"
-                      checked={second}
-                    />
-                    Seller Dashboard
-                  </ListGroupItem>
-                </div>
-                <div className="field-container">
-                  <ListGroupItem as="label">
-                    <input
-                      className="form-check-input me-5"
-                      type="checkbox"
-                      value={three}
-                      onChange={checkedThree}
-                      name="three"
-                      checked={third}
-                    />
-                    End Customer Dashboard
-                  </ListGroupItem>
-                </div>
-                <div className="field-container">
-                  <ListGroupItem as="label">
-                    <input
-                      className="form-check-input me-5"
-                      type="checkbox"
-                      value={four}
-                      onChange={checkedFour}
-                      name="four"
-                      checked={fourth}
-                    />
-                    Support and Query Dashboard
-                  </ListGroupItem>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      flexWrap: "wrap",
+                    }}
+                  >
+                    {data.map((obj, index) => (
+                      <div
+                        key={index}
+                        className="p-1"
+                        style={{ marginLeft: 40, marginRight: 20, width: 200 }}
+                      >
+                        <Checkbox
+                          obj={obj}
+                          onChange={(item) => {
+                            setData(
+                              data.map((d) => (d.id === item.id ? item : d))
+                            );
+                          }}
+                        />
+                      </div>
+                    ))}
+                    {/* <Button onClick={getData}>Get Data</Button> */}
+                  </div>
                 </div>
                 <div>
-                  {error && !first && !second && !third && !fourth ? (
+                  {error ? (
                     <div className="text-danger">
                       Please select at least one field
                     </div>
@@ -371,23 +412,6 @@ const AddUser = memo((props) => {
                   )}
                 </div>
                 <hr className="hr-horizontal" />
-                {/* {permission.map((list) => {
-                  return (
-                    <div className="field-container">
-                      <ListGroupItem as="label">
-                        <input
-                          className="form-check-input me-5"
-                          type="checkbox"
-                          value={four}
-                          onChange={checkedFour}
-                          name="four"
-                          checked={fourth}
-                        />
-                        {list.name}
-                      </ListGroupItem>
-                    </div>
-                  );
-                })} */}
                 <div>
                   <Button variant="secondary" onClick={goBack}>
                     Back
@@ -395,9 +419,6 @@ const AddUser = memo((props) => {
                   <Button
                     variant="primary"
                     onClick={handleContinue}
-                    // onClick={() => {
-                    //   console.log(values);
-                    // }}
                     className="margin-left-button "
                   >
                     Continue
@@ -417,6 +438,7 @@ const AddUser = memo((props) => {
                       value={form.email}
                       required
                       style={{ color: "black" }}
+                      disabled
                     />
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                   </div>
@@ -425,89 +447,15 @@ const AddUser = memo((props) => {
                       Permissions Given
                       {console.log("Checked", first, second, third, fourth)}
                     </Form.Label>
-
-                    {first && second && third && fourth ? (
-                      <div className="permission flex-container">
-                        <span>Admin Dashboard</span>
-                        <span>Seller Dashboard</span>
-                        <span>End Customer Dashboard</span>
-                        <div className="mt-2">
-                          <span className="p-1">
-                            Support and Query Dashboard
-                          </span>
-                        </div>
-                      </div>
-                    ) : second && third && fourth ? (
-                      <div className="permission flex-container">
-                        <span>Seller Dashboard</span>
-                        <span>End Customer Dashboard</span>
-                        <span>Support and Query Dashboard</span>
-                      </div>
-                    ) : first && second && fourth ? (
-                      <div className="permission flex-container">
-                        <span>Admin Dashboard</span>
-                        <span>Seller Dashboard</span>
-                        <span>Support and Query Dashboard</span>
-                      </div>
-                    ) : first && third && fourth ? (
-                      <div className="permission flex-container">
-                        <span>Admin Dashboard</span>
-                        <span>End Customer Dashboard</span>
-                        <span>Support and Query Dashboard</span>
-                      </div>
-                    ) : first && second && third ? (
-                      <div className="permission flex-container">
-                        <span>Admin Dashboard</span>
-                        <span>Seller Dashboard</span>
-                        <span>End Customer Dashboard</span>
-                      </div>
-                    ) : third && fourth ? (
-                      <div className="permission flex-container">
-                        <span>End Customer Dashboard</span>
-                        <span>Support and Query Dashboard</span>
-                      </div>
-                    ) : second && fourth ? (
-                      <div className="permission flex-container">
-                        <span>Seller Dashboard</span>
-                        <span>Support and Query Dashboard</span>
-                      </div>
-                    ) : second && third ? (
-                      <div className="permission flex-container">
-                        <span>Seller Dashboard</span>
-                        <span>End Customer Dashboard</span>
-                      </div>
-                    ) : first && fourth ? (
-                      <div className="permission flex-container">
-                        <span>Admin Dashboard</span>
-                        <span>Support and Query Dashboard</span>
-                      </div>
-                    ) : first && third ? (
-                      <div className="permission flex-container">
-                        <span>Admin Dashboard</span>
-                        <span>End Customer Dashboard</span>
-                      </div>
-                    ) : first && second ? (
-                      <div className="permission flex-container">
-                        <span>Admin Dashboard</span>
-                        <span>Seller Dashboard</span>
-                      </div>
-                    ) : fourth ? (
-                      <div className="permission flex-container">
-                        <span>Support and Query Dashboard</span>
-                      </div>
-                    ) : third ? (
-                      <div className="permission flex-container">
-                        <span>End Customer Dashboard</span>
-                      </div>
-                    ) : second ? (
-                      <div className="permission flex-container">
-                        <span>Seller Dashboard</span>
-                      </div>
-                    ) : first ? (
-                      <div className="permission flex-container">
-                        <span>Admin Dashboard</span>
-                      </div>
-                    ) : null}
+                    <div className="d-flex flex-wrap">
+                      {permissionName.map((item) => {
+                        return (
+                          <div className="permission flex-container mt-1 flex-wrap">
+                            <span>{item}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                   <hr className="hr-horizontal" />
                   <Button variant="secondary" onClick={goBack2}>

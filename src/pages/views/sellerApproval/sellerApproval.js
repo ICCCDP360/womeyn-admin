@@ -10,6 +10,7 @@ import * as SettingSelector from "../../../store/setting/selectors";
 //img
 
 import Loader from "../../../components/Loader";
+import { PendingApprovalServices } from "../../../services/approval/pendingApprovalServices";
 import {
   getContentUpdateServices,
   sellerApprovalServices,
@@ -126,6 +127,16 @@ const SellerApproval = memo((props) => {
   const [rejected, setRejected] = useState([]);
   const [pending, setPending] = useState([]);
   const [pendingApproval, setPendingApproval] = useState([]);
+  const [pendingList, setPendingList] = useState("");
+
+  useEffect(() => {
+    PendingApprovalServices()
+      .then((res) => {
+        console.log("res", res?.data);
+        setPendingList(res?.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   useEffect(() => {
     getSellerServices(0)
@@ -218,6 +229,7 @@ const SellerApproval = memo((props) => {
               value={selectedOption.value}
               onChange={handleChange}
               options={options}
+              placeholder="Categories"
             />
           </div>
 
@@ -226,6 +238,7 @@ const SellerApproval = memo((props) => {
               value={selectedStatus.value}
               onChange={handleSelect}
               options={status}
+              placeholder="Status"
             />
           </div>
         </div>
@@ -251,7 +264,9 @@ const SellerApproval = memo((props) => {
                       role="tab"
                       aria-selected="true"
                     >
-                      <span className="iq-mail-section">New Registrations</span>
+                      <span className="iq-mail-section">
+                        New Sellers({pendingList.TotalSellersCount})
+                      </span>
                     </Nav.Link>
                     <Nav.Link
                       eventKey="2"
@@ -263,7 +278,10 @@ const SellerApproval = memo((props) => {
                       role="tab"
                       aria-selected="false"
                     >
-                      <span className="iq-mail-section">Content Update</span>
+                      <span className="iq-mail-section">
+                        Sellers Update(
+                        {pendingList.TotalSellersUpdatedCount})
+                      </span>
                     </Nav.Link>
                   </div>
                 </Nav>
@@ -288,8 +306,8 @@ const SellerApproval = memo((props) => {
                                   <thead>
                                     <tr>
                                       <th>Seller</th>
-                                      <th>Seller Type</th>
-                                      <th>Offering Services</th>
+                                      <th>Registered For</th>
+                                      <th>Offering Categories</th>
                                       <th>Status</th>
                                       <th>Action</th>
                                     </tr>
@@ -642,8 +660,7 @@ const SellerApproval = memo((props) => {
                                   </Modal.Footer>
                                 </Modal>
 
-                                {sellerLimit[sellerLimit.length - 1] ===
-                                sellers[sellers.length - 1] ? (
+                                {/* {sellerLimit[sellerLimit.length] > 10 ? (
                                   <div className="loadMore-div">
                                     <Button
                                       className="mt-5 loadMore-button"
@@ -652,7 +669,16 @@ const SellerApproval = memo((props) => {
                                       Load More
                                     </Button>
                                   </div>
-                                ) : null}
+                                ) : null} */}
+
+                                <div className="loadMore-div">
+                                  <Button
+                                    className="mt-5 loadMore-button"
+                                    onClick={loadMoreSellers}
+                                  >
+                                    Load More
+                                  </Button>
+                                </div>
                               </Col>
                             </Row>
                           </div>
@@ -684,8 +710,8 @@ const SellerApproval = memo((props) => {
                                   <thead>
                                     <tr>
                                       <th>Seller</th>
-                                      <th>Seller Type</th>
-                                      <th>Offering Services</th>
+                                      <th>Registered For</th>
+                                      <th>Offering Categories</th>
                                       <th>Status</th>
                                       <th>Action</th>
                                     </tr>
@@ -1038,7 +1064,16 @@ const SellerApproval = memo((props) => {
                                   </Modal.Footer>
                                 </Modal>
 
-                                {sellerLimit[sellerLimit.length - 1] ===
+                                <div className="loadMore-div">
+                                  <Button
+                                    className="mt-5 loadMore-button"
+                                    onClick={loadMoreSellers}
+                                  >
+                                    Load More
+                                  </Button>
+                                </div>
+
+                                {/* {sellerLimit[sellerLimit.length - 1] ===
                                 sellers[sellers.length - 1] ? (
                                   <div className="loadMore-div">
                                     <Button
@@ -1048,7 +1083,7 @@ const SellerApproval = memo((props) => {
                                       Load More
                                     </Button>
                                   </div>
-                                ) : null}
+                                ) : null} */}
                               </Col>
                             </Row>
                           </div>
@@ -1080,8 +1115,8 @@ const SellerApproval = memo((props) => {
                                   <thead>
                                     <tr>
                                       <th>Seller</th>
-                                      <th>Seller Type</th>
-                                      <th>Offering Services</th>
+                                      <th>Registered For</th>
+                                      <th>Offering Categories</th>
                                       <th>Status</th>
                                       <th>Action</th>
                                     </tr>
@@ -1434,7 +1469,16 @@ const SellerApproval = memo((props) => {
                                   </Modal.Footer>
                                 </Modal>
 
-                                {sellerLimit[sellerLimit.length - 1] ===
+                                <div className="loadMore-div">
+                                  <Button
+                                    className="mt-5 loadMore-button"
+                                    onClick={loadMoreSellers}
+                                  >
+                                    Load More
+                                  </Button>
+                                </div>
+
+                                {/* {sellerLimit[sellerLimit.length - 1] ===
                                 sellers[sellers.length - 1] ? (
                                   <div className="loadMore-div">
                                     <Button
@@ -1444,7 +1488,7 @@ const SellerApproval = memo((props) => {
                                       Load More
                                     </Button>
                                   </div>
-                                ) : null}
+                                ) : null} */}
                               </Col>
                             </Row>
                           </div>
@@ -1476,8 +1520,8 @@ const SellerApproval = memo((props) => {
                                   <thead>
                                     <tr>
                                       <th>Seller</th>
-                                      <th>Seller Type</th>
-                                      <th>Offering Services</th>
+                                      <th>Registered For</th>
+                                      <th>Offering Categories</th>
                                       <th>Status</th>
                                       <th>Action</th>
                                     </tr>
@@ -1830,7 +1874,16 @@ const SellerApproval = memo((props) => {
                                   </Modal.Footer>
                                 </Modal>
 
-                                {sellerLimit[sellerLimit.length - 1] ===
+                                <div className="loadMore-div">
+                                  <Button
+                                    className="mt-5 loadMore-button"
+                                    onClick={loadMoreSellers}
+                                  >
+                                    Load More
+                                  </Button>
+                                </div>
+
+                                {/* {sellerLimit[sellerLimit.length - 1] ===
                                 sellers[sellers.length - 1] ? (
                                   <div className="loadMore-div">
                                     <Button
@@ -1840,7 +1893,7 @@ const SellerApproval = memo((props) => {
                                       Load More
                                     </Button>
                                   </div>
-                                ) : null}
+                                ) : null} */}
                               </Col>
                             </Row>
                           </div>
@@ -1872,8 +1925,8 @@ const SellerApproval = memo((props) => {
                                   <thead>
                                     <tr>
                                       <th>Seller</th>
-                                      <th>Seller Type</th>
-                                      <th>Offering Services</th>
+                                      <th>Registered For</th>
+                                      <th>Offering Categories</th>
                                       <th>Status</th>
                                       <th>Action</th>
                                     </tr>
@@ -2226,7 +2279,16 @@ const SellerApproval = memo((props) => {
                                   </Modal.Footer>
                                 </Modal>
 
-                                {sellerLimit[sellerLimit.length - 1] ===
+                                <div className="loadMore-div">
+                                  <Button
+                                    className="mt-5 loadMore-button"
+                                    onClick={loadMoreSellers}
+                                  >
+                                    Load More
+                                  </Button>
+                                </div>
+
+                                {/* {sellerLimit[sellerLimit.length - 1] ===
                                 sellers[sellers.length - 1] ? (
                                   <div className="loadMore-div">
                                     <Button
@@ -2236,7 +2298,7 @@ const SellerApproval = memo((props) => {
                                       Load More
                                     </Button>
                                   </div>
-                                ) : null}
+                                ) : null} */}
                               </Col>
                             </Row>
                           </div>
@@ -2272,8 +2334,8 @@ const SellerApproval = memo((props) => {
                                   <thead>
                                     <tr>
                                       <th>Seller</th>
-                                      <th>Seller Type</th>
-                                      <th>Offering Services</th>
+                                      <th>Registered For</th>
+                                      <th>Offering Categories</th>
                                       <th>Status</th>
                                       <th>Action</th>
                                     </tr>
@@ -2626,7 +2688,16 @@ const SellerApproval = memo((props) => {
                                   </Modal.Footer>
                                 </Modal>
 
-                                {sellerLimit[sellerLimit.length - 1] ===
+                                <div className="loadMore-div">
+                                  <Button
+                                    className="mt-5 loadMore-button"
+                                    onClick={loadMoreSellers}
+                                  >
+                                    Load More
+                                  </Button>
+                                </div>
+
+                                {/* {sellerLimit[sellerLimit.length - 1] ===
                                 sellers[sellers.length - 1] ? (
                                   <div className="loadMore-div">
                                     <Button
@@ -2636,7 +2707,7 @@ const SellerApproval = memo((props) => {
                                       Load More
                                     </Button>
                                   </div>
-                                ) : null}
+                                ) : null} */}
                               </Col>
                             </Row>
                           </div>
@@ -2668,8 +2739,8 @@ const SellerApproval = memo((props) => {
                                   <thead>
                                     <tr>
                                       <th>Seller</th>
-                                      <th>Seller Type</th>
-                                      <th>Offering Services</th>
+                                      <th>Registered For</th>
+                                      <th>Offering Categories</th>
                                       <th>Status</th>
                                       <th>Action</th>
                                     </tr>
@@ -3022,7 +3093,16 @@ const SellerApproval = memo((props) => {
                                   </Modal.Footer>
                                 </Modal>
 
-                                {sellerLimit[sellerLimit.length - 1] ===
+                                <div className="loadMore-div">
+                                  <Button
+                                    className="mt-5 loadMore-button"
+                                    onClick={loadMoreSellers}
+                                  >
+                                    Load More
+                                  </Button>
+                                </div>
+
+                                {/* {sellerLimit[sellerLimit.length - 1] ===
                                 sellers[sellers.length - 1] ? (
                                   <div className="loadMore-div">
                                     <Button
@@ -3032,7 +3112,7 @@ const SellerApproval = memo((props) => {
                                       Load More
                                     </Button>
                                   </div>
-                                ) : null}
+                                ) : null} */}
                               </Col>
                             </Row>
                           </div>
@@ -3064,8 +3144,8 @@ const SellerApproval = memo((props) => {
                                   <thead>
                                     <tr>
                                       <th>Seller</th>
-                                      <th>Seller Type</th>
-                                      <th>Offering Services</th>
+                                      <th>Registered For</th>
+                                      <th>Offering Categories</th>
                                       <th>Status</th>
                                       <th>Action</th>
                                     </tr>
@@ -3418,7 +3498,16 @@ const SellerApproval = memo((props) => {
                                   </Modal.Footer>
                                 </Modal>
 
-                                {sellerLimit[sellerLimit.length - 1] ===
+                                <div className="loadMore-div">
+                                  <Button
+                                    className="mt-5 loadMore-button"
+                                    onClick={loadMoreSellers}
+                                  >
+                                    Load More
+                                  </Button>
+                                </div>
+
+                                {/* {sellerLimit[sellerLimit.length - 1] ===
                                 sellers[sellers.length - 1] ? (
                                   <div className="loadMore-div">
                                     <Button
@@ -3428,7 +3517,7 @@ const SellerApproval = memo((props) => {
                                       Load More
                                     </Button>
                                   </div>
-                                ) : null}
+                                ) : null} */}
                               </Col>
                             </Row>
                           </div>
@@ -3460,8 +3549,8 @@ const SellerApproval = memo((props) => {
                                   <thead>
                                     <tr>
                                       <th>Seller</th>
-                                      <th>Seller Type</th>
-                                      <th>Offering Services</th>
+                                      <th>Registered For</th>
+                                      <th>Offering Categories</th>
                                       <th>Status</th>
                                       <th>Action</th>
                                     </tr>
@@ -3814,7 +3903,16 @@ const SellerApproval = memo((props) => {
                                   </Modal.Footer>
                                 </Modal>
 
-                                {sellerLimit[sellerLimit.length - 1] ===
+                                <div className="loadMore-div">
+                                  <Button
+                                    className="mt-5 loadMore-button"
+                                    onClick={loadMoreSellers}
+                                  >
+                                    Load More
+                                  </Button>
+                                </div>
+
+                                {/* {sellerLimit[sellerLimit.length - 1] ===
                                 sellers[sellers.length - 1] ? (
                                   <div className="loadMore-div">
                                     <Button
@@ -3824,7 +3922,7 @@ const SellerApproval = memo((props) => {
                                       Load More
                                     </Button>
                                   </div>
-                                ) : null}
+                                ) : null} */}
                               </Col>
                             </Row>
                           </div>
@@ -3856,8 +3954,8 @@ const SellerApproval = memo((props) => {
                                   <thead>
                                     <tr>
                                       <th>Seller</th>
-                                      <th>Seller Type</th>
-                                      <th>Offering Services</th>
+                                      <th>Registered For</th>
+                                      <th>Offering Categories</th>
                                       <th>Status</th>
                                       <th>Action</th>
                                     </tr>
@@ -4210,7 +4308,16 @@ const SellerApproval = memo((props) => {
                                   </Modal.Footer>
                                 </Modal>
 
-                                {sellerLimit[sellerLimit.length - 1] ===
+                                <div className="loadMore-div">
+                                  <Button
+                                    className="mt-5 loadMore-button"
+                                    onClick={loadMoreSellers}
+                                  >
+                                    Load More
+                                  </Button>
+                                </div>
+
+                                {/* {sellerLimit[sellerLimit.length - 1] ===
                                 sellers[sellers.length - 1] ? (
                                   <div className="loadMore-div">
                                     <Button
@@ -4220,7 +4327,7 @@ const SellerApproval = memo((props) => {
                                       Load More
                                     </Button>
                                   </div>
-                                ) : null}
+                                ) : null} */}
                               </Col>
                             </Row>
                           </div>
@@ -4256,8 +4363,8 @@ const SellerApproval = memo((props) => {
                                   <thead>
                                     <tr>
                                       <th>Seller</th>
-                                      <th>Seller Type</th>
-                                      <th>Offering Services</th>
+                                      <th>Registered For</th>
+                                      <th>Offering Categories</th>
                                       <th>Status</th>
                                       <th>Action</th>
                                     </tr>
@@ -4610,7 +4717,16 @@ const SellerApproval = memo((props) => {
                                   </Modal.Footer>
                                 </Modal>
 
-                                {sellerLimit[sellerLimit.length - 1] ===
+                                <div className="loadMore-div">
+                                  <Button
+                                    className="mt-5 loadMore-button"
+                                    onClick={loadMoreSellers}
+                                  >
+                                    Load More
+                                  </Button>
+                                </div>
+
+                                {/* {sellerLimit[sellerLimit.length - 1] ===
                                 sellers[sellers.length - 1] ? (
                                   <div className="loadMore-div">
                                     <Button
@@ -4620,7 +4736,7 @@ const SellerApproval = memo((props) => {
                                       Load More
                                     </Button>
                                   </div>
-                                ) : null}
+                                ) : null} */}
                               </Col>
                             </Row>
                           </div>
@@ -4652,8 +4768,8 @@ const SellerApproval = memo((props) => {
                                   <thead>
                                     <tr>
                                       <th>Seller</th>
-                                      <th>Seller Type</th>
-                                      <th>Offering Services</th>
+                                      <th>Registered For</th>
+                                      <th>Offering Categories</th>
                                       <th>Status</th>
                                       <th>Action</th>
                                     </tr>
@@ -5006,7 +5122,16 @@ const SellerApproval = memo((props) => {
                                   </Modal.Footer>
                                 </Modal>
 
-                                {sellerLimit[sellerLimit.length - 1] ===
+                                <div className="loadMore-div">
+                                  <Button
+                                    className="mt-5 loadMore-button"
+                                    onClick={loadMoreSellers}
+                                  >
+                                    Load More
+                                  </Button>
+                                </div>
+
+                                {/* {sellerLimit[sellerLimit.length - 1] ===
                                 sellers[sellers.length - 1] ? (
                                   <div className="loadMore-div">
                                     <Button
@@ -5016,7 +5141,7 @@ const SellerApproval = memo((props) => {
                                       Load More
                                     </Button>
                                   </div>
-                                ) : null}
+                                ) : null} */}
                               </Col>
                             </Row>
                           </div>
@@ -5048,8 +5173,8 @@ const SellerApproval = memo((props) => {
                                   <thead>
                                     <tr>
                                       <th>Seller</th>
-                                      <th>Seller Type</th>
-                                      <th>Offering Services</th>
+                                      <th>Registered For</th>
+                                      <th>Offering Categories</th>
                                       <th>Status</th>
                                       <th>Action</th>
                                     </tr>
@@ -5402,7 +5527,16 @@ const SellerApproval = memo((props) => {
                                   </Modal.Footer>
                                 </Modal>
 
-                                {sellerLimit[sellerLimit.length - 1] ===
+                                <div className="loadMore-div">
+                                  <Button
+                                    className="mt-5 loadMore-button"
+                                    onClick={loadMoreSellers}
+                                  >
+                                    Load More
+                                  </Button>
+                                </div>
+
+                                {/* {sellerLimit[sellerLimit.length - 1] ===
                                 sellers[sellers.length - 1] ? (
                                   <div className="loadMore-div">
                                     <Button
@@ -5412,7 +5546,7 @@ const SellerApproval = memo((props) => {
                                       Load More
                                     </Button>
                                   </div>
-                                ) : null}
+                                ) : null} */}
                               </Col>
                             </Row>
                           </div>
@@ -5444,8 +5578,8 @@ const SellerApproval = memo((props) => {
                                   <thead>
                                     <tr>
                                       <th>Seller</th>
-                                      <th>Seller Type</th>
-                                      <th>Offering Services</th>
+                                      <th>Registered For</th>
+                                      <th>Offering Categories</th>
                                       <th>Status</th>
                                       <th>Action</th>
                                     </tr>
@@ -5798,7 +5932,16 @@ const SellerApproval = memo((props) => {
                                   </Modal.Footer>
                                 </Modal>
 
-                                {sellerLimit[sellerLimit.length - 1] ===
+                                <div className="loadMore-div">
+                                  <Button
+                                    className="mt-5 loadMore-button"
+                                    onClick={loadMoreSellers}
+                                  >
+                                    Load More
+                                  </Button>
+                                </div>
+
+                                {/* {sellerLimit[sellerLimit.length - 1] ===
                                 sellers[sellers.length - 1] ? (
                                   <div className="loadMore-div">
                                     <Button
@@ -5808,7 +5951,7 @@ const SellerApproval = memo((props) => {
                                       Load More
                                     </Button>
                                   </div>
-                                ) : null}
+                                ) : null} */}
                               </Col>
                             </Row>
                           </div>
@@ -5840,8 +5983,8 @@ const SellerApproval = memo((props) => {
                                   <thead>
                                     <tr>
                                       <th>Seller</th>
-                                      <th>Seller Type</th>
-                                      <th>Offering Services</th>
+                                      <th>Registered For</th>
+                                      <th>Offering Categories</th>
                                       <th>Status</th>
                                       <th>Action</th>
                                     </tr>
@@ -6194,8 +6337,16 @@ const SellerApproval = memo((props) => {
                                   </Modal.Footer>
                                 </Modal>
 
-                                {sellerLimit[sellerLimit.length - 1] ===
-                                sellers[sellers.length - 1] ? (
+                                <div className="loadMore-div">
+                                  <Button
+                                    className="mt-5 loadMore-button"
+                                    onClick={loadMoreSellers}
+                                  >
+                                    Load More
+                                  </Button>
+                                </div>
+
+                                {/* {services.length > 10 ? (
                                   <div className="loadMore-div">
                                     <Button
                                       className="mt-5 loadMore-button"
@@ -6204,7 +6355,7 @@ const SellerApproval = memo((props) => {
                                       Load More
                                     </Button>
                                   </div>
-                                ) : null}
+                                ) : null} */}
                               </Col>
                             </Row>
                           </div>
@@ -6240,8 +6391,8 @@ const SellerApproval = memo((props) => {
                                   <thead>
                                     <tr>
                                       <th>Seller</th>
-                                      <th>Seller Type</th>
-                                      <th>Offering Services</th>
+                                      <th>Registered For</th>
+                                      <th>Offering Categories</th>
                                       <th>Status</th>
                                       <th>Action</th>
                                     </tr>
@@ -6594,7 +6745,16 @@ const SellerApproval = memo((props) => {
                                   </Modal.Footer>
                                 </Modal>
 
-                                {sellerLimit[sellerLimit.length - 1] ===
+                                <div className="loadMore-div">
+                                  <Button
+                                    className="mt-5 loadMore-button"
+                                    onClick={loadMoreSellers}
+                                  >
+                                    Load More
+                                  </Button>
+                                </div>
+
+                                {/* {sellerLimit[sellerLimit.length - 1] ===
                                 sellers[sellers.length - 1] ? (
                                   <div className="loadMore-div">
                                     <Button
@@ -6604,7 +6764,7 @@ const SellerApproval = memo((props) => {
                                       Load More
                                     </Button>
                                   </div>
-                                ) : null}
+                                ) : null} */}
                               </Col>
                             </Row>
                           </div>
@@ -6636,8 +6796,8 @@ const SellerApproval = memo((props) => {
                                   <thead>
                                     <tr>
                                       <th>Seller</th>
-                                      <th>Seller Type</th>
-                                      <th>Offering Services</th>
+                                      <th>Registered For</th>
+                                      <th>Offering Categories</th>
                                       <th>Status</th>
                                       <th>Action</th>
                                     </tr>
@@ -6990,7 +7150,16 @@ const SellerApproval = memo((props) => {
                                   </Modal.Footer>
                                 </Modal>
 
-                                {sellerLimit[sellerLimit.length - 1] ===
+                                <div className="loadMore-div">
+                                  <Button
+                                    className="mt-5 loadMore-button"
+                                    onClick={loadMoreSellers}
+                                  >
+                                    Load More
+                                  </Button>
+                                </div>
+
+                                {/* {sellerLimit[sellerLimit.length - 1] ===
                                 sellers[sellers.length - 1] ? (
                                   <div className="loadMore-div">
                                     <Button
@@ -7000,7 +7169,7 @@ const SellerApproval = memo((props) => {
                                       Load More
                                     </Button>
                                   </div>
-                                ) : null}
+                                ) : null} */}
                               </Col>
                             </Row>
                           </div>
@@ -7032,8 +7201,8 @@ const SellerApproval = memo((props) => {
                                   <thead>
                                     <tr>
                                       <th>Seller</th>
-                                      <th>Seller Type</th>
-                                      <th>Offering Services</th>
+                                      <th>Registered For</th>
+                                      <th>Offering Categories</th>
                                       <th>Status</th>
                                       <th>Action</th>
                                     </tr>
@@ -7386,7 +7555,16 @@ const SellerApproval = memo((props) => {
                                   </Modal.Footer>
                                 </Modal>
 
-                                {sellerLimit[sellerLimit.length - 1] ===
+                                <div className="loadMore-div">
+                                  <Button
+                                    className="mt-5 loadMore-button"
+                                    onClick={loadMoreSellers}
+                                  >
+                                    Load More
+                                  </Button>
+                                </div>
+
+                                {/* {sellerLimit[sellerLimit.length - 1] ===
                                 sellers[sellers.length - 1] ? (
                                   <div className="loadMore-div">
                                     <Button
@@ -7396,7 +7574,7 @@ const SellerApproval = memo((props) => {
                                       Load More
                                     </Button>
                                   </div>
-                                ) : null}
+                                ) : null} */}
                               </Col>
                             </Row>
                           </div>
@@ -7428,8 +7606,8 @@ const SellerApproval = memo((props) => {
                                   <thead>
                                     <tr>
                                       <th>Seller</th>
-                                      <th>Seller Type</th>
-                                      <th>Offering Services</th>
+                                      <th>Registered For</th>
+                                      <th>Offering Categories</th>
                                       <th>Status</th>
                                       <th>Action</th>
                                     </tr>
@@ -7782,7 +7960,16 @@ const SellerApproval = memo((props) => {
                                   </Modal.Footer>
                                 </Modal>
 
-                                {sellerLimit[sellerLimit.length - 1] ===
+                                <div className="loadMore-div">
+                                  <Button
+                                    className="mt-5 loadMore-button"
+                                    onClick={loadMoreSellers}
+                                  >
+                                    Load More
+                                  </Button>
+                                </div>
+
+                                {/* {sellerLimit[sellerLimit.length - 1] ===
                                 sellers[sellers.length - 1] ? (
                                   <div className="loadMore-div">
                                     <Button
@@ -7792,7 +7979,7 @@ const SellerApproval = memo((props) => {
                                       Load More
                                     </Button>
                                   </div>
-                                ) : null}
+                                ) : null} */}
                               </Col>
                             </Row>
                           </div>
@@ -7824,8 +8011,8 @@ const SellerApproval = memo((props) => {
                                   <thead>
                                     <tr>
                                       <th>Seller</th>
-                                      <th>Seller Type</th>
-                                      <th>Offering Services</th>
+                                      <th>Registered For</th>
+                                      <th>Offering Categories</th>
                                       <th>Status</th>
                                       <th>Action</th>
                                     </tr>
@@ -8178,7 +8365,16 @@ const SellerApproval = memo((props) => {
                                   </Modal.Footer>
                                 </Modal>
 
-                                {sellerLimit[sellerLimit.length - 1] ===
+                                <div className="loadMore-div">
+                                  <Button
+                                    className="mt-5 loadMore-button"
+                                    onClick={loadMoreSellers}
+                                  >
+                                    Load More
+                                  </Button>
+                                </div>
+
+                                {/* {sellerLimit[sellerLimit.length - 1] ===
                                 sellers[sellers.length - 1] ? (
                                   <div className="loadMore-div">
                                     <Button
@@ -8188,7 +8384,15 @@ const SellerApproval = memo((props) => {
                                       Load More
                                     </Button>
                                   </div>
-                                ) : null}
+                                ) : null} */}
+                                {/* <div className="loadMore-div">
+                                  <Button
+                                    className="mt-5 loadMore-button"
+                                    onClick={loadMoreSellers}
+                                  >
+                                    Load More
+                                  </Button>
+                                </div> */}
                               </Col>
                             </Row>
                           </div>
@@ -8222,8 +8426,8 @@ const SellerApproval = memo((props) => {
                             <thead>
                               <tr>
                                 <th>Seller</th>
-                                <th>Seller Type</th>
-                                <th>Offering Services</th>
+                                <th>Registered For</th>
+                                <th>Offering Categories</th>
                                 <th>Status</th>
                                 <th>Action</th>
                               </tr>
@@ -8555,7 +8759,16 @@ const SellerApproval = memo((props) => {
                             </Modal.Footer>
                           </Modal>
 
-                          {sellerLimit[sellerLimit.length - 1] ===
+                          <div className="loadMore-div">
+                            <Button
+                              className="mt-5 loadMore-button"
+                              onClick={loadMoreSellers}
+                            >
+                              Load More
+                            </Button>
+                          </div>
+
+                          {/* {sellerLimit[sellerLimit.length - 1] ===
                           sellers[sellers.length - 1] ? (
                             <div className="loadMore-div">
                               <Button
@@ -8565,7 +8778,7 @@ const SellerApproval = memo((props) => {
                                 Load More
                               </Button>
                             </div>
-                          ) : null}
+                          ) : null} */}
                         </Col>
                       </Row>
                     </div>

@@ -1,7 +1,7 @@
-import { memo, Fragment, useState } from "react";
+import { Fragment, memo, useState } from "react";
 
 //react-bootstrap
-import { Row, Col, Image, Form, Button, Spinner } from "react-bootstrap";
+import { Button, Col, Form, Image, Row, Spinner } from "react-bootstrap";
 
 //router
 import { Link, useNavigate } from "react-router-dom";
@@ -9,26 +9,26 @@ import { Link, useNavigate } from "react-router-dom";
 //components
 import Card from "../../../components/bootstrap/card";
 
-// img
-import auth2 from "../../../assets/images/auth/02.png";
-
 // Import selectors & action from setting store
 import * as SettingSelector from "../../../store/setting/selectors";
 
 //images
-import logowomenyn from "../../../assets/loginLogos/women_white_log.svg";
 import circlethree from "../../../assets/loginLogos/circle.svg";
 import login from "../../../assets/loginLogos/login.png";
+import logowomenyn from "../../../assets/loginLogos/women_white_log.svg";
 
 import "../../auth/Signin.scss";
 
 // Redux Selector / Action
+import { Field, useFormik } from "formik";
 import { useSelector } from "react-redux";
-import { useFormik, Field } from "formik";
-import * as Yup from "yup";
 import { toast } from "react-toastify";
+import * as Yup from "yup";
 // import { changePasswordServices } from "../../../services/change-password/changePassword-services";
-import { changePasswordServices } from "../../../services/password/passwordServices";
+import {
+  changePasswordServices,
+  updateForgotPasswordServices,
+} from "../../../services/password/passwordServices";
 const UpdateForgotPassword = memo(() => {
   const queryParameters = new URLSearchParams(window.location.search);
   const nameToken = queryParameters.get("token");
@@ -56,7 +56,7 @@ const UpdateForgotPassword = memo(() => {
         password: password,
       };
 
-      changePasswordServices(nameToken, datas)
+      updateForgotPasswordServices(nameToken, datas)
         .then((res) => {
           toast.success("User Password Chnaged 😃");
           setTimeout(() => {
@@ -104,11 +104,8 @@ const UpdateForgotPassword = memo(() => {
           <Col md="6" className="p-0">
             <Card className="card-transparent auth-card shadow-none d-flex justify-content-center mb-0">
               <Card.Body>
-                <h2 className="mb-2 mb-3">Reset Password</h2>
-                <p className="mb-4 mt-3">
-                  Enter your email address and we'll send you an email with
-                  instructions to reset your password.
-                </p>
+                <h2 className="mb-2 mb-3">Create Password</h2>
+                <p className="mb-4 mt-3">Enter your your password.</p>
                 <Form onSubmit={formik.handleSubmit}>
                   <Row>
                     <Col lg="12" className="col-lg-12">

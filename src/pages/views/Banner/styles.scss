@@ -1,1 +1,328 @@
 @use "../../../sass/abstract/" as *;
+
+
+// banner--------------------------------------
+
+.recommendation-header-container{
+    margin-top: 2%;
+    background-color: white;
+    padding: 1%;
+    .recommendation-text{
+        font-size: 23px;
+        font-weight: 500;
+        color: black;
+    }
+    .recommendation-cardborder{
+        border: 1px solid #C0C0C0;
+        .recommendation-cardinnerside{
+            display: flex;
+            width: 75%;
+            justify-content: space-between;
+            @include mdBreakPoint{
+                width: 85%;
+            }
+            @include smBreakPoint{
+                width: 100%;
+            }
+            @include xsBreakPoint{
+                width: 100%;
+            }
+            .recommendation-header-active{
+                margin-bottom: 0px;
+                padding: 1.5%;
+                background-color: #918F90;
+                color: white;
+                border: none;
+                @include smBreakPoint{
+                    padding: 1%;
+                }
+            }
+            .recommendation-header-inactive{
+                margin-bottom: 0px;
+                padding: 1.5%;
+                border: none;
+                background-color: white;
+                color: #918F90;
+                @include smBreakPoint{
+                    padding: 1%;
+                }
+            }
+        }
+    }
+}
+
+
+//banner-content------------------------------------
+
+.recommendation-tabsize{
+    @include mdBreakPoint{
+      width: 50% !important;
+    }
+    @include smBreakPoint{
+      width: 50% !important;
+    }
+    .recommendationlist-full-container{
+      border: 1px solid #C0C0C0;
+      border-radius: 5px;
+      margin-top: 5%;
+      background: #fff;
+      .recommendationlist-center-container{
+        min-height: 150px;
+        @include smBreakPoint{
+            min-height: 180px;
+        }
+        .recommendationheaderlist{
+          display: flex;
+          justify-content: space-between;
+          margin-left: 3%;
+          .recommendation-title-text{
+            margin-top: 5%;
+            font-size: 16px;
+            font-weight: 600;
+            color: #E95A5A;
+            @include mdBreakPoint{
+              margin-top: 2%;
+            }
+          }
+          .recommendation-product-img{
+            width: 80px;
+            height: 80px;
+            border-top-right-radius: 5px;
+          }
+        }
+        .recommendationcode-text{
+          font-size: 16px;
+          font-weight: 400;
+          color: black;
+          margin-top: 5%;
+          margin-left: 3%;
+          color: #E95A5A;
+          @include mdBreakPoint{
+            margin-top: 2%;
+          }
+        }
+        .recommendationcode-desc{
+          font-size: 13px;
+          font-weight: 400;
+          color: black;
+          margin-top: 1%;
+          margin-left: 3%;
+        }
+      }
+      
+      .recommendation-btm-container{
+        display: flex;
+        justify-content: space-between;
+        padding: 3%;
+        border-top: 1px solid #C0C0C0;
+        .recommendation-edit-btn{
+          background-color: white;
+          border: 1px solid #C0C0C0;
+          border-radius: 5px;
+          padding: 1%;
+          padding-right: 5%;
+          padding-left: 5%;
+        }
+        .recommendation-dlte-btn{
+          background-color: white;
+          border: 1px solid #C0C0C0;
+          border-radius: 5px;
+          padding: 1%;
+          padding-right: 5%;
+          padding-left: 5%;
+        }
+        .recommendation-switch-btn{
+          height: 20px;
+          width: 40px;
+        }
+      }
+    }
+  }
+
+
+//top-product-category-----------------------------
+
+.topproduct-categories-tabsize{
+    @include mdBreakPoint{
+      width: 50% !important;
+    }
+    @include smBreakPoint{
+      width: 50% !important;
+    }
+    .topproduct-categorieslist-full-container{
+      border: 1px solid #C0C0C0;
+      border-radius: 5px;
+      margin-top: 5%;
+      background: #fff;
+      .topproduct-categorieslist-center-container{
+        min-height: 150px;
+        @include lgBreakPoint{
+            min-height: 120px;
+        }
+        @include smBreakPoint{
+            min-height: 130px;
+        }
+        @include xsBreakPoint{
+            min-height: 110px;
+        }
+        .topproduct-categoriesheaderlist{
+          display: flex;
+          justify-content: space-between;
+          margin-left: 3%;
+          .topproduct-categories-title-text{
+            margin-top: 5%;
+            font-size: 16px;
+            font-weight: 600;
+            color: #E95A5A;
+            @include mdBreakPoint{
+              margin-top: 2%;
+            }
+          }
+          .topproduct-categories-product-img{
+            width: 80px;
+            height: 80px;
+            border-top-right-radius: 5px;
+          }
+        }
+        .topproduct-categoriescode-text{
+          font-size: 16px;
+          font-weight: 400;
+          color: black;
+          margin-top: 5%;
+          margin-left: 3%;
+          color: #E95A5A;
+          @include mdBreakPoint{
+            margin-top: 2%;
+          }
+        }
+        .topproduct-categoriescode-desc{
+          font-size: 13px;
+          font-weight: 400;
+          color: black;
+          margin-top: 1%;
+          margin-left: 3%;
+        }
+      }
+      
+      .topproduct-categories-btm-container{
+        display: flex;
+        justify-content: space-between;
+        padding: 3%;
+        border-top: 1px solid #C0C0C0;
+        .topproduct-categories-edit-btn{
+          background-color: white;
+          border: 1px solid #C0C0C0;
+          border-radius: 5px;
+          padding: 1%;
+          padding-right: 5%;
+          padding-left: 5%;
+        }
+        .topproduct-categories-dlte-btn{
+          background-color: white;
+          border: 1px solid #C0C0C0;
+          border-radius: 5px;
+          padding: 1%;
+          padding-right: 5%;
+          padding-left: 5%;
+        }
+        .topproduct-categories-switch-btn{
+          height: 20px;
+          width: 40px;
+        }
+      }
+    }
+  }
+
+
+//womenprenuers------------------------------------
+
+.womenprenuers-tabsize{
+    @include mdBreakPoint{
+      width: 50% !important;
+    }
+    @include smBreakPoint{
+      width: 50% !important;
+    }
+    .womenprenuerslist-full-container{
+      border: 1px solid #C0C0C0;
+      border-radius: 5px;
+      margin-top: 5%;
+      background: #fff;
+      .womenprenuerslist-center-container{
+        min-height: 130px;
+        @include mdBreakPoint{
+            min-height: 100px;
+        }
+        @include lgBreakPoint{
+            min-height: 120px;
+        }
+        @include xsBreakPoint{
+            min-height: 110px;
+        }
+        .womenprenuersheaderlist{
+          display: flex;
+          justify-content: space-between;
+          margin-left: 3%;
+          .womenprenuers-title-text{
+            margin-top: 5%;
+            font-size: 16px;
+            font-weight: 600;
+            color: #E95A5A;
+            @include mdBreakPoint{
+              margin-top: 2%;
+            }
+          }
+          .womenprenuers-product-img{
+            width: 80px;
+            height: 80px;
+            border-top-right-radius: 5px;
+          }
+        }
+        .womenprenuerscode-text{
+          font-size: 16px;
+          font-weight: 400;
+          color: black;
+          margin-top: 5%;
+          margin-left: 3%;
+          color: #E95A5A;
+          @include mdBreakPoint{
+            margin-top: 2%;
+          }
+        }
+        .womenprenuerscode-desc{
+          font-size: 13px;
+          font-weight: 400;
+          color: black;
+          margin-top: 1%;
+          margin-left: 3%;
+        }
+      }
+      
+      .womenprenuers-btm-container{
+        display: flex;
+        justify-content: space-between;
+        padding: 3%;
+        border-top: 1px solid #C0C0C0;
+        .womenprenuers-edit-btn{
+          background-color: white;
+          border: 1px solid #C0C0C0;
+          border-radius: 5px;
+          padding: 1%;
+          padding-right: 5%;
+          padding-left: 5%;
+        }
+        .womenprenuers-dlte-btn{
+          background-color: white;
+          border: 1px solid #C0C0C0;
+          border-radius: 5px;
+          padding: 1%;
+          padding-right: 5%;
+          padding-left: 5%;
+        }
+        .womenprenuers-switch-btn{
+          height: 20px;
+          width: 40px;
+        }
+      }
+    }
+}

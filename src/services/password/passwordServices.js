@@ -14,7 +14,7 @@ export function forgotPasswordServices(data) {
 
 export function changePasswordServices(value, data) {
   return new Promise((resolve, reject) => {
-    HttpInterceptor.post(`/auth/admin/reset-password?token=${value}`, data)
+    HttpInterceptor.post(`/admin/change-password?token=${value}`, data)
       .then((response) => {
         resolve(response.data);
       })

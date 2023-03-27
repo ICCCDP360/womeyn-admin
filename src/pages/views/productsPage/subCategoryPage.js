@@ -1,7 +1,7 @@
-import { memo, Fragment, useState, useEffect } from "react";
+import { Fragment, memo, useEffect, useState } from "react";
 
 //react-bootstrap
-import { Row, Col, Button } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 //components
@@ -14,76 +14,12 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import {
   createCategory,
+  deleteProductCategory,
+  deleteProductSubCategory,
   getProductSubCategory,
 } from "../../../services/category/categoryServices";
 
 import "./styles.scss";
-
-// const addSubCategory = ({ value: text }) => {
-//   Swal.fire({
-//     title: "Add Sub Category",
-//     input: "Sub CAtegory",
-//     inputLabel: "Sub CAtegory",
-//     inputPlaceholder: "Enter Sub Category",
-//     showCancelButton: true,
-//     confirmButtonColor: "#3085d6",
-//     cancelButtonColor: "#d33",
-//     confirmButtonText: "Add",
-//   });
-
-//   if (text) {
-//     Swal.fire(text);
-//   }
-//   //   .then((result) => {
-//   //   if (result.isConfirmed) {
-//   //     setProductList(() =>
-//   //       productList.filter((item, productIndex) => index !== productIndex)
-//   //     );
-//   //     Swal.fire("Deleted!", "Your file has been deleted.", "success");
-//   //   }
-//   // });
-// };
-
-const addSubCategory = async () => {
-  const { value: text } = await Swal.fire({
-    input: "text",
-    title: "Add Sub Category",
-    inputLabel: "Name",
-    inputPlaceholder: "Add Sub Category...",
-    inputAttributes: {
-      "aria-label": "Add Sub Category",
-    },
-    showCancelButton: true,
-  });
-
-  if (text) {
-    Swal.fire(text);
-  }
-};
-
-// const addSubCategory = async () => {
-//   const { value: text } = await Swal.fire({
-//     title: "Add Sub Category",
-//     html: `
-//     <input
-//       type="text"
-//       inputLabel: "Name",
-//       inputPlaceholder: "Add Sub Category...",
-//       class="swal2-input"
-//       id="name">`,
-//     input: "textarea",
-//     inputLabel: "Description",
-//     inputPlaceholder: "Type your message here...",
-//     inputAttributes: {
-//       "aria-label": "Type your message here",
-//     },
-//     showCancelButton: true,
-//   });
-
-//   if (text) {
-//     Swal.fire(text);
-//   }
-// };
 
 const SubCategoryPage = memo(() => {
   const userId = localStorage.getItem("user_id");
@@ -91,8 +27,10 @@ const SubCategoryPage = memo(() => {
   const navigate = useNavigate();
   const [error, setError] = useState(false);
   const [subCategory, setSubCategory] = useState([]);
+  const [status, setStatus] = useState(false);
 
   useEffect(() => {
+    setStatus(false);
     getProductSubCategory(categoryId)
       .then((res) => {
         // setUsers(res.data.results);
@@ -100,7 +38,7 @@ const SubCategoryPage = memo(() => {
         setSubCategory(res?.data?.results);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [status]);
 
   const [form, setForm] = useState({
     categoryName: "",
@@ -150,12 +88,41 @@ const SubCategoryPage = memo(() => {
       });
   };
 
+  const handleRemove = (id) => {
+    Swal.fire({
+      icon: "error",
+      title: "Are you sure?",
+      text: "You want to delete this item",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteProductSubCategory(id)
+          .then((res) => {
+            setStatus(true);
+            console.log("res", res?.data);
+            Swal.fire("Deleted!", "Your file has been deleted.", "success");
+          })
+          .catch((err) => console.log(err));
+      }
+    });
+  };
+
   return (
     <Fragment>
       <Row>
         <div className="header-title d-flex flex-row justify-content-between">
           <div className="header-title d-flex flex-row">
-            <div onClick={() => navigate(-1)} className="cursor-style mt-3">
+            <div
+              // onClick={() => history.goBack()}
+              onClick={() => {
+                navigate(-1);
+                setStatus(true);
+              }}
+              className="cursor-style mt-3"
+            >
               <svg
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -212,7 +179,10 @@ const SubCategoryPage = memo(() => {
                           <p>
                             <div className="svg-style d-flex gap-3">
                               <span className="icon-edit"></span>
-                              <span className="icon-delete"></span>
+                              <span
+                                className="icon-delete"
+                                onClick={() => handleRemove(item.id)}
+                              ></span>
                             </div>
                           </p>
                         </td>

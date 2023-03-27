@@ -23,6 +23,7 @@ import { changePasswordServices } from "../../../services/password/passwordServi
 
 const Profileuser = memo(() => {
   const userid = localStorage.getItem("user_id");
+  const token = localStorage.getItem("access_token");
 
   const { Image_url } = process.env;
 
@@ -106,8 +107,8 @@ const Profileuser = memo(() => {
     if (
       firstName.length === 0 ||
       lastName.length === 0 ||
-      contactNumber.length === 0 ||
-      alternateContactNumber.length === 0 ||
+      contactNumber.length <= 8 ||
+      alternateContactNumber.length <= 8 ||
       gender.length === 0
     ) {
       setProfileError(true);
@@ -167,9 +168,9 @@ const Profileuser = memo(() => {
     }
 
     if (oldPassword && newPassword && confirmNewPassword) {
-      changePasswordServices(changepassword)
+      changePasswordServices(token, changepassword)
         .then((res) => {
-          toast.success(`${res?.data?.message} 😀`);
+          toast.success(`${res?.message} 😀`);
           localStorage.removeItem("auth");
           localStorage.removeItem("access_token");
           localStorage.removeItem("user_id");
@@ -195,6 +196,8 @@ const Profileuser = memo(() => {
   const uploadImages = (e) => {
     e.preventDefault();
 
+    console.log("image", imageuploads);
+
     const formData = new FormData();
 
     formData.append("upl", imageuploads);
@@ -217,6 +220,7 @@ const Profileuser = memo(() => {
     getAdminBasicInfoServices(userid)
       .then((res) => {
         setUsers(res?.data);
+        // console.log("userDetails", res.data);
         setUsersdetails(res?.data);
         setSocialLinks(res?.data);
       })
@@ -583,7 +587,7 @@ const Profileuser = memo(() => {
                         maxLength={9}
                       />
                       <div>
-                        {profileerror && contactNumber.length <= 0 ? (
+                        {profileerror && contactNumber.length <= 8 ? (
                           <div className="text-danger">
                             Please provide a contactNumber{" "}
                           </div>
@@ -592,7 +596,7 @@ const Profileuser = memo(() => {
                         )}
                       </div>
                       <div>
-                        {profileerror && contactNumber.length > 1 ? (
+                        {profileerror && contactNumber.length > 8 ? (
                           <div className="text-success"> Looks Good! 😎</div>
                         ) : (
                           ""
@@ -616,7 +620,7 @@ const Profileuser = memo(() => {
                         maxLength={9}
                       />
                       <div>
-                        {profileerror && alternateContactNumber.length <= 0 ? (
+                        {profileerror && alternateContactNumber.length < 8 ? (
                           <div className="text-danger">
                             Please provide a alternateContactNumber{" "}
                           </div>
@@ -625,7 +629,7 @@ const Profileuser = memo(() => {
                         )}
                       </div>
                       <div>
-                        {profileerror && alternateContactNumber.length > 1 ? (
+                        {profileerror && alternateContactNumber.length > 8 ? (
                           <div className="text-success"> Looks Good! 😎</div>
                         ) : (
                           ""
@@ -770,5 +774,4 @@ const Profileuser = memo(() => {
   );
 });
 
-Profileuser.displayName = "Profileuser";
 export default Profileuser;

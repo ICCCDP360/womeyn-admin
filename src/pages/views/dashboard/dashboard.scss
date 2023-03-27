@@ -1,0 +1,195 @@
+.dropdown-toggle::after {
+  display: none !important;
+}
+
+.page-item .page-link {
+  color: black !important;
+  border-color: #e9ecef !important;
+}
+
+.summary-heading {
+  font-size: 32px;
+  font-weight: 700;
+  color: #232d42;
+  margin-bottom: 0px;
+}
+
+.welcome-text {
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 0px;
+}
+
+.timestamp-text {
+  font-size: 16px;
+  font-weight: 400;
+  margin-right: 2%;
+  margin-bottom: 0px;
+  width: 100px;
+}
+
+.header-dropdown {
+  margin-top: -5%;
+  .monthly-arrow-img {
+    margin-left: 5%;
+  }
+}
+
+.small-card {
+  height: 210px !important;
+  margin-bottom: 28px !important;
+  .smallcard-inside-container {
+    text-align: center;
+    .smallcard-inside-img {
+      background-color: #ebeefd;
+      border-radius: 100%;
+      padding: 5%;
+    }
+    .smallcard-inside-numtext {
+      font-size: 23px;
+      font-weight: 700;
+      color: #232d42;
+      margin-top: 5%;
+    }
+    .smallcard-inside-text {
+      font-size: 16px;
+      font-weight: 400;
+      margin-bottom: 0px;
+    }
+  }
+}
+
+.rightside-card-container {
+  height: 450px !important;
+}
+
+.topseller-text {
+  font-size: 23px;
+  font-weight: 700;
+  color: #232d42;
+}
+
+.darkarrow-img {
+  margin-left: 10px;
+}
+
+.count-dropdown {
+  margin-left: 10px;
+  margin-right: 20px;
+  margin-top: -3px;
+  .count-dropdown-inside {
+    border: 1px solid black;
+    padding: 15%;
+    .count-dropdown-arrowimg {
+      margin-left: 5%;
+    }
+  }
+}
+
+.searchbox-container {
+  border: 1px solid #e9ecef;
+  width: 45%;
+  border-radius: 5%;
+  .search-input-box {
+    padding: 3%;
+    border: none;
+    width: 75%;
+  }
+  .search-img {
+    margin-left: 20px;
+  }
+}
+
+.rank-text {
+  color: #232d42;
+}
+
+.topseller-btm-container {
+  padding-left: 1%;
+  padding-right: 1%;
+  .topseller-btm-inside1 {
+    border: 1px solid #e9ecef;
+    border-radius: 5px;
+    padding: 1%;
+    width: 15%;
+  }
+  .topseller-btm-inside2 {
+    border: 1px solid #e9ecef;
+    border-radius: 5px;
+    padding: 1%;
+    width: 30%;
+  }
+  .topseller-btm-inside3 {
+    border: 1px solid #e9ecef;
+    border-radius: 5px;
+    padding: 1%;
+    width: 20%;
+  }
+}
+
+.showing-entries-text {
+  font-size: 13px;
+  font-weight: 400;
+  margin-bottom: 0px;
+  margin-top: 0.5%;
+}
+
+.seller-light-arrow {
+  margin-left: 5%;
+}
+
+.rightside-1st-container {
+  height: 300px;
+  margin-bottom: 10px;
+  .rightside-1st-cardheader {
+    padding: 0%;
+    .user-text {
+      font-size: 23px;
+      font-weight: 700;
+      color: #232d42;
+      width: 100%;
+    }
+  }
+  .user-week-dropdown {
+    margin-top: -10%;
+    .user-darkarrow {
+      margin-left: 5%;
+    }
+  }
+  .rightside-1st-cardbody {
+    padding: 0%;
+  }
+}
+
+.rightside-2nd-container {
+  min-height: 515px;
+  .popular-text {
+    font-size: 23px;
+    font-weight: 700;
+    color: #232d42;
+    margin-bottom: 3px;
+  }
+  .product-img-container {
+    width: 20%;
+    .product-img {
+      background-color: #ebeefd;
+      padding: 10%;
+      border-radius: 10px;
+    }
+  }
+  .product-center-container {
+    width: 50%;
+    .product-rate-text {
+      margin-bottom: 0px;
+      margin-left: 5%;
+    }
+  }
+  .product-arrow {
+    width: 5%;
+    margin-top: 5%;
+  }
+}
+
+.product-lightarrow-img {
+  margin-left: 5%;
+}

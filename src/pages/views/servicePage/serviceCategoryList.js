@@ -1,7 +1,7 @@
-import { memo, Fragment, useState, useEffect } from "react";
+import { Fragment, memo, useEffect, useState } from "react";
 
 //react-bootstrap
-import { Row, Col, Button } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 //components
@@ -16,72 +16,6 @@ import {
   createCategory,
   getServiceSubCategory,
 } from "../../../services/category/categoryServices";
-
-// const addSubCategory = ({ value: text }) => {
-//   Swal.fire({
-//     title: "Add Sub Category",
-//     input: "Sub CAtegory",
-//     inputLabel: "Sub CAtegory",
-//     inputPlaceholder: "Enter Sub Category",
-//     showCancelButton: true,
-//     confirmButtonColor: "#3085d6",
-//     cancelButtonColor: "#d33",
-//     confirmButtonText: "Add",
-//   });
-
-//   if (text) {
-//     Swal.fire(text);
-//   }
-//   //   .then((result) => {
-//   //   if (result.isConfirmed) {
-//   //     setProductList(() =>
-//   //       productList.filter((item, productIndex) => index !== productIndex)
-//   //     );
-//   //     Swal.fire("Deleted!", "Your file has been deleted.", "success");
-//   //   }
-//   // });
-// };
-
-const addSubCategory = async () => {
-  const { value: text } = await Swal.fire({
-    input: "text",
-    title: "Add Sub Category",
-    inputLabel: "Name",
-    inputPlaceholder: "Add Sub Category...",
-    inputAttributes: {
-      "aria-label": "Add Sub Category",
-    },
-    showCancelButton: true,
-  });
-
-  if (text) {
-    Swal.fire(text);
-  }
-};
-
-// const addSubCategory = async () => {
-//   const { value: text } = await Swal.fire({
-//     title: "Add Sub Category",
-//     html: `
-//     <input
-//       type="text"
-//       inputLabel: "Name",
-//       inputPlaceholder: "Add Sub Category...",
-//       class="swal2-input"
-//       id="name">`,
-//     input: "textarea",
-//     inputLabel: "Description",
-//     inputPlaceholder: "Type your message here...",
-//     inputAttributes: {
-//       "aria-label": "Type your message here",
-//     },
-//     showCancelButton: true,
-//   });
-
-//   if (text) {
-//     Swal.fire(text);
-//   }
-// };
 
 const serviceCategoryList = memo(() => {
   const userId = localStorage.getItem("user_id");

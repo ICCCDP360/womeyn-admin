@@ -17,6 +17,32 @@ axios.interceptors.request.use(
         "data-type": "Text",
         Authorization: `Bearer ${token}`,
       };
+    } else if (config.url.search(`/admin/properties`) !== -1) {
+      const token = localStorage.getItem("access_token");
+      config.url = process.env.REACT_APP_APIURL + config.url;
+
+      config.headers = {
+        ...config.headers,
+        "Content-Type": false,
+        // "Content-Type": "application/json",
+        "process-data": false,
+        cache: false,
+        "data-type": "Text",
+        Authorization: `Bearer ${token}`,
+      };
+    } else if (config.url.search(`/admin/update-property`) !== -1) {
+      const token = localStorage.getItem("access_token");
+      config.url = process.env.REACT_APP_APIURL + config.url;
+
+      config.headers = {
+        ...config.headers,
+        "Content-Type": false,
+        // "Content-Type": "application/json",
+        "process-data": false,
+        cache: false,
+        "data-type": "Text",
+        Authorization: `Bearer ${token}`,
+      };
     } else if (config.url.search("/admin/create-category") !== -1) {
       const token = localStorage.getItem("access_token");
       config.url = process.env.REACT_APP_APIURL + config.url;

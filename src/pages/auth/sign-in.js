@@ -1,7 +1,7 @@
-import { memo, Fragment, useState, useEffect } from "react";
+import { Fragment, memo, useEffect, useState } from "react";
 
 //react-bootstrap
-import { Row, Col, Image, Form, Button, ListGroup } from "react-bootstrap";
+import { Button, Col, Form, Image, ListGroup, Row } from "react-bootstrap";
 
 //router
 import { Link, Navigate, useNavigate } from "react-router-dom";
@@ -11,15 +11,15 @@ import * as SettingSelector from "../../store/setting/selectors";
 
 // Redux Selector / Action
 import { useDispatch, useSelector } from "react-redux";
-import loginServices from "../../services/login_services/login-services";
 import { toast } from "react-toastify";
+import loginServices from "../../services/login_services/login-services";
 
-import { useFormik, Field } from "formik";
+import { Field, useFormik } from "formik";
 import * as Yup from "yup";
+import { ReactComponent as Home } from "../../assets/home.svg";
+import circlethree from "../../assets/loginLogos/circle.svg";
 import login from "../../assets/loginLogos/login.png";
 import logowomenyn from "../../assets/loginLogos/new-womeyn.svg";
-import circlethree from "../../assets/loginLogos/circle.svg";
-import { ReactComponent as Home } from "../../assets/home.svg";
 import "./Signin.scss";
 
 const SignIn = memo(() => {
@@ -51,7 +51,7 @@ const SignIn = memo(() => {
           if (result.tokens) {
             let auth_set = await loginServices.asyncAuthStorage(result);
             if (auth_set) {
-              toast.success("User Login Successfully 😃");
+              toast.success("User Logged in Successfully");
               setTimeout(() => {
                 history("/womeyn/dashboard");
               }, 1500);
@@ -60,7 +60,7 @@ const SignIn = memo(() => {
         })
         .catch((err) => {
           if (err) {
-            toast.error(`${err?.response?.data?.message} 😬`);
+            toast.error(`${err?.response?.data?.message}`);
           }
         });
     },
@@ -95,7 +95,7 @@ const SignIn = memo(() => {
               className="d-md-block d-none bg-primarys p-0 vh-100 overflow-hidden left"
             >
               <div className="logo">
-                <img src={logowomenyn} alt="no image" />
+                <img src={logowomenyn} alt="no image" className="logo-womeyn" />
               </div>
               <div className="circle">
                 <img src={circlethree} alt="no image" className="circles" />

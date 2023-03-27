@@ -1,15 +1,15 @@
-import { useState, memo, Fragment } from "react";
+import { Fragment, memo, useState } from "react";
 // Router
 import { Link, useNavigate } from "react-router-dom";
 
 // React-bootstrap
 import {
   Button,
-  Row,
   Col,
+  Form,
   ListGroup,
   ListGroupItem,
-  Form,
+  Row,
 } from "react-bootstrap";
 
 //Components
@@ -147,8 +147,8 @@ const AddService = memo((props) => {
 
   return (
     <Fragment>
-      <div className="title-with-icon">
-        <h2>Add Category</h2>
+      <div>
+        <h2>Add a Service Category</h2>
       </div>
       <Row>
         <Col sm="12">

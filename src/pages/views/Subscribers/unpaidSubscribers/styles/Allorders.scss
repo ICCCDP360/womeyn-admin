@@ -1,0 +1,18 @@
+@use "../../../../../sass/abstract/" as *;
+
+.exports {
+    width: 50%;
+    border-radius: 12px;
+    padding: 7px;
+    border: 1px solid red;
+}
+.box-shdow {
+    padding: 5px 15px !important;
+    border-radius: 10px;
+    // opacity: 0.;
+    // font-weight: 600;
+}
+.cursor-texts
+{
+    cursor: pointer;
+}

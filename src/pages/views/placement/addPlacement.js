@@ -1,4 +1,4 @@
-import { useState, memo, Fragment, useEffect } from "react";
+import { Fragment, memo, useEffect, useState } from "react";
 // Router
 import { Link, useNavigate } from "react-router-dom";
 import Select from "react-select";
@@ -6,11 +6,11 @@ import Select from "react-select";
 // React-bootstrap
 import {
   Button,
-  Row,
   Col,
+  Form,
   ListGroup,
   ListGroupItem,
-  Form,
+  Row,
 } from "react-bootstrap";
 
 //Components
@@ -46,12 +46,13 @@ const AddPlacement = memo((props) => {
   const options = [
     { value: "Image", label: "Image" },
     { value: "Script", label: "Script" },
+    { value: "Carousel", label: "Carousel" },
   ];
 
   return (
     <Fragment>
       <div>
-        <h3>Add User</h3>
+        <h3>Add Placement</h3>
       </div>
 
       <Row>
