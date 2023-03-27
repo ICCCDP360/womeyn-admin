@@ -71,7 +71,7 @@ export default function ViewOrderDetails() {
                       <div>
                         {e?.productThumbImage ? (
                           <img
-                            src={`https://my-demo-11-bucket.s3.ap-south-1.amazonaws.com/${item.itemsOrdered[0].productThumbImage}`}
+                            src={`https://my-demo-11-bucket.s3.ap-south-1.amazonaws.com/${e.productThumbImage}`}
                             className="set-img"
                           />
                         ) : (

@@ -6,8 +6,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
-import paypal from "../../../../assets/paypal-logo.png";
-import stripe from "../../../../assets/stripe-logo.png";
+import paypal_logo from "../../../../assets/paypal.webp";
+import Stripe from "../../../../assets/Stripe_Logo.png";
 import {
   FilterOrder,
   OrdersList,
@@ -213,15 +213,15 @@ function Allorder() {
                     <div className="d-flex align-items-center gap-2">
                       {item?.paymentMethod === "Stripe" ? (
                         <img
-                          src={stripe}
+                          src={Stripe}
                           alt="no image"
-                          width={30}
-                          height={30}
+                          width={100}
+                          // height={30}
                           style={{ borderRadius: "20%" }}
                         />
-                      ) : item?.paymentMethod === "Stripe" ? (
+                      ) : item?.paymentMethod === "Paypal" ? (
                         <img
-                          src={paypal}
+                          src={paypal_logo}
                           alt="no image"
                           width={30}
                           height={30}

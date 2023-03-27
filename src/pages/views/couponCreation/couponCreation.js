@@ -15,6 +15,8 @@ const CouponCreation = memo((props) => {
   const [couponAmount, setCouponAmount] = useState("");
   const [couponTitle, setCouponTitle] = useState("");
   const [couponCode, setCouponCode] = useState("");
+  const [minOrderAmount, setMinOrderAmount] = useState("");
+  const [maxDiscountAmount, setMaxDiscountAmount] = useState("");
   const [couponDescription, setCouponDescription] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -40,6 +42,8 @@ const CouponCreation = memo((props) => {
       title: couponTitle,
       offerPercentage: percentage,
       offerAmount: amount,
+      minOrderAmount: minOrderAmount,
+      maxDiscountAmount: maxDiscountAmount,
       couponCode: couponCode,
       couponType: value,
       couponDescription: couponDescription,
@@ -195,6 +199,23 @@ const CouponCreation = memo((props) => {
                         />
                       </Col>
                     </Row>
+                    <Row>
+                      <Col md="6" className="mb-1">
+                        <Form.Label md="6" htmlFor="validationDefault01">
+                          <p className="ms-3 mb-0">Maximum Discount Amount</p>
+                        </Form.Label>
+
+                        <Form.Control
+                          style={{ border: "1px solid #000", marginLeft: 15 }}
+                          type="text"
+                          id="maxDiscountAmount"
+                          onChange={(e) =>
+                            setMaxDiscountAmount(parseInt(e.target.value))
+                          }
+                          // maxLength={2}
+                        />
+                      </Col>
+                    </Row>
                   </>
                 ) : value === "1" ? (
                   <>
@@ -214,6 +235,22 @@ const CouponCreation = memo((props) => {
                     </Row>
                   </>
                 ) : null}
+                <Row>
+                  <Col md="6" className="mb-1">
+                    <Form.Label md="6" htmlFor="validationDefault01">
+                      <p className="ms-3 mb-0">Minimum Order Amount</p>
+                    </Form.Label>
+
+                    <Form.Control
+                      style={{ border: "1px solid #000", marginLeft: 15 }}
+                      type="text"
+                      id="order Amount"
+                      onChange={(e) =>
+                        setMinOrderAmount(parseInt(e.target.value))
+                      }
+                    />
+                  </Col>
+                </Row>
               </Form>
             </div>
           </div>
